@@ -1,5 +1,5 @@
 import { AnyAction, CombinedState, combineReducers } from "redux";
-import { AuthenticationState } from "./authentication";
+import authentication, { AuthenticationState } from "./authentication";
 
 export interface IRootState {
     readonly authentication: AuthenticationState;
