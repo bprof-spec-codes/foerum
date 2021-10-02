@@ -1,3 +1,4 @@
+/* This is where we store our main urls(etc: baseUrl/home) */
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Admin from "./components/Admin/Admin";

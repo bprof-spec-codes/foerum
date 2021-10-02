@@ -1,3 +1,4 @@
+/* This file stores the startingpoint of our app and the basic configs */
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
