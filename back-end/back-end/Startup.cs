@@ -46,8 +46,8 @@ namespace back_end
                                           });
                   });
 
-                  var connectionString = "server=95.111.254.24:6767;database=foerumtst;user=foerumtst;password=" + Configuration["DBPassword"] + ";ApplicationIntent=ReadWrite;";
-                  services.AddDbContext<FoerumDbContext>(options => options.UseMySQL(connectionString));
+                  var connectionString = "server=95.111.254.24;database=foerumtst;user=foerumtst;password=" + Configuration["DBPassword"];
+            services.AddDbContext<FoerumDbContext>(options => options.UseMySQL(connectionString));
                   services.AddIdentity<IdentityUser, IdentityRole>(
                            option =>
                            {

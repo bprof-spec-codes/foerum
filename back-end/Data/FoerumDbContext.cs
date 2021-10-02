@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data.SqlClient;
 
@@ -29,7 +30,7 @@ namespace Data
             {
                   if (!optionsBuilder.IsConfigured)
                   {
-                        var builder = new SqlConnectionStringBuilder("server=95.111.254.24:6767;database=foerumtst;user=foerumtst");
+                        var builder = new SqlConnectionStringBuilder("server=95.111.254.24;database=foerumtst;user=foerumtst");
                         builder.Password = ConnectionStrinPassword;
                         optionsBuilder.UseMySQL(builder.ConnectionString);
                   }
