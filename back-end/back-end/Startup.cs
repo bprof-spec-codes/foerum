@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.SignalR;
+using back_end.Hubs;
+
 namespace back_end
 {
       public class Startup
@@ -25,6 +28,7 @@ namespace back_end
             {
                   services.AddRazorPages();
                   services.AddControllers();
+                  services.AddSignalR();
                   services.AddCors(options =>
                   {
                         options.AddDefaultPolicy(
@@ -60,8 +64,9 @@ namespace back_end
                   app.UseEndpoints(endpoints =>
                   {
                         endpoints.MapRazorPages();
-                  });
 
+                        endpoints.MapHub<SignalRHub>("/signalRHub");
+                  });
             }
       }
 }
