@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class Award
+    public class Award
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

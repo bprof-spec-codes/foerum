@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class Topic
+    public class Topic
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

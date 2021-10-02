@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class TopicTags
+    public class TopicTags
     {
         public string TopicID { get; set; }
         public string TagID { get; set; }

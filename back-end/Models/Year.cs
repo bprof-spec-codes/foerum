@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class Year
+    public class Year
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

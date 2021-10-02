@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Models
 {
-    class MyUser : IdentityUser
+    public class MyUser : IdentityUser
     {
         public string FullName { get; set; }
         public int NikCoin { get; set; }
