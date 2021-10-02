@@ -1,9 +1,7 @@
 /* This is where we store our main urls(etc: baseUrl/home) */
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Admin from "./components/Admin/Admin";
-import Home from "./components/Home/Home";
-import LogIn from "./components/LogIn/LogIn";
+import { Home, Admin, LogIn } from "./components";
 
 const Routes = () => {
   return (
