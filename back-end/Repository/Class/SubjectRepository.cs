@@ -41,7 +41,18 @@ namespace Repository.Class
 
         public void Update(string id, Subject subject)
         {
-            throw new NotImplementedException();
+            var oldSubject = this.GetOne(id);
+            if (oldSubject == null || subject == null)
+            {
+                throw new ArgumentNullException(nameof(subject), nameof(oldSubject));
+            }
+            else
+            {
+                oldSubject.SubjectName = subject.SubjectName;
+                oldSubject.IsPrivate = subject.IsPrivate; //lehessen módosítani?
+                oldSubject.InviteKeyIfPrivate = subject.InviteKeyIfPrivate; //lehessen módosítani?
+                this.db.SaveChanges();
+            }
         }
     }
 }
