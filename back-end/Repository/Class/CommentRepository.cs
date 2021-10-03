@@ -36,7 +36,7 @@ namespace Repository.Class
 
         public Comment GetOne(string id)
         {
-            throw new NotImplementedException();
+            return this.GetAll().SingleOrDefault(x => x.CommentID == id);
         }
 
         public void Update(string id, Comment comment)
