@@ -41,7 +41,23 @@ namespace Repository.Class
 
         public void Update(string id, Comment comment)
         {
-            throw new NotImplementedException();
+            var oldComment = this.GetOne(id);
+
+            Comment newComment = new Comment();
+
+            newComment.CommentID = oldComment.CommentID;
+            newComment.UserID = oldComment.UserID;
+            newComment.Content = comment.Content;  //lehet szerkeszteni
+            newComment.CreationDate = DateTime.Now;
+            newComment.AttachmentUrl = oldComment.AttachmentUrl;
+            newComment.ReactionCount = oldComment.ReactionCount;
+            newComment.ReplyToCommentID = oldComment.ReplyToCommentID;
+            newComment.CoinReward = oldComment.CoinReward;
+            newComment.IsEdited = oldComment.CommentID;
+            newComment.IsActive = oldComment.IsActive;
+
+            this.db.Set<Comment>().Add(newComment);
+            this.db.SaveChanges();
         }
     }
 }
