@@ -9,37 +9,38 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class TransactionRepository : ITransactionRepository
-      {
-            public FoerumDbContext db;
+    public class TransactionRepository : ITransactionRepository
+    {
+        public FoerumDbContext db;
 
-            public TransactionRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(Transaction transaction)
-            {
-                  throw new NotImplementedException();
-            }
+        public TransactionRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
+        public void Add(Transaction transaction)
+        {
+            this.db.Set<Transaction>().Add(transaction);
+            this.db.SaveChanges();
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
 
-            public IQueryable<Transaction> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Transaction> GetAll()
+        {
+            throw new NotImplementedException();
+        }
 
-            public Transaction GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public Transaction GetOne(string id)
+        {
+            throw new NotImplementedException();
+        }
 
-            public void Update(string id, Transaction transaction)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public void Update(string id, Transaction transaction)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
