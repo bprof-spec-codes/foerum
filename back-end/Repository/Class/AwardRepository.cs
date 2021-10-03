@@ -31,7 +31,7 @@ namespace Repository.Class
 
         public IQueryable<Award> GetAll()
         {
-            throw new NotImplementedException();
+            return this.db.Set<Award>();
         }
 
         public Award GetOne(string id)
