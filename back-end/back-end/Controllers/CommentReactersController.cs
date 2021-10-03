@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.commentReactersLogic.GetAllCommentReacters();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Comment GetOneCommentReacters(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditCommentReacters(string id, [FromBody] Comment newCommentReacters)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Comment DeleteCommentReacters(string id)
             {
                   throw new NotImplementedException();

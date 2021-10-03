@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.commnetLogic.GetAllComment();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Comment GetOneComment(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditComment(string id, [FromBody] Comment newComment)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Comment DeleteComment(string id)
             {
                   throw new NotImplementedException();

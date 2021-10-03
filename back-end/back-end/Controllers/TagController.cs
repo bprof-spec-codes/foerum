@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.tagLogic.GetAllTag();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Tag GetOneTag(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditTag(string id, [FromBody] Tag newTag)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Tag DeleteTag(string id)
             {
                   throw new NotImplementedException();

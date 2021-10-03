@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.topicLogic.GetAllTopic();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Topic GetOneTopic(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditTopic(string id, [FromBody] Topic newTopic)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Topic DeleteTopic(string id)
             {
                   throw new NotImplementedException();

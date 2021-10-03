@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.awardLogic.GetAllAward();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Award GetOneAward(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditAward(string id, [FromBody] Award newAward)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Award DeleteAward(string id)
             {
                   throw new NotImplementedException();

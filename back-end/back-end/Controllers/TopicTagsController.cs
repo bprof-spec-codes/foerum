@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.topicTagsLogic.GetAllTopicTags();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public TopicTags GetOneTopicTags(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditTopicTags(string id, [FromBody] TopicTags newTopicTags)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public TopicTags DeleteTopicTags(string id)
             {
                   throw new NotImplementedException();

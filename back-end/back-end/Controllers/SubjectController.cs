@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.subjectLogic.GetAllSubject();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Subject GetOneSubject(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditSubject(string id, [FromBody] Subject newSubject)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Subject DeleteSubject(string id)
             {
                   throw new NotImplementedException();

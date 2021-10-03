@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.myUserLogic.GetAllUser();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public MyUser GetOneUser(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditUser(string id, [FromBody] MyUser newUser)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public MyUser DeleteUser(string id)
             {
                   throw new NotImplementedException();

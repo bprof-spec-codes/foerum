@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Transaction GetOneTransaction(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditTransaction(string id, [FromBody] Transaction newTransaction)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Transaction DeleteTransaction(string id)
             {
                   throw new NotImplementedException();

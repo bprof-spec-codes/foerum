@@ -26,7 +26,7 @@ namespace back_end.Controllers
                   return this.yearLogic.GetAllYear();
             }
 
-            [HttpGet("{id:string}")]
+            [HttpGet("{id}")]
             public Year GetOneYear(string id)
             {
                   throw new NotImplementedException();
@@ -38,13 +38,13 @@ namespace back_end.Controllers
                   throw new NotImplementedException();
             }
 
-            [HttpPut("{id:string}")]
+            [HttpPut("{id}")]
             public void EditYear(string id, [FromBody] Year newYear)
             {
                   throw new NotImplementedException();
             }
 
-            [HttpDelete("{id:string}")]
+            [HttpDelete("{id}")]
             public Year DeleteYear(string id)
             {
                   throw new NotImplementedException();
