@@ -41,7 +41,18 @@ namespace Repository.Class
 
         public void Update(string id, Award award)
         {
-            throw new NotImplementedException();
+            var oldAward = this.GetOne(id);
+            if (oldAward == null || award == null)
+            {
+                throw new ArgumentNullException(nameof(award), nameof(oldAward));
+            }
+            else
+            {
+                oldAward.AwardName = award.AwardName;
+                oldAward.Points = award.Points;
+                oldAward.IconUrl = award.IconUrl;
+                this.db.SaveChanges();
+            }
         }
     }
 }
