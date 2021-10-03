@@ -41,7 +41,19 @@ namespace Repository.Class
 
         public void Update(string id, Topic topic)
         {
-            throw new NotImplementedException();
+            var oldTopic = this.GetOne(id);
+            if (oldTopic == null || topic == null)
+            {
+                throw new ArgumentNullException(nameof(topic), nameof(oldTopic));
+            }
+            else
+            {
+                oldTopic.TopicName = topic.TopicName;
+                oldTopic.CreationDate = DateTime.Now; //?
+                oldTopic.OfferedCoins = topic.OfferedCoins;
+                oldTopic.AttachmentURL = topic.AttachmentURL; //?
+                this.db.SaveChanges();
+            }
         }
     }
 }
