@@ -36,7 +36,7 @@ namespace Repository.Class
 
         public Subject GetOne(string id)
         {
-            throw new NotImplementedException();
+            return this.GetAll().SingleOrDefault(x => x.SubjectID == id);
         }
 
         public void Update(string id, Subject subject)
