@@ -36,7 +36,7 @@ namespace Repository.Class
 
         public Transaction GetOne(string id)
         {
-            throw new NotImplementedException();
+            return this.GetAll().SingleOrDefault(x => x.TransactionID == id);
         }
 
         public void Update(string id, Transaction transaction)
