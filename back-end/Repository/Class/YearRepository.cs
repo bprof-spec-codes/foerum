@@ -32,7 +32,7 @@ namespace Repository.Class
 
         public IQueryable<Year> GetAll()
         {
-            throw new NotImplementedException();
+            return this.db.Set<Year>();
         }
 
         public Year GetOne(string id)
