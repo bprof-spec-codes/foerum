@@ -31,7 +31,7 @@ namespace Repository.Class
 
         public IQueryable<Topic> GetAll()
         {
-            throw new NotImplementedException();
+            return this.db.Set<Topic>();
         }
 
         public Topic GetOne(string id)
