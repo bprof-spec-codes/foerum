@@ -36,7 +36,7 @@ namespace Repository.Class
 
         public Tag GetOne(string id)
         {
-            throw new NotImplementedException();
+            return this.GetAll().SingleOrDefault(x => x.TagID == id);
         }
 
         public void Update(string id, Tag tag)
