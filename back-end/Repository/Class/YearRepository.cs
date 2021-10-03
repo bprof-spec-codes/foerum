@@ -9,38 +9,39 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class YearRepository : IYearRepository
-      {
-            public FoerumDbContext db;
+    public class YearRepository : IYearRepository
+    {
+        public FoerumDbContext db;
 
-            public YearRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
+        public YearRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
 
-            public void Add(Year year)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Add(Year year)
+        {
+            this.db.Set<Year>().Add(year);
+            this.db.SaveChanges();
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
 
-            public IQueryable<Year> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Year> GetAll()
+        {
+            throw new NotImplementedException();
+        }
 
-            public Year GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public Year GetOne(string id)
+        {
+            throw new NotImplementedException();
+        }
 
-            public void Update(string id, Year year)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public void Update(string id, Year year)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
