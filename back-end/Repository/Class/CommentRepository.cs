@@ -25,7 +25,8 @@ namespace Repository.Class
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            this.db.Set<Comment>().Remove(this.GetOne(id));
+            this.db.SaveChanges();
         }
 
         public IQueryable<Comment> GetAll()
