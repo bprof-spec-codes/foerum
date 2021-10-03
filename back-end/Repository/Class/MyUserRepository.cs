@@ -36,7 +36,7 @@ namespace Repository.Class
 
         public MyUser GetOne(string id)
         {
-            throw new NotImplementedException();
+            return this.GetAll().SingleOrDefault(x => x.Id == id);
         }
 
         public void Update(string id, MyUser user)
