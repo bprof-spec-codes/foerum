@@ -42,7 +42,16 @@ namespace Repository.Class
 
         public void Update(string id, Year year)
         {
-            throw new NotImplementedException();
+            var oldYear = this.GetOne(id);
+            if (oldYear == null || year == null)
+            {
+                throw new ArgumentNullException(nameof(year), nameof(oldYear));
+            }
+            else
+            {
+                oldYear.YearName = year.YearName;
+                this.db.SaveChanges();
+            }
         }
     }
 }
