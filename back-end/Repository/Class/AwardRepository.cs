@@ -36,7 +36,7 @@ namespace Repository.Class
 
         public Award GetOne(string id)
         {
-            throw new NotImplementedException();
+            return this.GetAll().SingleOrDefault(x => x.AwardID == id);
         }
 
         public void Update(string id, Award award)
