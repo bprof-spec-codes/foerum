@@ -41,7 +41,19 @@ namespace Repository.Class
 
         public void Update(string id, MyUser user)
         {
-            throw new NotImplementedException();
+            var oldUser = this.GetOne(id);
+            if (oldUser == null || user == null)
+            {
+                throw new ArgumentNullException(nameof(user), nameof(oldUser));
+            }
+            else
+            {
+                oldUser.FullName = user.FullName;
+                oldUser.NikCoin = user.NikCoin;
+                oldUser.StartYear = user.StartYear;
+                oldUser.Role = user.Role;
+                this.db.SaveChanges();
+            }
         }
     }
 }
