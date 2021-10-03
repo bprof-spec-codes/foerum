@@ -8,10 +8,6 @@ namespace back_end.Controllers
 {
       public class AuthController : ControllerBase
       {
-            [HttpGet]
-            public string Index()
-            {
-                  return "";
-            }
+
       }
 }
