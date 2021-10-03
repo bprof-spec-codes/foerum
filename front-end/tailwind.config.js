@@ -4,11 +4,14 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
-        'verybig': "120px"
+        verybig: "120px",
       },
       textColor: {
-        'oeyellow': '#FAB001',
-      }
+        oeyellow: "#FAB001",
+      },
+      colors: {
+        basebg: "#0E1B38",
+      },
     },
   },
   variants: {
