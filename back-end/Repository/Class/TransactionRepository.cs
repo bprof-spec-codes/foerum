@@ -41,7 +41,20 @@ namespace Repository.Class
 
         public void Update(string id, Transaction transaction)
         {
-            throw new NotImplementedException();
+            var oldTransaction = this.GetOne(id);
+            if (oldTransaction == null || transaction == null)
+            {
+                throw new ArgumentNullException(nameof(transaction), nameof(oldTransaction));
+            }
+            else
+            {
+                oldTransaction.Source = transaction.Source;
+                oldTransaction.Recipient = transaction.Recipient;
+                oldTransaction.Quantity = transaction.Quantity;
+                oldTransaction.TransactionDate = DateTime.Now;
+                oldTransaction.Reason = transaction.Reason;
+                this.db.SaveChanges();
+            }
         }
     }
 }
