@@ -10,5 +10,9 @@ namespace Logic
       public interface IYearLogic
       {
             IQueryable<Year> GetAllYear();
+            Year GetOneYear(string id);
+            bool CreateYear(Year year);
+            bool EditYear(string id, Year newYear);
+            bool DeleteYear(string id);
       }
 }

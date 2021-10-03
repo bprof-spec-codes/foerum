@@ -1,4 +1,4 @@
-﻿using Logic;
+﻿using Logic.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
@@ -11,41 +11,41 @@ namespace back_end.Controllers
       /* Every controller needs all the CRUD methods */
       [Route("[controller]")]
       [ApiController]
-      public class YearController : ControllerBase
+      public class CommentReactersController : ControllerBase
       {
-            private IYearLogic yearLogic;
+            private ICommentReactersLogic commentReactersLogic;
 
-            public YearController(IYearLogic logic)
+            public CommentReactersController(ICommentReactersLogic logic)
             {
-                  this.yearLogic = logic;
+                  this.commentReactersLogic = logic;
             }
 
             [HttpGet]
-            public IEnumerable<Year> GetAllYear()
+            public IEnumerable<CommentReacters> GetAllCommentReacters()
             {
-                  return this.yearLogic.GetAllYear();
+                  return this.commentReactersLogic.GetAllCommentReacters();
             }
 
             [HttpGet("{id:string}")]
-            public Year GetOneYear(string id)
+            public Comment GetOneCommentReacters(string id)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPost]
-            public void CreateYear(Year year)
+            public void CreateCommentReacters(CommentReacters commentReacters)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPut("{id:string}")]
-            public void EditYear(string id, [FromBody] Year newYear)
+            public void EditCommentReacters(string id, [FromBody] Comment newCommentReacters)
             {
                   throw new NotImplementedException();
             }
 
             [HttpDelete("{id:string}")]
-            public Year DeleteYear(string id)
+            public Comment DeleteCommentReacters(string id)
             {
                   throw new NotImplementedException();
             }

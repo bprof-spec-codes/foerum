@@ -1,4 +1,4 @@
-﻿using Logic;
+﻿using Logic.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
@@ -11,41 +11,41 @@ namespace back_end.Controllers
       /* Every controller needs all the CRUD methods */
       [Route("[controller]")]
       [ApiController]
-      public class YearController : ControllerBase
+      public class AwardController : ControllerBase
       {
-            private IYearLogic yearLogic;
+            private IAwardLogic awardLogic;
 
-            public YearController(IYearLogic logic)
+            public AwardController(IAwardLogic logic)
             {
-                  this.yearLogic = logic;
+                  this.awardLogic = logic;
             }
 
             [HttpGet]
-            public IEnumerable<Year> GetAllYear()
+            public IEnumerable<Award> GetAllAward()
             {
-                  return this.yearLogic.GetAllYear();
+                  return this.awardLogic.GetAllAward();
             }
 
             [HttpGet("{id:string}")]
-            public Year GetOneYear(string id)
+            public Award GetOneAward(string id)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPost]
-            public void CreateYear(Year year)
+            public void CreateAward(Award award)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPut("{id:string}")]
-            public void EditYear(string id, [FromBody] Year newYear)
+            public void EditAward(string id, [FromBody] Award newAward)
             {
                   throw new NotImplementedException();
             }
 
             [HttpDelete("{id:string}")]
-            public Year DeleteYear(string id)
+            public Award DeleteAward(string id)
             {
                   throw new NotImplementedException();
             }

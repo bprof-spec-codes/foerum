@@ -1,51 +1,51 @@
-﻿using Logic;
+﻿using Logic.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace back_end.Controllers
 {
       /* Every controller needs all the CRUD methods */
       [Route("[controller]")]
       [ApiController]
-      public class YearController : ControllerBase
+      public class TransactionController : ControllerBase
       {
-            private IYearLogic yearLogic;
+            private ITransactionLogic transactionLogic;
 
-            public YearController(IYearLogic logic)
+            public TransactionController(ITransactionLogic logic)
             {
-                  this.yearLogic = logic;
+                  this.transactionLogic = logic;
             }
 
             [HttpGet]
-            public IEnumerable<Year> GetAllYear()
+            public IEnumerable<Transaction> GetAllTransaction()
             {
-                  return this.yearLogic.GetAllYear();
+                  throw new NotImplementedException();
             }
 
             [HttpGet("{id:string}")]
-            public Year GetOneYear(string id)
+            public Transaction GetOneTransaction(string id)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPost]
-            public void CreateYear(Year year)
+            public void CreateTransaction(Transaction transaction)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPut("{id:string}")]
-            public void EditYear(string id, [FromBody] Year newYear)
+            public void EditTransaction(string id, [FromBody] Transaction newTransaction)
             {
                   throw new NotImplementedException();
             }
 
             [HttpDelete("{id:string}")]
-            public Year DeleteYear(string id)
+            public Transaction DeleteTransaction(string id)
             {
                   throw new NotImplementedException();
             }

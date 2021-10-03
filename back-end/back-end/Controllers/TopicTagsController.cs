@@ -1,4 +1,4 @@
-﻿using Logic;
+﻿using Logic.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
@@ -11,41 +11,41 @@ namespace back_end.Controllers
       /* Every controller needs all the CRUD methods */
       [Route("[controller]")]
       [ApiController]
-      public class YearController : ControllerBase
+      public class TopicTagsController : ControllerBase
       {
-            private IYearLogic yearLogic;
+            private ITopicTagsLogic topicTagsLogic;
 
-            public YearController(IYearLogic logic)
+            public TopicTagsController(ITopicTagsLogic logic)
             {
-                  this.yearLogic = logic;
+                  this.topicTagsLogic = logic;
             }
 
             [HttpGet]
-            public IEnumerable<Year> GetAllYear()
+            public IEnumerable<TopicTags> GetAllTopicTags()
             {
-                  return this.yearLogic.GetAllYear();
+                  return this.topicTagsLogic.GetAllTopicTags();
             }
 
             [HttpGet("{id:string}")]
-            public Year GetOneYear(string id)
+            public TopicTags GetOneTopicTags(string id)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPost]
-            public void CreateYear(Year year)
+            public void CreateTopicTags(TopicTags topicTags)
             {
                   throw new NotImplementedException();
             }
 
             [HttpPut("{id:string}")]
-            public void EditYear(string id, [FromBody] Year newYear)
+            public void EditTopicTags(string id, [FromBody] TopicTags newTopicTags)
             {
                   throw new NotImplementedException();
             }
 
             [HttpDelete("{id:string}")]
-            public Year DeleteYear(string id)
+            public TopicTags DeleteTopicTags(string id)
             {
                   throw new NotImplementedException();
             }

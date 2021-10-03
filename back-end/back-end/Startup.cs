@@ -1,5 +1,7 @@
 using Data;
 using Logic;
+using Logic.Class;
+using Logic.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,16 @@ namespace back_end
             {
                   services.AddControllers();
 
+                  services.AddTransient<IAwardLogic>(x => new AwardLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ICommentLogic>(x => new CommentLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ICommentReactersLogic>(x => new CommentReactersLogic(Configuration["DBPassword"]));
+                  services.AddTransient<IMyUserLogic>(x => new MyUserLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ISubjectLogic>(x => new SubjectLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ISubjectUsersLogic>(x => new SubjectUsersLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ITagLogic>(x => new TagLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ITopicLogic>(x => new TopicLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ITopicTagsLogic>(x => new TopicTagsLogic(Configuration["DBPassword"]));
+                  services.AddTransient<ITransactionLogic>(x => new TransactionLogic(Configuration["DBPassword"]));
                   services.AddTransient<IYearLogic>(x => new YearLogic(Configuration["DBPassword"]));
 
                   services.AddSwaggerGen(c =>
