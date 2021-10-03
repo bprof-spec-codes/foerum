@@ -31,7 +31,7 @@ namespace Repository.Class
 
         public IQueryable<MyUser> GetAll()
         {
-            throw new NotImplementedException();
+            return this.db.Set<MyUser>();
         }
 
         public MyUser GetOne(string id)
