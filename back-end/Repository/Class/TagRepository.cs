@@ -41,7 +41,16 @@ namespace Repository.Class
 
         public void Update(string id, Tag tag)
         {
-            throw new NotImplementedException();
+            var oldTag = this.GetOne(id);
+            if (oldTag == null || tag == null)
+            {
+                throw new ArgumentNullException(nameof(tag), nameof(oldTag));
+            }
+            else
+            {
+                oldTag.TagName = tag.TagName;
+                this.db.SaveChanges();
+            }
         }
     }
 }
