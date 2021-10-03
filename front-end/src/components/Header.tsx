@@ -8,6 +8,12 @@ const Header = () => {
           <img src="" alt="Logo" loading="lazy" />
         </div>
 
+        <div className="flex w-10/12 p-4">
+            <div className="flex w-full h-8 bg-white rounded-2xl">
+            <input type="text" className="flex w-full my-2 mx-4 text-black outline-none" placeholder={`Search`} />
+            </div>
+        </div>
+
         <div className="flex content-center p-5">
           <h1>Jobb</h1>
         </div>
