@@ -31,7 +31,7 @@ namespace Repository.Class
 
         public IQueryable<Comment> GetAll()
         {
-            throw new NotImplementedException();
+            return this.db.Set<Comment>();
         }
 
         public Comment GetOne(string id)
