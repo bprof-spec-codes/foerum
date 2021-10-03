@@ -31,7 +31,7 @@ namespace Repository.Class
 
         public IQueryable<Tag> GetAll()
         {
-            throw new NotImplementedException();
+            return this.db.Set<Tag>();
         }
 
         public Tag GetOne(string id)
