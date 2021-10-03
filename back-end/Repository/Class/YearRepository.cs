@@ -37,7 +37,7 @@ namespace Repository.Class
 
         public Year GetOne(string id)
         {
-            throw new NotImplementedException();
+            return this.GetAll().SingleOrDefault(x => x.YearID == id);
         }
 
         public void Update(string id, Year year)
