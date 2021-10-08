@@ -1,16 +1,13 @@
 $base-color: #182A4E;
+//yellow-color: FCAF26;
+//cool blueish-white color: E6E6E6;
 
-/*
-* Media queries helper
-*/
 $breakpoint-mobile: 768px;
 
-/*
-* Classes (ampersand + BEM)
-*/
 .login {
     display: flex;
     height: 100%;
+    background-color: #E6E6E6;
 
     &__login-container {
         position: absolute;
@@ -24,7 +21,7 @@ $breakpoint-mobile: 768px;
         font-weight: bold;
         font-size: 30px;
         z-index: 2;
-        font-family: 'Quicksand-Bold';
+        font-family: 'ui-monospace';
 
         &__main-container {
             color: $base-color;
@@ -35,6 +32,8 @@ $breakpoint-mobile: 768px;
             flex-direction: column;
             font-weight: bold;
             padding-left: 90%;
+            font-family: 'Segoe UI';
+
     
             &--info-text {
                 margin-top: 15px;
@@ -48,14 +47,16 @@ $breakpoint-mobile: 768px;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-    
+                    font-family: 'Segoe UI';
+                    
                     input {
                         width: 290px;
                         height: 34px;
                         border-radius: 3px;
-                        background-color: #f1f1f1;
+                        background-color: #E6E6E6;
                         margin-bottom: 10px;
                         color: #242424;
+                        font-family: 'Segoe UI';
                     }
     
                     &--name {
@@ -95,6 +96,7 @@ $breakpoint-mobile: 768px;
                         border-radius: 30px;
                         font-size: 18px;
                         cursor: pointer;
+                        font-weight: bold;
                     }
                 }
             }
@@ -115,30 +117,6 @@ $breakpoint-mobile: 768px;
         }
     }
 
-    &__hello-container {
-        width: 30%;
-        left: 70.5%;
-        position: absolute;
-        z-index: 2;
-        transition: all .8s ease-in-out;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 10%;
-        color: white;
-        font-family: 'Quicksand-Bold';
-
-        &--active {
-            visibility: visible;
-            transform: translateX(0%);
-        }
-
-        &--inactive {
-            visibility: hidden;
-            transform: translateX(-100%);
-        }
-    }
-
     &__colored-container {
         position: absolute;
         background-color:#182A4E;
@@ -146,14 +124,6 @@ $breakpoint-mobile: 768px;
         height: 100vh;
         z-index: 1;
         transition: transform 1s ease;
-
-        &--left {
-            transform: translateX(0px);
-        }
-
-        &--right {
-            transform: translateX(235%);
-        }
 
         &__logo-container {
             padding: 15px;
@@ -163,12 +133,13 @@ $breakpoint-mobile: 768px;
             color: white;
             font-weight: bold;
 
+
             &--image {
-                width: 480px;
-                height: 358px;
-                margin-top:30%;
+                width: 100%;
+                height: auto;
+                padding-top:40%;
                 margin-right: 5px;
-                margin-bottom:60%;
+                padding-bottom:55%;
             }
 
             @media (max-width: $breakpoint-mobile) {

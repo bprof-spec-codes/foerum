@@ -8,7 +8,7 @@ const Login = () =>{
   return (
     <div className="login">
         <div className="login__colored-container">
-          <img className="login__colored-container__logo-container--image" src={logo} alt="Budwriter" />
+          <img className="login__colored-container__logo-container--image" src={logo} alt="alt" />
         </div>
         <div className={`login__login-container ${true ? 'login__login-container--active' : 'login__login-container--inactive'}`}>
             <div className="login__login-container__main-container">
@@ -20,12 +20,12 @@ const Login = () =>{
                         <input
                             className="login__login-container__main-container__form-container__form--email"
                             type="email"
-                            placeholder="Email"
+                            placeholder="E-mail cím"
                             required />
                         <input
                             className="login__login-container__main-container__form-container__form--password"
                             type="password"
-                            placeholder="Password"
+                            placeholder="Jelszó"
                             required />
                         <button
                             className="login__login-container__main-container__form-container__form--submit">
