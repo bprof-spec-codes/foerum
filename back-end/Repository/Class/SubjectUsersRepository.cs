@@ -9,37 +9,23 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class SubjectUsersRepository : ISubjectUsersRepository
-      {
-            public FoerumDbContext db;
+    public class SubjectUsersRepository : ISubjectUsersRepository
+    {
+        public FoerumDbContext db;
 
-            public SubjectUsersRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(SubjectUsers subjectUsers)
-            {
-                  throw new NotImplementedException();
-            }
+        public SubjectUsersRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public IEnumerable<string> GetOneSubjectAllUser(string subjectId)
+        {
+            return this.db.Set<SubjectUsers>().Where(x => x.SubjectID == subjectId).Select(x => x.UserID);
+        }
 
-            public IQueryable<SubjectUsers> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
-
-            public SubjectUsers GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
-
-            public void Update(string id, SubjectUsers subjectUsers)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public IEnumerable<string> GetOneUserAllSubject(string userId)
+        {
+            return this.db.Set<SubjectUsers>().Where(x => x.UserID == userId).Select(x => x.SubjectID);
+        }
+    }
 }
