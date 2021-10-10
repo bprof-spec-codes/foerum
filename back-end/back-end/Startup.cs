@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace back_end
 {
@@ -37,6 +38,7 @@ namespace back_end
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(options =>
                 {
+                    // .Bind(...) may not be necessary, this section might need refactoring
                     this.Configuration.GetSection("AzureAd").Bind(options);
                     options.Events.OnRedirectToIdentityProvider = context =>
                     {
@@ -56,6 +58,13 @@ namespace back_end
             });
 
             services.AddControllers();
+            services.AddControllersWithViews(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
 
             services.AddTransient<IAwardLogic>(x => new AwardLogic(Configuration["DBPassword"]));
             services.AddTransient<ICommentLogic>(x => new CommentLogic(Configuration["DBPassword"]));
@@ -121,12 +130,12 @@ namespace back_end
             });
 
             app.UseStaticFiles();
-            app.UseCors(policyBuilder => policyBuilder.AllowCredentials().SetIsOriginAllowed(origin => true).AllowAnyHeader())
-                .UseHttpsRedirection()
-                .UseRouting()
-                .UseAuthentication()
-                .UseAuthorization()
-                .UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseCors(policyBuilder => policyBuilder.AllowCredentials().SetIsOriginAllowed(origin => true).AllowAnyHeader());
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
