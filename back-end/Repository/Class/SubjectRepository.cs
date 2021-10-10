@@ -49,8 +49,8 @@ namespace Repository.Class
             else
             {
                 oldSubject.SubjectName = subject.SubjectName;
-                oldSubject.IsPrivate = subject.IsPrivate; //lehessen módosítani?
-                oldSubject.InviteKeyIfPrivate = subject.InviteKeyIfPrivate; //lehessen módosítani?
+                oldSubject.IsPrivate = subject.IsPrivate;
+                oldSubject.InviteKeyIfPrivate = subject.InviteKeyIfPrivate;
                 this.db.SaveChanges();
             }
         }
