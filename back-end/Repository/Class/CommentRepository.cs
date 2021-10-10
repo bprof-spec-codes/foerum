@@ -39,7 +39,7 @@ namespace Repository.Class
             return this.GetAll().SingleOrDefault(x => x.CommentID == id);
         }
 
-        public void Update(string id, Comment comment)
+        public void Update(string id, Comment comment) // create a new comment with an ID, keep an old comment in the database
         {
             var oldComment = this.GetOne(id);
 
@@ -47,7 +47,7 @@ namespace Repository.Class
 
             newComment.CommentID = oldComment.CommentID;
             newComment.UserID = oldComment.UserID;
-            newComment.Content = comment.Content;  //lehet szerkeszteni
+            newComment.Content = comment.Content;
             newComment.CreationDate = DateTime.Now;
             newComment.AttachmentUrl = oldComment.AttachmentUrl;
             newComment.ReactionCount = oldComment.ReactionCount;
