@@ -49,9 +49,9 @@ namespace Repository.Class
             else
             {
                 oldTopic.TopicName = topic.TopicName;
-                oldTopic.CreationDate = DateTime.Now; //?
+                oldTopic.CreationDate = DateTime.Now;
                 oldTopic.OfferedCoins = topic.OfferedCoins;
-                oldTopic.AttachmentURL = topic.AttachmentURL; //?
+                oldTopic.AttachmentURL = topic.AttachmentURL;
                 this.db.SaveChanges();
             }
         }
