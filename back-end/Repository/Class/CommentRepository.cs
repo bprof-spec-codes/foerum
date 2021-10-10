@@ -47,7 +47,7 @@ namespace Repository.Class
 
             newComment.CommentID = oldComment.CommentID;
             newComment.UserID = oldComment.UserID;
-            newComment.Content = comment.Content;  //lehet szerkeszteni
+            newComment.Content = comment.Content;
             newComment.CreationDate = DateTime.Now;
             newComment.AttachmentUrl = oldComment.AttachmentUrl;
             newComment.ReactionCount = oldComment.ReactionCount;
