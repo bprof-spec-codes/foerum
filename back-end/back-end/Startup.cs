@@ -96,6 +96,7 @@ namespace back_end
                      }
                  ).AddEntityFrameworkStores<FoerumDbContext>()
                  .AddDefaultTokenProviders();
+            Console.WriteLine(Configuration["DBPassword"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
