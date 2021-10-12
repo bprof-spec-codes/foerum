@@ -30,7 +30,7 @@ const Login = () =>{
                         <button
                             className="login__login-container__main-container__form-container__form--submit">
                             Bejelentkezés
-                    </button>
+                        </button>
                     </form>
                 </div>
             </div>
