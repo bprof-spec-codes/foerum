@@ -10,37 +10,61 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class CommentLogic : ICommentLogic
-      {
-            private ICommentRepository commentRepo;
+    public class CommentLogic : ICommentLogic
+    {
+        private ICommentRepository commentRepo;
 
-            public CommentLogic(string dbPassword)
+        public CommentLogic(string dbPassword)
+        {
+            this.commentRepo = new CommentRepository(dbPassword);
+        }
+        public bool CreateComment(Comment comment)
+        {
+            try
             {
-                  this.commentRepo = new CommentRepository(dbPassword);
+                this.commentRepo.Add(comment);
+                return true;
             }
-            public bool CreateComment(Comment comment)
+            catch
             {
-                  throw new NotImplementedException();
+                return false;
             }
+        }
 
-            public bool DeleteComment(string id)
+        public bool DeleteComment(string id)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.commentRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool EditComment(string id, Comment newComment)
+        public bool EditComment(string id, Comment newComment)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.commentRepo.Update(id, newComment);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public IQueryable<Comment> GetAllComment()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Comment> GetAllComment()
+        {
+            return this.commentRepo.GetAll();
+        }
 
-            public Comment GetOneComment(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public Comment GetOneComment(string id)
+        {
+            return this.commentRepo.GetOne(id);
+        }
+    }
 }
