@@ -9,37 +9,23 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class TopicTagsRepository : ITopicTagsRepository
-      {
-            public FoerumDbContext db;
+    public class TopicTagsRepository : ITopicTagsRepository
+    {
+        public FoerumDbContext db;
 
-            public TopicTagsRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(TopicTags topicTags)
-            {
-                  throw new NotImplementedException();
-            }
+        public TopicTagsRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public IEnumerable<string> GetOneTopicAllTag(string topicId)
+        {
+            return this.db.Set<TopicTags>().Where(x => x.TopicID == topicId).Select(x => x.TagID);
+        }
 
-            public IQueryable<TopicTags> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
-
-            public TopicTags GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
-
-            public void Update(string id, TopicTags topicTags)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public IEnumerable<string> GetOneTagAllTopic(string tagId)
+        {
+            return this.db.Set<TopicTags>().Where(x => x.TagID == tagId).Select(x => x.TopicID);
+        }
+    }
 }

@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace Repository.Interface
 {
-      public interface ITopicTagsRepository
-      {
-            public void Add(TopicTags topicTags);
-            public void Delete(string id);
-            public IQueryable<TopicTags> GetAll();
-            public TopicTags GetOne(string id);
-            public void Update(string id, TopicTags topicTags);
-      }
+    public interface ITopicTagsRepository
+    {
+        public IEnumerable<string> GetOneTopicAllTag(string topicId);
+        public IEnumerable<string> GetOneTagAllTopic(string tagId);
+    }
 }
