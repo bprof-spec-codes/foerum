@@ -10,37 +10,67 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class TopicTagsLogic : ITopicTagsLogic
-      {
-            private ITopicTagsRepository topicTagsRepo;
+    public class TopicTagsLogic : ITopicTagsLogic
+    {
+        private ITopicTagsRepository topicTagsRepo;
 
-            public TopicTagsLogic(string dbPassword)
+        public TopicTagsLogic(string dbPassword)
+        {
+            this.topicTagsRepo = new TopicTagsRepository(dbPassword);
+        }
+        /// TODO: uncomment after repo is implemented
+        public bool CreateTopicTags(TopicTags topicTags)
+        {
+            throw new NotImplementedException();
+            /*try
             {
-                  this.topicTagsRepo = new TopicTagsRepository(dbPassword);
+                this.topicTagsRepo.Add(topicTags);
+                return true;
             }
-            public bool CreateTopicTags(TopicTags topicTags)
+            catch
             {
-                  throw new NotImplementedException();
-            }
+                return false;
+            }*/
+        }
 
-            public bool DeleteTopicTags(string id)
+        public bool DeleteTopicTags(string id)
+        {
+            throw new NotImplementedException();
+            /*try
             {
-                  throw new NotImplementedException();
+                this.topicTagsRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }*/
+        }
 
-            public bool EditTopicTags(string id, TopicTags newTopicTags)
+        public bool EditTopicTags(string id, TopicTags newTopicTags)
+        {
+            throw new NotImplementedException();
+            /*try
             {
-                  throw new NotImplementedException();
+                this.topicTagsRepo.Update(id, newTopicTags);
+                return true;
             }
+            catch
+            {
+                return false;
+            }*/
+        }
 
-            public IQueryable<TopicTags> GetAllTopicTags()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<TopicTags> GetAllTopicTags()
+        {
+            throw new NotImplementedException();
+            //return this.topicTagsRepo.GetAll();
+        }
 
-            public TopicTags GetOneTopicTags(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public TopicTags GetOneTopicTags(string id)
+        {
+            throw new NotImplementedException();
+            //return this.topicTagsRepo.GetOne(id);
+        }
+    }
 }
