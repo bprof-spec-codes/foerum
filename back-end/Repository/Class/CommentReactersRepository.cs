@@ -9,37 +9,23 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class CommentReactersRepository : ICommentReactersRepository
-      {
-            public FoerumDbContext db;
+    public class CommentReactersRepository : ICommentReactersRepository
+    {
+        public FoerumDbContext db;
 
-            public CommentReactersRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(CommentReacters commentReacters)
-            {
-                  throw new NotImplementedException();
-            }
+        public CommentReactersRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public IEnumerable<string> GetOneCommentAllUser(string commentId)
+        {
+            return this.db.Set<CommentReacters>().Where(x => x.CommentID == commentId).Select(x => x.UserID);
+        }
 
-            public IQueryable<CommentReacters> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
-
-            public CommentReacters GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
-
-            public void Update(string id, CommentReacters commentReacters)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public IEnumerable<string> GetOneUserAllComment(string userId)
+        {
+            return this.db.Set<CommentReacters>().Where(x => x.UserID == userId).Select(x => x.CommentID);
+        }
+    }
 }

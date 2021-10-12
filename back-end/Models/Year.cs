@@ -12,7 +12,7 @@ namespace Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int YearID { get; set; }
+        public string YearID { get; set; }
         public string YearName { get; set; }
     }
 }

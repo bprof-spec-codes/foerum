@@ -9,37 +9,52 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class TransactionRepository : ITransactionRepository
-      {
-            public FoerumDbContext db;
+    public class TransactionRepository : ITransactionRepository
+    {
+        public FoerumDbContext db;
 
-            public TransactionRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(Transaction transaction)
-            {
-                  throw new NotImplementedException();
-            }
+        public TransactionRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
+        public void Add(Transaction transaction)
+        {
+            this.db.Set<Transaction>().Add(transaction);
+            this.db.SaveChanges();
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Delete(string id)
+        {
+            this.db.Set<Transaction>().Remove(this.GetOne(id));
+            this.db.SaveChanges();
+        }
 
-            public IQueryable<Transaction> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Transaction> GetAll()
+        {
+            return this.db.Set<Transaction>();
+        }
 
-            public Transaction GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public Transaction GetOne(string id)
+        {
+            return this.GetAll().SingleOrDefault(x => x.TransactionID == id);
+        }
 
-            public void Update(string id, Transaction transaction)
+        public void Update(string id, Transaction transaction)
+        {
+            var oldTransaction = this.GetOne(id);
+            if (oldTransaction == null || transaction == null)
             {
-                  throw new NotImplementedException();
+                throw new ArgumentNullException(nameof(transaction), nameof(oldTransaction));
             }
-      }
+            else
+            {
+                oldTransaction.Source = transaction.Source;
+                oldTransaction.Recipient = transaction.Recipient;
+                oldTransaction.Quantity = transaction.Quantity;
+                oldTransaction.TransactionDate = DateTime.Now;
+                oldTransaction.Reason = transaction.Reason;
+                this.db.SaveChanges();
+            }
+        }
+    }
 }
