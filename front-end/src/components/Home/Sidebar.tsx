@@ -1,7 +1,7 @@
 import axios from "../../axios";
 import React, { useEffect, useState } from "react";
 import { ITopic } from "src/models/topic.model";
-import Topic from "./Topic";
+import Topic from "./sidebar-components/Topic";
 
 const Sidebar = () => {
   const [topics, setTopics] = useState<ITopic[]>([]);

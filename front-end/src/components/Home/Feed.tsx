@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState } from "react";
+import { TopicCard } from "./feed-components";
 
 const Feed = () => {
-    return (
+  const [questions, setQuestions] = useState();
+  return (
+    <div>
+      <div>
         <div>
-            <h2>feed</h2>            
+          <TopicCard />
         </div>
-    )
-}
 
-export default Feed
+        <div></div>
+      </div>
+    </div>
+  );
+};
+
+export default Feed;
