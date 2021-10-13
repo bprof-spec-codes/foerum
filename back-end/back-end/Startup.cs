@@ -108,16 +108,17 @@ namespace back_end
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
             // TODO Remove later
-            //app.Use(async (context, next) =>
-            //{
-            //    if (!context.User.Identity?.IsAuthenticated ?? false)
-            //    {
-            //        context.Response.StatusCode = 401;
-            //        await context.Response.WriteAsync("Not authenticated");
-            //    }
-            //    else await next();
-            //});
+            app.Use(async (context, next) =>
+            {
+                if (!context.User.Identity?.IsAuthenticated ?? false)
+                {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync("Not authenticated");
+                }
+                else await next();
+            });
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
