@@ -21,20 +21,10 @@ namespace back_end.Controllers
             this.myUserLogic = logic;
         }
 
-        //[HttpGet]
-        //public IEnumerable<MyUser> GetAllUser()
-        //{
-        //    return this.myUserLogic.GetAllUser();
-        //}
-
-        [Authorize]
         [HttpGet]
-        public ActionResult<MyUser> GetUser()
+        public IEnumerable<MyUser> GetAllUser()
         {
-            // TODO LINQ to get user from db by name or something similar
-            var user = new MyUser();
-            user.FullName = this.HttpContext.User.Identity.Name.ToString();
-            return this.Ok(user);
+            return this.myUserLogic.GetAllUser();
         }
 
         [HttpGet("{id}")]

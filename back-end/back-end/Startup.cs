@@ -35,36 +35,10 @@ namespace back_end
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApp(options =>
-                {
-                    // .Bind(...) may not be necessary, this section might need refactoring
-                    this.Configuration.GetSection("AzureAd").Bind(options);
-                    options.Events.OnRedirectToIdentityProvider = context =>
-                    {
-                        if (context.HttpContext.Items.ContainsKey("allowRedirect"))
-                        {
-                            return Task.CompletedTask;
-                        }
-                        context.HandleResponse();
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        return Task.CompletedTask;
-                    };
-                });
+            services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
 
-            services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            });
 
             services.AddControllers();
-            services.AddControllersWithViews(options =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
-            });
 
             services.AddTransient<IAwardLogic>(x => new AwardLogic(Configuration["DBPassword"]));
             services.AddTransient<ICommentLogic>(x => new CommentLogic(Configuration["DBPassword"]));
@@ -105,7 +79,6 @@ namespace back_end
                      }
                  ).AddEntityFrameworkStores<FoerumDbContext>()
                  .AddDefaultTokenProviders();
-            Console.WriteLine(Configuration["DBPassword"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,11 +103,22 @@ namespace back_end
             });
 
             app.UseStaticFiles();
-            app.UseCors(policyBuilder => policyBuilder.AllowCredentials().SetIsOriginAllowed(origin => true).AllowAnyHeader());
+            app.UseCors();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            // TODO Remove later
+            //app.Use(async (context, next) =>
+            //{
+            //    if (!context.User.Identity?.IsAuthenticated ?? false)
+            //    {
+            //        context.Response.StatusCode = 401;
+            //        await context.Response.WriteAsync("Not authenticated");
+            //    }
+            //    else await next();
+            //});
+
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
