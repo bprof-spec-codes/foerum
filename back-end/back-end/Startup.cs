@@ -52,6 +52,7 @@ namespace back_end
             services.AddTransient<ITopicTagsLogic>(x => new TopicTagsLogic(Configuration["DBPassword"]));
             services.AddTransient<ITransactionLogic>(x => new TransactionLogic(Configuration["DBPassword"]));
             services.AddTransient<IYearLogic>(x => new YearLogic(Configuration["DBPassword"]));
+            services.AddTransient<AuthLogic, AuthLogic>();
 
 
             services.AddSwaggerGen(c =>
