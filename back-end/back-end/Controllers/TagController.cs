@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateTag(Tag tag)
+        public void CreateTag([FromBody] Tag tag)
         {
             this.tagLogic.CreateTag(tag);
         }

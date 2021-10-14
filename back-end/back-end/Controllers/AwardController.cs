@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateAward(Award award)
+        public void CreateAward([FromBody] Award award)
         {
             this.awardLogic.CreateAward(award);
         }

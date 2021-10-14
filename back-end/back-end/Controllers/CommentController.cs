@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateComment(Comment comment)
+        public void CreateComment([FromBody] Comment comment)
         {
             this.commentLogic.CreateComment(comment);
         }

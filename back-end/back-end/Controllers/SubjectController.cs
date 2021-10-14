@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateSubject(Subject subject)
+        public void CreateSubject([FromBody] Subject subject)
         {
             this.subjectLogic.CreateSubject(subject);
         }

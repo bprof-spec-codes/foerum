@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateYear(Year year)
+        public void CreateYear([FromBody] Year year)
         {
             this.yearLogic.CreateYear(year);
         }

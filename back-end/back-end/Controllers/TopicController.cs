@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateTopic(Topic topic)
+        public void CreateTopic([FromBody] Topic topic)
         {
             this.topicLogic.CreateTopic(topic);
         }

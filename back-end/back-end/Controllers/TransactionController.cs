@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateTransaction(Transaction transaction)
+        public void CreateTransaction([FromBody] Transaction transaction)
         {
             this.transactionLogic.CreateTransaction(transaction);
         }

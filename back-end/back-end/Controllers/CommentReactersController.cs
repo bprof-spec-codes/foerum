@@ -33,7 +33,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateCommentReacters(CommentReacters commentReacters)
+        public void CreateCommentReacters([FromBody] CommentReacters commentReacters)
         {
             throw new NotImplementedException();
         }
