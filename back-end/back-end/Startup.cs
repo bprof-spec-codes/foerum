@@ -20,6 +20,10 @@ using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace back_end
 {
@@ -35,9 +39,6 @@ namespace back_end
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
-
-
             services.AddControllers();
 
             services.AddTransient<IAwardLogic>(x => new AwardLogic(Configuration["DBPassword"]));
@@ -51,6 +52,7 @@ namespace back_end
             services.AddTransient<ITopicTagsLogic>(x => new TopicTagsLogic(Configuration["DBPassword"]));
             services.AddTransient<ITransactionLogic>(x => new TransactionLogic(Configuration["DBPassword"]));
             services.AddTransient<IYearLogic>(x => new YearLogic(Configuration["DBPassword"]));
+
 
             services.AddSwaggerGen(c =>
             {
@@ -68,7 +70,8 @@ namespace back_end
 
             var connectionString = "server=95.111.254.24;database=foerumtst;user=foerumtst;password=" + Configuration["DBPassword"];
             services.AddDbContext<FoerumDbContext>(options => options.UseMySQL(connectionString));
-            services.AddIdentity<IdentityUser, IdentityRole>(
+
+            services.AddIdentity<MyUser, IdentityRole>(
                      option =>
                      {
                          option.Password.RequireDigit = false;
@@ -79,6 +82,28 @@ namespace back_end
                      }
                  ).AddEntityFrameworkStores<FoerumDbContext>()
                  .AddDefaultTokenProviders();
+
+            // TODO change for microsoft
+            //services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = "http://www.security.org",
+                    ValidIssuer = "http://www.security.org",
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes("Akos Egy Kutya Amiert Rapakol A Github Pullrequestjeikre"))
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,15 +135,15 @@ namespace back_end
             app.UseAuthorization();
 
             // TODO Remove later
-            app.Use(async (context, next) =>
-            {
-                if (!context.User.Identity?.IsAuthenticated ?? false)
-                {
-                    context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Not authenticated");
-                }
-                else await next();
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    if (!context.User.Identity?.IsAuthenticated ?? false)
+            //    {
+            //        context.Response.StatusCode = 401;
+            //        await context.Response.WriteAsync("Not authenticated");
+            //    }
+            //    else await next();
+            //});
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
