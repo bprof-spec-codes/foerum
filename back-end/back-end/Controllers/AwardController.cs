@@ -8,46 +8,46 @@ using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
-      /* Every controller needs all the CRUD methods */
-      [Route("[controller]")]
-      [ApiController]
-      public class AwardController : ControllerBase
-      {
-            private IAwardLogic awardLogic;
+    /* Every controller needs all the CRUD methods */
+    [Route("[controller]")]
+    [ApiController]
+    public class AwardController : ControllerBase
+    {
+        private IAwardLogic awardLogic;
 
-            public AwardController(IAwardLogic logic)
-            {
-                  this.awardLogic = logic;
-            }
+        public AwardController(IAwardLogic logic)
+        {
+            this.awardLogic = logic;
+        }
 
-            [HttpGet]
-            public IEnumerable<Award> GetAllAward()
-            {
-                  return this.awardLogic.GetAllAward();
-            }
+        [HttpGet]
+        public IEnumerable<Award> GetAllAward()
+        {
+            return this.awardLogic.GetAllAward();
+        }
 
-            [HttpGet("{id}")]
-            public Award GetOneAward(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpGet("{id}")]
+        public Award GetOneAward(string id)
+        {
+            return this.awardLogic.GetOneAward(id);
+        }
 
-            [HttpPost]
-            public void CreateAward(Award award)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPost]
+        public void CreateAward(Award award)
+        {
+            this.awardLogic.CreateAward(award);
+        }
 
-            [HttpPut("{id}")]
-            public void EditAward(string id, [FromBody] Award newAward)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPut("{id}")]
+        public void EditAward(string id, [FromBody] Award newAward)
+        {
+            this.EditAward(id, newAward);
+        }
 
-            [HttpDelete("{id}")]
-            public Award DeleteAward(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        [HttpDelete("{id}")]
+        public void DeleteAward(string id)
+        {
+            this.awardLogic.DeleteAward(id);
+        }
+    }
 }

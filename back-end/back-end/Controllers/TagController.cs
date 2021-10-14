@@ -8,46 +8,46 @@ using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
-      /* Every controller needs all the CRUD methods */
-      [Route("[controller]")]
-      [ApiController]
-      public class TagController : ControllerBase
-      {
-            private ITagLogic tagLogic;
+    /* Every controller needs all the CRUD methods */
+    [Route("[controller]")]
+    [ApiController]
+    public class TagController : ControllerBase
+    {
+        private ITagLogic tagLogic;
 
-            public TagController(ITagLogic logic)
-            {
-                  this.tagLogic = logic;
-            }
+        public TagController(ITagLogic logic)
+        {
+            this.tagLogic = logic;
+        }
 
-            [HttpGet]
-            public IEnumerable<Tag> GetAllTag()
-            {
-                  return this.tagLogic.GetAllTag();
-            }
+        [HttpGet]
+        public IEnumerable<Tag> GetAllTag()
+        {
+            return this.tagLogic.GetAllTag();
+        }
 
-            [HttpGet("{id}")]
-            public Tag GetOneTag(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpGet("{id}")]
+        public Tag GetOneTag(string id)
+        {
+            return this.tagLogic.GetOneTag(id);
+        }
 
-            [HttpPost]
-            public void CreateTag(Tag tag)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPost]
+        public void CreateTag(Tag tag)
+        {
+            this.tagLogic.CreateTag(tag);
+        }
 
-            [HttpPut("{id}")]
-            public void EditTag(string id, [FromBody] Tag newTag)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPut("{id}")]
+        public void EditTag(string id, [FromBody] Tag newTag)
+        {
+            this.tagLogic.EditTag(id, newTag);
+        }
 
-            [HttpDelete("{id}")]
-            public Tag DeleteTag(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        [HttpDelete("{id}")]
+        public void DeleteTag(string id)
+        {
+            this.tagLogic.DeleteTag(id);
+        }
+    }
 }
