@@ -36,11 +36,10 @@ namespace Logic.Class
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             var result = await _userManager.CreateAsync(user, model.Password);
-            // TODO roles
-            //if (result.Succeeded)
-            //{
-            //    await _userManager.AddToRoleAsync(user, "User");
-            //}
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Admin");
+            }
             return user.UserName;
         }
 
@@ -55,10 +54,11 @@ namespace Logic.Class
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(ClaimTypes.NameIdentifier, user.Id)
                 };
+                foreach (var role in await _userManager.GetRolesAsync(user))
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                }
 
-                var roles = await _userManager.GetRolesAsync(user);
-
-                claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
 
                 // TODO maybe change secu key, maybe add it as a secret.
                 var signinKey = new SymmetricSecurityKey(

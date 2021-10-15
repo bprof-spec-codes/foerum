@@ -70,7 +70,8 @@ namespace back_end
             });
 
             var connectionString = "server=95.111.254.24;database=foerumtst;user=foerumtst;password=" + Configuration["DBPassword"];
-            services.AddDbContext<FoerumDbContext>(options => options.UseMySQL(connectionString));
+            var serverVersion = ServerVersion.AutoDetect(connectionString);
+            services.AddDbContext<FoerumDbContext>(options => options.UseMySql(connectionString, serverVersion));
 
             services.AddIdentity<MyUser, IdentityRole>(
                      option =>
