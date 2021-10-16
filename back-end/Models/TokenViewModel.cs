@@ -11,4 +11,10 @@ namespace Models
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
     }
+
+    public class TokenLoginViewModel
+    {
+        public string Name { get; set; }
+        public string uniqueName { get; set; }
+    }
 }
