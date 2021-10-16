@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
 import { login } from "../../store/reducers/authentication";
+import { SignInButton } from "../shared/MicrosoftSignIn";
 
 export interface ILoginProps
   extends StateProps,
@@ -23,9 +24,13 @@ const LogIn: FC<ILoginProps> = (props) => {
         {/* this div is the left sido of the login page(figma) */}
         <div></div>
 
-        {/* this div is the left sido of the login page(figma) */}
         <div>
-          {/* u shloud create a form inside here(u can use form tag with inputs and submit button(recommended) or a simple div with inputs) */}
+          <SignInButton />
+        </div>
+
+        {/* this div is the left sido of the login page(figma) */}
+        {/*
+        <div>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -35,6 +40,7 @@ const LogIn: FC<ILoginProps> = (props) => {
             <button type="submit">button</button>
           </form>
         </div>
+        */}
       </div>
     </div>
   );
