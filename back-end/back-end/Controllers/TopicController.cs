@@ -8,46 +8,46 @@ using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
-      /* Every controller needs all the CRUD methods */
-      [Route("[controller]")]
-      [ApiController]
-      public class TopicController : ControllerBase
-      {
-            private ITopicLogic topicLogic;
+    /* Every controller needs all the CRUD methods */
+    [Route("[controller]")]
+    [ApiController]
+    public class TopicController : ControllerBase
+    {
+        private ITopicLogic topicLogic;
 
-            public TopicController(ITopicLogic logic)
-            {
-                  this.topicLogic = logic;
-            }
+        public TopicController(ITopicLogic logic)
+        {
+            this.topicLogic = logic;
+        }
 
-            [HttpGet]
-            public IEnumerable<Topic> GetAllTopic()
-            {
-                  return this.topicLogic.GetAllTopic();
-            }
+        [HttpGet]
+        public IEnumerable<Topic> GetAllTopic()
+        {
+            return this.topicLogic.GetAllTopic();
+        }
 
-            [HttpGet("{id}")]
-            public Topic GetOneTopic(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpGet("{id}")]
+        public Topic GetOneTopic(string id)
+        {
+            return this.topicLogic.GetOneTopic(id);
+        }
 
-            [HttpPost]
-            public void CreateTopic(Topic topic)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPost]
+        public void CreateTopic([FromBody] Topic topic)
+        {
+            this.topicLogic.CreateTopic(topic);
+        }
 
-            [HttpPut("{id}")]
-            public void EditTopic(string id, [FromBody] Topic newTopic)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPut("{id}")]
+        public void EditTopic(string id, [FromBody] Topic newTopic)
+        {
+            this.topicLogic.EditTopic(id, newTopic);
+        }
 
-            [HttpDelete("{id}")]
-            public Topic DeleteTopic(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        [HttpDelete("{id}")]
+        public void DeleteTopic(string id)
+        {
+            this.topicLogic.DeleteTopic(id);
+        }
+    }
 }

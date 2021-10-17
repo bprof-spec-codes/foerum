@@ -10,37 +10,61 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class AwardLogic : IAwardLogic
-      {
-            private IAwardRepository awardRepo;
+    public class AwardLogic : IAwardLogic
+    {
+        private IAwardRepository awardRepo;
 
-            public AwardLogic(string dbPassword)
+        public AwardLogic(string dbPassword)
+        {
+            this.awardRepo = new AwardRepository(dbPassword);
+        }
+        public bool CreateAward(Award award)
+        {
+            try
             {
-                  this.awardRepo = new AwardRepository(dbPassword);
+                this.awardRepo.Add(award);
+                return true;
             }
-            public bool CreateAward(Award award)
+            catch
             {
-                  throw new NotImplementedException();
+                return false;
             }
+        }
 
-            public bool DeleteAward(string id)
+        public bool DeleteAward(string id)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.awardRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool EditAward(string id, Award newAward)
+        public bool EditAward(string id, Award newAward)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.awardRepo.Update(id, newAward);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public IQueryable<Award> GetAllAward()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Award> GetAllAward()
+        {
+            return this.awardRepo.GetAll();
+        }
 
-            public Award GetOneAward(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public Award GetOneAward(string id)
+        {
+            return this.awardRepo.GetOne(id);
+        }
+    }
 }

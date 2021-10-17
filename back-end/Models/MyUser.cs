@@ -15,7 +15,8 @@ namespace Models
         public int NikCoin { get; set; }
         public int StartYear { get; set; }
         public bool IsActive { get; set; }
-        public IdentityRole Role { get; set; } // TODO: is this how to do it?
+        [NotMapped]
+        public ICollection<MyUserRoles> Role { get; set; }
 
         public MyUser() : base()
         {
