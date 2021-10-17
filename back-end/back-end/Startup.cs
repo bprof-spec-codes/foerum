@@ -86,7 +86,6 @@ namespace back_end
                  .AddDefaultTokenProviders();
 
             // TODO change for microsoft
-            //services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -105,6 +104,12 @@ namespace back_end
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes("Akos Egy Kutya Amiert Rapakol A Github Pullrequestjeikre"))
                 };
+            }).AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"), "Microsoft", true);
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme, "Microsoft")
+                    .RequireAuthenticatedUser()
+                    .Build();
             });
         }
 
