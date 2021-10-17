@@ -3,6 +3,7 @@ import axios from "../../axios";
 import { IUser } from "src/models/user.model";
 import { loginRequest } from "src/ms-auth-config";
 import { FAILURE, REQUEST, SUCCESS } from "./action-type.util";
+import { baseHeader } from "src/shared/types/headers";
 
 export const ACTION_TYPES = {
   LOGIN: "ms-authentication/login",
@@ -55,6 +56,8 @@ export const login = (instance: any) => {
     .loginPopup(loginRequest)
     .then((res: any) => {
       console.log(res);
+      const bearerToken = `Bearer ${res.accessToken}`;
+      sessionStorage.setItem(AUTH_TOKEN_KEY, bearerToken);
       setLoginState(res);
     })
     .catch((e: any) => {
@@ -65,10 +68,14 @@ export const login = (instance: any) => {
 export const setLoginState = (data: any) => ({
   type: ACTION_TYPES.LOGIN,
   payload: axios
-    .post("/auth/microsoft", {
-      Name: data.idTokenClaims.name,
-      uniqueName: data.idTokenClaims.upn,
-    })
+    .put(
+      "/auth/microsoft",
+      {
+        Name: data.idTokenClaims.name,
+        uniqueName: data.idTokenClaims.upn,
+      },
+      baseHeader
+    )
     .then((res) => console.log(res))
     .catch((err) => console.error(err)),
 });
