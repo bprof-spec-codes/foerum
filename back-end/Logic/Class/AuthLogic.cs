@@ -38,7 +38,7 @@ namespace Logic.Class
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Admin");
+                await _userManager.AddToRoleAsync(user, "User");
             }
             return user.UserName;
         }
@@ -79,6 +79,63 @@ namespace Logic.Class
                 };
             }
             throw new ArgumentException("Login failed");
+        }
+
+        public async Task<TokenViewModel> LoginUserMicrosoft(TokenLoginViewModel model)
+        {
+            var user = await _userManager.FindByNameAsync(model.uniqueName);
+            if (user != null)
+            {
+                return await this.generateToken(model, user);
+            }
+            var userRegister = new MyUser
+            {
+                Email = model.uniqueName,
+                UserName = model.uniqueName,
+                FullName = model.Name,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(userRegister, "User");
+                var registeredUser = await _userManager.FindByNameAsync(model.uniqueName);
+                return this.generateToken(model, registeredUser).Result;
+            }
+            throw new ArgumentException("Login failed");
+        }
+
+        private async Task<TokenViewModel> generateToken(TokenLoginViewModel model, MyUser user)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, model.uniqueName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id)
+                };
+            foreach (var role in await _userManager.GetRolesAsync(user))
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+
+            // TODO maybe change secu key, maybe add it as a secret.
+            var signinKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes("Akos Egy Kutya Amiert Rapakol A Github Pullrequestjeikre"));
+
+            // TODO change for microsoft token
+            var token = new JwtSecurityToken(
+              issuer: "http://www.security.org",
+              audience: "http://www.security.org",
+              claims: claims,
+              expires: DateTime.Now.AddMinutes(60),
+              signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256)
+            );
+            return new TokenViewModel
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration = token.ValidTo
+            };
         }
     }
 }
