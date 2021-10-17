@@ -29,25 +29,25 @@ namespace back_end.Controllers
         [HttpGet("{id}")]
         public Subject GetOneSubject(string id)
         {
-            throw new NotImplementedException();
+            return this.subjectLogic.GetOneSubject(id);
         }
 
         [HttpPost]
-        public void CreateSubject(Subject subject)
+        public void CreateSubject([FromBody] Subject subject)
         {
-            throw new NotImplementedException();
+            this.subjectLogic.CreateSubject(subject);
         }
 
         [HttpPut("{id}")]
         public void EditSubject(string id, [FromBody] Subject newSubject)
         {
-            throw new NotImplementedException();
+            this.subjectLogic.EditSubject(id, newSubject);
         }
 
         [HttpDelete("{id}")]
-        public Subject DeleteSubject(string id)
+        public void DeleteSubject(string id)
         {
-            throw new NotImplementedException();
+            this.subjectLogic.DeleteSubject(id);
         }
     }
 }

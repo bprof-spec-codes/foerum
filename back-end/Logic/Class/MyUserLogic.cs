@@ -10,37 +10,61 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class MyUserLogic : IMyUserLogic
-      {
-            private IMyUserRepository myUserRepo;
+    public class MyUserLogic : IMyUserLogic
+    {
+        private IMyUserRepository myUserRepo;
 
-            public MyUserLogic(string dbPassword)
+        public MyUserLogic(string dbPassword)
+        {
+            this.myUserRepo = new MyUserRepository(dbPassword);
+        }
+        public bool CreateUser(MyUser myUser)
+        {
+            try
             {
-                  this.myUserRepo = new MyUserRepository(dbPassword);
+                this.myUserRepo.Add(myUser);
+                return true;
             }
-            public bool CreateUser(MyUser myUser)
+            catch
             {
-                  throw new NotImplementedException();
+                return false;
             }
+        }
 
-            public bool DeleteUser(string id)
+        public bool DeleteUser(string id)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.myUserRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool EditUser(string id, MyUser newMyUser)
+        public bool EditUser(string id, MyUser newMyUser)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.myUserRepo.Update(id, newMyUser);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public IQueryable<MyUser> GetAllUser()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<MyUser> GetAllUser()
+        {
+            return this.myUserRepo.GetAll();
+        }
 
-            public MyUser GetOneUser(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public MyUser GetOneUser(string id)
+        {
+            return this.myUserRepo.GetOne(id);
+        }
+    }
 }

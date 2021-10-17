@@ -34,7 +34,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
-        public void CreateUser(MyUser user)
+        public void CreateUser([FromBody] MyUser user)
         {
             throw new NotImplementedException();
         }

@@ -8,38 +8,62 @@ using System.Linq;
 
 namespace Logic
 {
-      public class YearLogic : IYearLogic
-      {
-            private IYearRepository yearRepo;
+    public class YearLogic : IYearLogic
+    {
+        private IYearRepository yearRepo;
 
-            public YearLogic(string dbPassword)
-            {
-                  this.yearRepo = new YearRepository(dbPassword);
-            }
+        public YearLogic(string dbPassword)
+        {
+            this.yearRepo = new YearRepository(dbPassword);
+        }
 
-            public bool CreateYear(Year year)
+        public bool CreateYear(Year year)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.yearRepo.Add(year);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool DeleteYear(string id)
+        public bool DeleteYear(string id)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.yearRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool EditYear(string id, Year newYear)
+        public bool EditYear(string id, Year newYear)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.yearRepo.Update(id, newYear);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public IQueryable<Year> GetAllYear()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Year> GetAllYear()
+        {
+            return this.yearRepo.GetAll();
+        }
 
-            public Year GetOneYear(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public Year GetOneYear(string id)
+        {
+            return this.yearRepo.GetOne(id);
+        }
+    }
 }
