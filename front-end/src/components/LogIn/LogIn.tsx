@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
 import { login } from "../../store/reducers/authentication";
-import { SignInButton } from "../shared";
+import { SignInButton, SignOutButton } from "../shared";
 
 export interface ILoginProps
   extends StateProps,
@@ -19,6 +19,10 @@ const LogIn: FC<ILoginProps> = (props) => {
 
         <div>
           <SignInButton />
+        </div>
+
+        <div>
+          <SignOutButton />
         </div>
 
         {/* this div is the left sido of the login page(figma) */}
