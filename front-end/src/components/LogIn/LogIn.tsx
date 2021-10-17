@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
 import { login } from "../../store/reducers/authentication";
-import { SignInButton } from "../shared/MicrosoftSignIn";
+import { SignInButton } from "../shared";
 
 export interface ILoginProps
   extends StateProps,
@@ -11,13 +11,6 @@ export interface ILoginProps
     RouteComponentProps<{}> {}
 
 const LogIn: FC<ILoginProps> = (props) => {
-  const [userName, setUserName] = useState<string>("");
-  /* create password based on username here */
-
-  const handleSubmit = () => {
-    /* u should call props.login inside here */
-  };
-
   return (
     <div>
       <div>
