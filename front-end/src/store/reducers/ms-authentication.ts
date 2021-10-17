@@ -55,12 +55,8 @@ export const login = (instance: any) => {
   instance
     .loginPopup(loginRequest)
     .then((res: any) => {
-      console.log(res);
       const bearerToken = `Bearer ${res.idToken}`;
-      
       sessionStorage.setItem(AUTH_TOKEN_KEY, bearerToken);
-      console.log(sessionStorage.getItem(AUTH_TOKEN_KEY));
-      console.log(baseHeader)
       setLoginState(res);
     })
     .catch((e: any) => {
@@ -74,12 +70,16 @@ export const setLoginState = (data: any) => ({
     .put(
       "/auth/microsoft",
       {
-        Name: "Papp Bence", // data.idTokenClaims.name,
-        unique_name: "bencepapp@stud.uni-obuda.hu" // data.idTokenClaims.preferred_username,
+        Name: data.idTokenClaims.name,
+        uniqueName: data.idTokenClaims.preferred_username,
       },
       baseHeader
     )
-    .then((res) => console.log(res))
+    .then((res) => {
+      console.log(res);
+      sessionStorage.setItem(AUTH_TOKEN_KEY, `Bearer ${res.data.token}`);
+      console.log(sessionStorage.getItem(AUTH_TOKEN_KEY));
+    })
     .catch((err) => console.error(err)),
 });
 
