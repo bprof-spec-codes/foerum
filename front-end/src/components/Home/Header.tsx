@@ -8,9 +8,9 @@ const Header = () => {
       <div className="flex justify-between h-full content-center text-center text-white">
         <img src={minilogo} alt="Logo" loading="lazy" />
 
-        <div className="flex w-14/10 p-1  px-20 self-center">
+        <div className="flex p-1 w-full px-56 self-center">
             <div className="flex w-full h-8 bg-white rounded-2xl">
-            <input type="text" className="flex w-full my-2 mx-2 text-black outline-none bg-white" placeholder={`Keresés`} />
+            <input type="text" className="flex w-full my-1 mx-2 text-black outline-none bg-white" placeholder={`Keress rá bármire!`} />
             </div>
         </div>
 

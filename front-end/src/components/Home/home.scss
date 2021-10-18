@@ -28,3 +28,17 @@ $cool-blueish-color: #E6E6E6;
         background: #ffffff;
     }
 }
+
+.topics {
+    display: flex;
+    height: 100%;
+    background-color: #E6E6E6;
+    &__colored-container {
+        position: absolute;
+        background-color:#182A4E;
+        width: 25%;
+        height: 100vh;
+        z-index: 1;
+        transition: transform 1s ease;
+    }
+}
