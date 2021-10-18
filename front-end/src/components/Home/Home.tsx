@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< Updated upstream
 import Feed from "./Feed";
 import ProfileActions from "./ProfileActions";
 import Sidebar from "./Sidebar";
@@ -19,7 +20,21 @@ const Home = () => {
           <ProfileActions />
         </div>
       </div>
+=======
+import Header from "./Header";
+import "./home.scss"
+import Topic from "../Misc/Topic";
+
+const Home = () => {
+  return (
+    <div className="home">
+      <Header/>
+      <Topic/>
+      <Topic/>
+      <Topic/>
+>>>>>>> Stashed changes
     </div>
+    
   );
 };
 
