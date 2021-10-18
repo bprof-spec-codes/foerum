@@ -10,37 +10,61 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class TagLogic : ITagLogic
-      {
-            private ITagRepository tagRepo;
+    public class TagLogic : ITagLogic
+    {
+        private ITagRepository tagRepo;
 
-            public TagLogic(string dbPassword)
+        public TagLogic(string dbPassword)
+        {
+            this.tagRepo = new TagRepository(dbPassword);
+        }
+        public bool CreateTag(Tag tag)
+        {
+            try
             {
-                  this.tagRepo = new TagRepository(dbPassword);
+                this.tagRepo.Add(tag);
+                return true;
             }
-            public bool CreateTag(Tag tag)
+            catch
             {
-                  throw new NotImplementedException();
+                return false;
             }
+        }
 
-            public bool DeleteTag(string id)
+        public bool DeleteTag(string id)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.tagRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool EditTag(string id, Tag newTag)
+        public bool EditTag(string id, Tag newTag)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.tagRepo.Update(id, newTag);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public IQueryable<Tag> GetAllTag()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Tag> GetAllTag()
+        {
+            return this.tagRepo.GetAll();
+        }
 
-            public Tag GetOneTag(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public Tag GetOneTag(string id)
+        {
+            return this.tagRepo.GetOne(id);
+        }
+    }
 }

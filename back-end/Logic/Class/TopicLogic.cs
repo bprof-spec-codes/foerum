@@ -10,37 +10,61 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class TopicLogic : ITopicLogic
-      {
-            private ITopicRepository topicRepo;
+    public class TopicLogic : ITopicLogic
+    {
+        private ITopicRepository topicRepo;
 
-            public TopicLogic(string dbPassword)
+        public TopicLogic(string dbPassword)
+        {
+            this.topicRepo = new TopicRepository(dbPassword);
+        }
+        public bool CreateTopic(Topic topic)
+        {
+            try
             {
-                  this.topicRepo = new TopicRepository(dbPassword);
+                this.topicRepo.Add(topic);
+                return true;
             }
-            public bool CreateTopic(Topic topic)
+            catch
             {
-                  throw new NotImplementedException();
+                return false;
             }
+        }
 
-            public bool DeleteTopic(string id)
+        public bool DeleteTopic(string id)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.topicRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool EditTopic(string id, Topic newTopic)
+        public bool EditTopic(string id, Topic newTopic)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.topicRepo.Update(id, newTopic);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public IQueryable<Topic> GetAllTopic()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Topic> GetAllTopic()
+        {
+            return this.topicRepo.GetAll();
+        }
 
-            public Topic GetOneTopic(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public Topic GetOneTopic(string id)
+        {
+            return this.topicRepo.GetOne(id);
+        }
+    }
 }

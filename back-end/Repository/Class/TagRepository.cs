@@ -9,37 +9,48 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class TagRepository : ITagRepository
-      {
-            public FoerumDbContext db;
+    public class TagRepository : ITagRepository
+    {
+        public FoerumDbContext db;
 
-            public TagRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(Tag tag)
-            {
-                  throw new NotImplementedException();
-            }
+        public TagRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
+        public void Add(Tag tag)
+        {
+            this.db.Set<Tag>().Add(tag);
+            this.db.SaveChanges();
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Delete(string id)
+        {
+            this.db.Set<Tag>().Remove(this.GetOne(id));
+            this.db.SaveChanges();
+        }
 
-            public IQueryable<Tag> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Tag> GetAll()
+        {
+            return this.db.Set<Tag>();
+        }
 
-            public Tag GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public Tag GetOne(string id)
+        {
+            return this.GetAll().SingleOrDefault(x => x.TagID == id);
+        }
 
-            public void Update(string id, Tag tag)
+        public void Update(string id, Tag tag)
+        {
+            var oldTag = this.GetOne(id);
+            if (oldTag == null || tag == null)
             {
-                  throw new NotImplementedException();
+                throw new ArgumentNullException(nameof(tag), nameof(oldTag));
             }
-      }
+            else
+            {
+                oldTag.TagName = tag.TagName;
+                this.db.SaveChanges();
+            }
+        }
+    }
 }

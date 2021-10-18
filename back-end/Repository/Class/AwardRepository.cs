@@ -9,37 +9,50 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class AwardRepository : IAwardRepository
-      {
-            public FoerumDbContext db;
+    public class AwardRepository : IAwardRepository
+    {
+        public FoerumDbContext db;
 
-            public AwardRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(Award award)
-            {
-                  throw new NotImplementedException();
-            }
+        public AwardRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
+        public void Add(Award award)
+        {
+            this.db.Set<Award>().Add(award);
+            this.db.SaveChanges();
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Delete(string id)
+        {
+            this.db.Set<Award>().Remove(this.GetOne(id));
+            this.db.SaveChanges();
+        }
 
-            public IQueryable<Award> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Award> GetAll()
+        {
+            return this.db.Set<Award>();
+        }
 
-            public Award GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public Award GetOne(string id)
+        {
+            return this.GetAll().SingleOrDefault(x => x.AwardID == id);
+        }
 
-            public void Update(string id, Award award)
+        public void Update(string id, Award award)
+        {
+            var oldAward = this.GetOne(id);
+            if (oldAward == null || award == null)
             {
-                  throw new NotImplementedException();
+                throw new ArgumentNullException(nameof(award), nameof(oldAward));
             }
-      }
+            else
+            {
+                oldAward.AwardName = award.AwardName;
+                oldAward.Points = award.Points;
+                oldAward.IconUrl = award.IconUrl;
+                this.db.SaveChanges();
+            }
+        }
+    }
 }

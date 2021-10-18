@@ -8,46 +8,46 @@ using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
-      /* Every controller needs all the CRUD methods */
-      [Route("[controller]")]
-      [ApiController]
-      public class SubjectController : ControllerBase
-      {
-            private ISubjectLogic subjectLogic;
+    /* Every controller needs all the CRUD methods */
+    [Route("[controller]")]
+    [ApiController]
+    public class SubjectController : ControllerBase
+    {
+        private ISubjectLogic subjectLogic;
 
-            public SubjectController(ISubjectLogic logic)
-            {
-                  this.subjectLogic = logic;
-            }
+        public SubjectController(ISubjectLogic logic)
+        {
+            this.subjectLogic = logic;
+        }
 
-            [HttpGet]
-            public IEnumerable<Subject> GetAllSubject()
-            {
-                  return this.subjectLogic.GetAllSubject();
-            }
+        [HttpGet]
+        public IEnumerable<Subject> GetAllSubject()
+        {
+            return this.subjectLogic.GetAllSubject();
+        }
 
-            [HttpGet("{id}")]
-            public Subject GetOneSubject(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpGet("{id}")]
+        public Subject GetOneSubject(string id)
+        {
+            return this.subjectLogic.GetOneSubject(id);
+        }
 
-            [HttpPost]
-            public void CreateSubject(Subject subject)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPost]
+        public void CreateSubject([FromBody] Subject subject)
+        {
+            this.subjectLogic.CreateSubject(subject);
+        }
 
-            [HttpPut("{id}")]
-            public void EditSubject(string id, [FromBody] Subject newSubject)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPut("{id}")]
+        public void EditSubject(string id, [FromBody] Subject newSubject)
+        {
+            this.subjectLogic.EditSubject(id, newSubject);
+        }
 
-            [HttpDelete("{id}")]
-            public Subject DeleteSubject(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        [HttpDelete("{id}")]
+        public void DeleteSubject(string id)
+        {
+            this.subjectLogic.DeleteSubject(id);
+        }
+    }
 }

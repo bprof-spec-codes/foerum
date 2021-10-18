@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace Repository.Interface
 {
-      public interface ICommentReactersRepository
-      {
-            public void Add(CommentReacters commentReacters);
-            public void Delete(string id);
-            public IQueryable<CommentReacters> GetAll();
-            public CommentReacters GetOne(string id);
-            public void Update(string id, CommentReacters commentReacters);
-      }
+    public interface ICommentReactersRepository
+    {
+        public IEnumerable<string> GetOneCommentAllUser(string commentId);
+        public IEnumerable<string> GetOneUserAllComment(string userId);
+    }
 }
