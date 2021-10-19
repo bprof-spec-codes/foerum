@@ -87,16 +87,17 @@ $breakpoint-mobile: 768px;
                     }
     
                     &--submit {
-                        margin-top: 20px;
+                        margin-top: 15px;
                         color: white;
                         background-color: $base-color;
                         border: solid 2px white;
                         width: 50%;
                         height: 40px;
                         border-radius: 30px;
-                        font-size: 18px;
+                        font-size: 20px;
                         cursor: pointer;
                         font-weight: bold;
+                        text-align: center;
                     }
                 }
             }

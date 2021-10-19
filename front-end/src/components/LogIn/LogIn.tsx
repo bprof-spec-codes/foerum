@@ -31,6 +31,7 @@ const Login = () =>{
                             className="login__login-container__main-container__form-container__form--submit">
                             Bejelentkezés
                         </button>
+                        <a className="login__login-container__main-container__form-container__form--submit" href="./Home">Prop login</a>
                     </form>
                 </div>
             </div>
