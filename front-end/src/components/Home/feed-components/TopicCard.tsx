@@ -3,7 +3,7 @@ import React from 'react'
 const TopicCard = () => {
     return (
         <div>
-            topiccard
+            Sample topic.
         </div>
     )
 }

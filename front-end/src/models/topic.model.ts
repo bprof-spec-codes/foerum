@@ -8,4 +8,6 @@ export interface ITopic {
   attachmentUrl?: string;
 }
 
-export const defaultValue: Readonly<ITopic> = {};
+export const defaultValue: Readonly<ITopic> = {
+  topicId:null
+};
