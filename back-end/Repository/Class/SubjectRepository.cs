@@ -17,6 +17,12 @@ namespace Repository.Class
         {
             this.db = new FoerumDbContext(dbPassword);
         }
+
+        public SubjectRepository()
+        {
+
+        }
+
         public void Add(Subject subject)
         {
             this.db.Set<Subject>().Add(subject);

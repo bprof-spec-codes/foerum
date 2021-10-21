@@ -38,7 +38,7 @@ namespace Test
         [Test]
         public void DeleteAwardTest()
         {
-            this.awardRepository.Setup(award => award.Delete(It.IsAny<string>()));
+            awardRepository.Setup(award => award.Delete(It.IsAny<string>()));
 
             AwardLogic awardLogic = new AwardLogic();
 

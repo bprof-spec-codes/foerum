@@ -42,7 +42,7 @@ namespace Test
         [Test]
         public void DeleteAwardTest()
         {
-            this.commentRepository.Setup(award => award.Delete(It.IsAny<string>()));
+            commentRepository.Setup(award => award.Delete(It.IsAny<string>()));
 
             CommentLogic commentLogic = new CommentLogic();
 
@@ -148,7 +148,7 @@ namespace Test
         [Test]
         public void GetAllCommentTest()
         {
-            AwardLogic commentLogic = new AwardLogic();
+            CommentLogic commentLogic = new CommentLogic();
 
             List<Comment> comments = new List<Comment>()
             {
@@ -189,7 +189,7 @@ namespace Test
 
             commentRepository.Setup(comment => comment.GetAll()).Returns(comments.AsQueryable());
 
-            commentLogic.GetAllAward();
+            commentLogic.GetAllComment();
             commentRepository.Verify(repo => repo.GetAll(), Times.Once);
         }
     }
