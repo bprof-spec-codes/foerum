@@ -30,9 +30,11 @@ export default (
 ): MSAuthenticationState => {
   switch (action.type) {
     case REQUEST(ACTION_TYPES.LOGIN):
+      console.log("req");
       return { ...state, loading: true };
 
     case FAILURE(ACTION_TYPES.LOGIN):
+      console.log("err");
       return {
         ...initialState,
         errorMessage: action.payload,
@@ -40,6 +42,7 @@ export default (
       };
 
     case SUCCESS(ACTION_TYPES.LOGIN):
+      console.log("succ");
       return {
         ...state,
         loading: false,
@@ -59,6 +62,7 @@ export const login = (instance: any) => {
       const bearerToken = `Bearer ${res.idToken}`;
       sessionStorage.setItem(AUTH_TOKEN_KEY, bearerToken);
       setLoginState(res);
+      console.log("login");
     })
     .catch((e: any) => {
       console.error(e);
@@ -66,17 +70,23 @@ export const login = (instance: any) => {
 };
 
 export const setLoginState: (data: any) => void =
-  (data: any) => (dispatch: any) => {
-     dispatch({
+  (data: any) => async(dispatch: any) => {
+    console.log("hello")
+    await dispatch({
       type: ACTION_TYPES.LOGIN,
-      payload: axios.put(
-        "/auth/microsoft",
-        {
-          Name: data.idTokenClaims.name,
-          uniqueName: data.idTokenClaims.preferred_username,
-        },
-        baseHeader
-      ),
+      payload: axios
+        .put(
+          "/auth/microsoft",
+          {
+            Name: data.idTokenClaims.name,
+            uniqueName: data.idTokenClaims.preferred_username,
+          },
+          baseHeader
+        )
+        .then((res) => {
+          sessionStorage.setItem(AUTH_TOKEN_KEY, `Bearer ${res.data.token}`);
+        })
+        .catch((err) => console.error(err)),
     });
   };
 

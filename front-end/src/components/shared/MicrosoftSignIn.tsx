@@ -1,22 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { FC, useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../../ms-auth-config";
 import { connect } from "react-redux";
 import { IRootState } from "src/store/reducers";
-import { useHistory } from "react-router-dom";
+import { login } from "../../store/reducers/ms-authentication";
+import { useHistory } from "react-router";
 
-export interface ILoginProps {
-  isAuthenticated: boolean;
-  login(instance: any): void;
-}
+export interface ILoginProps extends StateProps, DispatchProps {}
 
 export const SignInButton: FC<ILoginProps> = (props) => {
-  const { isAuthenticated, login } = props;
+  const { isAuthenticated } = props;
   const history = useHistory();
   const { instance } = useMsal();
 
   useEffect(() => {
+    console.log(isAuthenticated)
     if (isAuthenticated) {
       history.push("/home");
     }
@@ -27,4 +25,13 @@ export const SignInButton: FC<ILoginProps> = (props) => {
   );
 };
 
-export default SignInButton;
+const mapStateToProps = ({ msAuthentication }: IRootState) => ({
+  isAuthenticated: msAuthentication.isAuthenticated,
+});
+
+const mapDispatchToProps = { login };
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInButton);
