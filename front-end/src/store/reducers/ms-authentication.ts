@@ -56,7 +56,8 @@ export const login = (instance: any) => {
     .loginPopup(loginRequest)
     .then((res: any) => {
       console.log(res);
-      const bearerToken = `Bearer ${res.accessToken}`;
+      const bearerToken = `Bearer ${res.idToken}`;
+      console.log(bearerToken);
       sessionStorage.setItem(AUTH_TOKEN_KEY, bearerToken);
       setLoginState(res);
     })
