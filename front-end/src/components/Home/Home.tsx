@@ -3,7 +3,6 @@ import Feed from "./Feed";
 import ProfileActions from "./ProfileActions";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import Topic from "../Misc/Topic";
 
 const Home = () => {
   return (
@@ -17,10 +16,6 @@ const Home = () => {
 
           <div className="w-2/4 m-5">
             <Feed />
-            <Topic/>
-            <Topic/>
-            <Topic/>
-
           </div>
 
           <div className="w-1/5 m-5">
