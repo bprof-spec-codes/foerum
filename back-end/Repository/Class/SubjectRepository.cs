@@ -9,37 +9,50 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class SubjectRepository : ISubjectRepository
-      {
-            public FoerumDbContext db;
+    public class SubjectRepository : ISubjectRepository
+    {
+        public FoerumDbContext db;
 
-            public SubjectRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(Subject subject)
-            {
-                  throw new NotImplementedException();
-            }
+        public SubjectRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
+        public void Add(Subject subject)
+        {
+            this.db.Set<Subject>().Add(subject);
+            this.db.SaveChanges();
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Delete(string id)
+        {
+            this.db.Set<Subject>().Remove(this.GetOne(id));
+            this.db.SaveChanges();
+        }
 
-            public IQueryable<Subject> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Subject> GetAll()
+        {
+            return this.db.Set<Subject>();
+        }
 
-            public Subject GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public Subject GetOne(string id)
+        {
+            return this.GetAll().SingleOrDefault(x => x.SubjectID == id);
+        }
 
-            public void Update(string id, Subject subject)
+        public void Update(string id, Subject subject)
+        {
+            var oldSubject = this.GetOne(id);
+            if (oldSubject == null || subject == null)
             {
-                  throw new NotImplementedException();
+                throw new ArgumentNullException(nameof(subject), nameof(oldSubject));
             }
-      }
+            else
+            {
+                oldSubject.SubjectName = subject.SubjectName;
+                oldSubject.IsPrivate = subject.IsPrivate;
+                oldSubject.InviteKeyIfPrivate = subject.InviteKeyIfPrivate;
+                this.db.SaveChanges();
+            }
+        }
+    }
 }

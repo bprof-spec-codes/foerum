@@ -9,37 +9,51 @@ using System.Threading.Tasks;
 
 namespace Repository.Class
 {
-      public class MyUserRepository : IMyUserRepository
-      {
-            public FoerumDbContext db;
+    public class MyUserRepository : IMyUserRepository
+    {
+        public FoerumDbContext db;
 
-            public MyUserRepository(string dbPassword)
-            {
-                  this.db = new FoerumDbContext(dbPassword);
-            }
-            public void Add(MyUser user)
-            {
-                  throw new NotImplementedException();
-            }
+        public MyUserRepository(string dbPassword)
+        {
+            this.db = new FoerumDbContext(dbPassword);
+        }
+        public void Add(MyUser user)
+        {
+            this.db.Set<MyUser>().Add(user);
+            this.db.SaveChanges();
+        }
 
-            public void Delete(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public void Delete(string id)
+        {
+            this.db.Set<MyUser>().Remove(this.GetOne(id));
+            this.db.SaveChanges();
+        }
 
-            public IQueryable<MyUser> GetAll()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<MyUser> GetAll()
+        {
+            return this.db.Set<MyUser>();
+        }
 
-            public MyUser GetOne(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        public MyUser GetOne(string id)
+        {
+            return this.GetAll().SingleOrDefault(x => x.Id == id);
+        }
 
-            public void Update(string id, MyUser user)
+        public void Update(string id, MyUser user)
+        {
+            var oldUser = this.GetOne(id);
+            if (oldUser == null || user == null)
             {
-                  throw new NotImplementedException();
+                throw new ArgumentNullException(nameof(user), nameof(oldUser));
             }
-      }
+            else
+            {
+                oldUser.FullName = user.FullName;
+                oldUser.NikCoin = user.NikCoin;
+                oldUser.StartYear = user.StartYear;
+                oldUser.Role = user.Role;
+                this.db.SaveChanges();
+            }
+        }
+    }
 }

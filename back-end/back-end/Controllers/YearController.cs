@@ -8,46 +8,46 @@ using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
-      /* Every controller needs all the CRUD methods */
-      [Route("[controller]")]
-      [ApiController]
-      public class YearController : ControllerBase
-      {
-            private IYearLogic yearLogic;
+    /* Every controller needs all the CRUD methods */
+    [Route("[controller]")]
+    [ApiController]
+    public class YearController : ControllerBase
+    {
+        private IYearLogic yearLogic;
 
-            public YearController(IYearLogic logic)
-            {
-                  this.yearLogic = logic;
-            }
+        public YearController(IYearLogic logic)
+        {
+            this.yearLogic = logic;
+        }
 
-            [HttpGet]
-            public IEnumerable<Year> GetAllYear()
-            {
-                  return this.yearLogic.GetAllYear();
-            }
+        [HttpGet]
+        public IEnumerable<Year> GetAllYear()
+        {
+            return this.yearLogic.GetAllYear();
+        }
 
-            [HttpGet("{id}")]
-            public Year GetOneYear(string id)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpGet("{id}")]
+        public Year GetOneYear(string id)
+        {
+            return this.yearLogic.GetOneYear(id);
+        }
 
-            [HttpPost]
-            public void CreateYear(Year year)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPost]
+        public void CreateYear([FromBody] Year year)
+        {
+            this.yearLogic.CreateYear(year);
+        }
 
-            [HttpPut("{id}")]
-            public void EditYear(string id, [FromBody] Year newYear)
-            {
-                  throw new NotImplementedException();
-            }
+        [HttpPut("{id}")]
+        public void EditYear(string id, [FromBody] Year newYear)
+        {
+            this.yearLogic.EditYear(id, newYear);
+        }
 
-            [HttpDelete("{id}")]
-            public Year DeleteYear(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        [HttpDelete("{id}")]
+        public void DeleteYear(string id)
+        {
+            this.yearLogic.DeleteYear(id);
+        }
+    }
 }

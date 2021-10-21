@@ -10,37 +10,61 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class TransactionLogic : ITransactionLogic
-      {
-            private ITransactionRepository transactionRepo;
+    public class TransactionLogic : ITransactionLogic
+    {
+        private ITransactionRepository transactionRepo;
 
-            public TransactionLogic(string dbPassword)
+        public TransactionLogic(string dbPassword)
+        {
+            this.transactionRepo = new TransactionRepository(dbPassword);
+        }
+        public bool CreateTransaction(Transaction transaction)
+        {
+            try
             {
-                  this.transactionRepo = new TransactionRepository(dbPassword);
+                this.transactionRepo.Add(transaction);
+                return true;
             }
-            public bool CreateTransaction(Transaction transaction)
+            catch
             {
-                  throw new NotImplementedException();
+                return false;
             }
+        }
 
-            public bool DeleteTransaction(string id)
+        public bool DeleteTransaction(string id)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.transactionRepo.Delete(id);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public bool EditTransaction(string id, Transaction newTransaction)
+        public bool EditTransaction(string id, Transaction newTransaction)
+        {
+            try
             {
-                  throw new NotImplementedException();
+                this.transactionRepo.Update(id, newTransaction);
+                return true;
             }
+            catch
+            {
+                return false;
+            }
+        }
 
-            public IQueryable<Transaction> GetAllTransaction()
-            {
-                  throw new NotImplementedException();
-            }
+        public IQueryable<Transaction> GetAllTransaction()
+        {
+            return this.transactionRepo.GetAll();
+        }
 
-            public Transaction GetOneTransaction(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public Transaction GetOneTransaction(string id)
+        {
+            return this.transactionRepo.GetOne(id);
+        }
+    }
 }

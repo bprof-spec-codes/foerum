@@ -10,37 +10,68 @@ using System.Threading.Tasks;
 
 namespace Logic.Class
 {
-      public class CommentReactersLogic : ICommentReactersLogic
-      {
-            private ICommentReactersRepository commentReactersRepo;
+    public class CommentReactersLogic : ICommentReactersLogic
+    {
+        private ICommentReactersRepository commentReactersRepo;
 
-            public CommentReactersLogic(string dbPassword)
-            {
-                  this.commentReactersRepo = new CommentReactersRepository(dbPassword);
-            }
-            public bool CreateCommentReacters(CommentReacters commentReacters)
-            {
-                  throw new NotImplementedException();
-            }
+        public CommentReactersLogic(string dbPassword)
+        {
+            this.commentReactersRepo = new CommentReactersRepository(dbPassword);
+        }
 
-            public bool DeleteCommentReacters(string id)
+        /// TODO: uncomment after repo is implemented
+        public bool CreateCommentReacters(CommentReacters CommentReacters)
+        {
+            throw new NotImplementedException();
+            /*try
             {
-                  throw new NotImplementedException();
+                this.commentReactersRepo.Add(CommentReacters);
+                return true;
             }
+            catch
+            {
+                return false;
+            }*/
+        }
 
-            public bool EditCommentReacters(string id, CommentReacters newCommentReacters)
-            {
-                  throw new NotImplementedException();
-            }
+        public bool DeleteCommentReacters(string id)
+        {
+            throw new NotImplementedException();
+            /*try
+             {
+                 this.commentReactersRepo.Delete(id);
+                 return true;
+             }
+             catch
+             {
+                 return false;
+             }*/
+        }
 
-            public IQueryable<CommentReacters> GetAllCommentReacters()
+        public bool EditCommentReacters(string id, CommentReacters newCommentReacters)
+        {
+            throw new NotImplementedException();
+            /*try
             {
-                  throw new NotImplementedException();
+                this.commentReactersRepo.Update(id, newCommentReacters);
+                return true;
             }
+            catch
+            {
+                return false;
+            }*/
+        }
 
-            public CommentReacters GetOneCommentReacters(string id)
-            {
-                  throw new NotImplementedException();
-            }
-      }
+        public IQueryable<CommentReacters> GetAllCommentReacters()
+        {
+            throw new NotImplementedException();
+            //return this.commentReactersRepo.GetAll();
+        }
+
+        public CommentReacters GetOneCommentReacters(string id)
+        {
+            throw new NotImplementedException();
+            //return this.commentReactersRepo.GetOne(id);
+        }
+    }
 }
