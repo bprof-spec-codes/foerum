@@ -10,7 +10,7 @@ const Header = () => {
 
         <div className="flex p-1 w-full px-56 self-center">
             <div className="flex w-full h-8 bg-white rounded-2xl">
-            <input type="text" className="flex w-full my-1 mx-2 text-black outline-none bg-white" placeholder={`Keress rá bármire!`} />
+            <input type="text" className="flex w-full my-1 mx-2 text-black outline-none text-center bg-white" placeholder={`Keress rá bármire!`} />
             </div>
         </div>
 
