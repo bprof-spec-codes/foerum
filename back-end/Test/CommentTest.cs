@@ -40,7 +40,7 @@ namespace Test
         }
 
         [Test]
-        public void DeleteAwardTest()
+        public void DeleteCommentTest()
         {
             commentRepository.Setup(award => award.Delete(It.IsAny<string>()));
 
@@ -63,7 +63,7 @@ namespace Test
         }
 
         [Test]
-        public void EditAwardTest()
+        public void EditCommentTest()
         {
             Comment oldComment = new Comment()
             {

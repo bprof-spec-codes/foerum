@@ -110,7 +110,7 @@ namespace Test
         }
 
         [Test]
-        public void GetAllCommentTest()
+        public void GetAllSubjectTest()
         {
             SubjectLogic subjectLogic = new SubjectLogic();
 
