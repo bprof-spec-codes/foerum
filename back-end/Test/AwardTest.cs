@@ -72,7 +72,7 @@ namespace Test
                 IconUrl = "xxxx",
             };
 
-            awardRepository.Setup(player => player.Update(oldAward.AwardID, newAward));
+            awardRepository.Setup(award => award.Update(oldAward.AwardID, newAward));
 
             AwardLogic awardLogic = new AwardLogic();
 
