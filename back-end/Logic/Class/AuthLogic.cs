@@ -95,7 +95,7 @@ namespace Logic.Class
                 FullName = model.Name,
                 SecurityStamp = Guid.NewGuid().ToString()
             };
-            var result = await _userManager.CreateAsync(user);
+            var result = await _userManager.CreateAsync(userRegister);
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(userRegister, "User");

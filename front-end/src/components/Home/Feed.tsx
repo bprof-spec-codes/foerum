@@ -3,6 +3,7 @@ import { TopicCard } from "./feed-components";
 
 const Feed = () => {
   const [questions, setQuestions] = useState();
+  
   return (
     <div>
       <div>

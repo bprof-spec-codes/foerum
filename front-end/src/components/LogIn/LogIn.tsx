@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
 import { login } from "../../store/reducers/authentication";
+import { SignInButton, SignOutButton } from "../shared";
 
 export interface ILoginProps
   extends StateProps,
@@ -10,22 +11,26 @@ export interface ILoginProps
     RouteComponentProps<{}> {}
 
 const LogIn: FC<ILoginProps> = (props) => {
-  const [userName, setUserName] = useState<string>("");
-  /* create password based on username here */
-
-  const handleSubmit = () => {
-    /* u should call props.login inside here */
-  };
-
   return (
     <div>
       <div>
         {/* this div is the left sido of the login page(figma) */}
         <div></div>
 
-        {/* this div is the left sido of the login page(figma) */}
         <div>
-          {/* u shloud create a form inside here(u can use form tag with inputs and submit button(recommended) or a simple div with inputs) */}
+          <SignInButton />
+        </div>
+        <div>
+          <SignOutButton />
+        </div>
+
+        <div>
+          <SignOutButton />
+        </div>
+
+        {/* this div is the left sido of the login page(figma) */}
+        {/*
+        <div>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -35,6 +40,7 @@ const LogIn: FC<ILoginProps> = (props) => {
             <button type="submit">button</button>
           </form>
         </div>
+        */}
       </div>
     </div>
   );
