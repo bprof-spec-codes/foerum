@@ -45,6 +45,7 @@ export default (
         loading: false,
         loginError: false,
         loginSuccess: true,
+        isAuthenticated: true,
       };
     default:
       return state;
@@ -64,24 +65,20 @@ export const login = (instance: any) => {
     });
 };
 
-export const setLoginState = (data: any) => ({
-  type: ACTION_TYPES.LOGIN,
-  payload: axios
-    .put(
-      "/auth/microsoft",
-      {
-        Name: data.idTokenClaims.name,
-        uniqueName: data.idTokenClaims.preferred_username,
-      },
-      baseHeader
-    )
-    .then((res) => {
-      console.log(res);
-      sessionStorage.setItem(AUTH_TOKEN_KEY, `Bearer ${res.data.token}`);
-      console.log(sessionStorage.getItem(AUTH_TOKEN_KEY));
-    })
-    .catch((err) => console.error(err)),
-});
+export const setLoginState: (data: any) => void =
+  (data: any) => (dispatch: any) => {
+     dispatch({
+      type: ACTION_TYPES.LOGIN,
+      payload: axios.put(
+        "/auth/microsoft",
+        {
+          Name: data.idTokenClaims.name,
+          uniqueName: data.idTokenClaims.preferred_username,
+        },
+        baseHeader
+      ),
+    });
+  };
 
 export const logout = (instance: any) => {
   instance

@@ -68,7 +68,7 @@ export const login: (
   async (dispatch: any) => {
     const result = await dispatch({
       type: ACTION_TYPES.LOGIN,
-      payload: axios.post("api/auth", {
+      payload: axios.put("api/auth", {
         username,
         password,
         /* rememberMe, */

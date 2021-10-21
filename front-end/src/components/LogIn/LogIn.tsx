@@ -4,7 +4,7 @@ import logo from "../../assets/images/logo.png";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
-import { login } from "../../store/reducers/authentication";
+import { login } from "../../store/reducers/ms-authentication";
 import { SignInButton, SignOutButton } from "../shared";
 
 export interface ILoginProps
@@ -55,7 +55,10 @@ const LogIn: FC<ILoginProps> = (props) => {
               </button>
             </form>
             <div>
-              <SignInButton />
+              <SignInButton
+                isAuthenticated={props.isAuthenticated}
+                login={props.login}
+              />
             </div>
             <div>
               <SignOutButton />
@@ -66,9 +69,10 @@ const LogIn: FC<ILoginProps> = (props) => {
     </div>
   );
 };
-const mapStateToProps = ({ authentication }: IRootState) => ({
+const mapStateToProps = ({ authentication, msAuthentication }: IRootState) => ({
   isAuthenticated: authentication.isAuthenticated,
   loginError: authentication.loginError,
+  msisAuthenticated: msAuthentication.isAuthenticated,
 });
 
 const mapDispatchToProps = { login };

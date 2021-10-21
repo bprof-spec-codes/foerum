@@ -1,32 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
+import React, { FC, useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../ms-auth-config";
 import { connect } from "react-redux";
 import { IRootState } from "src/store/reducers";
-import { login } from "../../store/reducers/ms-authentication";
+import { useHistory } from "react-router-dom";
 
-/**
- * Renders a button which, when selected, will redirect the page to the login prompt
- */
-export const SignInButton = () => {
+export interface ILoginProps {
+  isAuthenticated: boolean;
+  login(instance: any): void;
+}
+
+export const SignInButton: FC<ILoginProps> = (props) => {
+  const { isAuthenticated, login } = props;
+  const history = useHistory();
   const { instance } = useMsal();
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/home");
+    }
+  }, [isAuthenticated]);
+
   return (
-    <button onClick={() => login(instance)}>
-      Sign in using Redirect
-    </button>
+    <button onClick={() => login(instance)}>Sign in using Redirect</button>
   );
 };
 
-const mapStateToProps = ({ msAuthentication }: IRootState) => ({
-  isAuthenticated: msAuthentication.isAuthenticated,
-  loginError: msAuthentication.loginError,
-});
-
-const mapDispatchToProps = { login };
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignInButton);
+export default SignInButton;
