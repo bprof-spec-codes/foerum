@@ -12,7 +12,6 @@ import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "./ms-auth-config";
 
 const store = createStore(rootReducer);
-
 const msalInstance = new PublicClientApplication(msalConfig);
 
 ReactDOM.render(

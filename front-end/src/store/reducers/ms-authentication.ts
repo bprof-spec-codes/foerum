@@ -6,8 +6,8 @@ import { FAILURE, REQUEST, SUCCESS } from "./action-type.util";
 import { baseHeader } from "src/shared/types/headers";
 
 export const ACTION_TYPES = {
-  LOGIN: "ms-authentication/login",
-  LOGOUT: "ms-authentication/logout",
+  LOGIN: "msAuthentication/LOGIN",
+  LOGOUT: "msAuthentication/LOGOUT",
 };
 
 const AUTH_TOKEN_KEY = "token";
@@ -29,19 +29,7 @@ export default (
   action: any
 ): MSAuthenticationState => {
   switch (action.type) {
-    case REQUEST(ACTION_TYPES.LOGIN):
-      console.log("req");
-      return { ...state, loading: true };
-
-    case FAILURE(ACTION_TYPES.LOGIN):
-      console.log("err");
-      return {
-        ...initialState,
-        errorMessage: action.payload,
-        loginError: true,
-      };
-
-    case SUCCESS(ACTION_TYPES.LOGIN):
+    case ACTION_TYPES.LOGIN:
       console.log("succ");
       return {
         ...state,
@@ -55,40 +43,38 @@ export default (
   }
 };
 
-export const login = (instance: any) => {
+export const login = (instance: any, dispatch: any) => {
   instance
     .loginPopup(loginRequest)
     .then((res: any) => {
       const bearerToken = `Bearer ${res.idToken}`;
       sessionStorage.setItem(AUTH_TOKEN_KEY, bearerToken);
-      setLoginState(res);
-      console.log("login");
+      dispatch(setLoginState(res));
     })
     .catch((e: any) => {
       console.error(e);
     });
 };
 
-export const setLoginState: (data: any) => void =
-  (data: any) => async(dispatch: any) => {
-    console.log("hello")
-    await dispatch({
-      type: ACTION_TYPES.LOGIN,
-      payload: axios
-        .put(
-          "/auth/microsoft",
-          {
-            Name: data.idTokenClaims.name,
-            uniqueName: data.idTokenClaims.preferred_username,
-          },
-          baseHeader
-        )
-        .then((res) => {
-          sessionStorage.setItem(AUTH_TOKEN_KEY, `Bearer ${res.data.token}`);
-        })
-        .catch((err) => console.error(err)),
-    });
+export const setLoginState = (data: any) => {
+  console.log("hello");
+  return {
+    type: ACTION_TYPES.LOGIN,
+    payload: axios
+      .put(
+        "/auth/microsoft",
+        {
+          Name: data.idTokenClaims.name,
+          uniqueName: data.idTokenClaims.preferred_username,
+        },
+        baseHeader
+      )
+      .then((res) => {
+        sessionStorage.setItem(AUTH_TOKEN_KEY, `Bearer ${res.data.token}`);
+      })
+      .catch((err) => console.error(err)),
   };
+};
 
 export const logout = (instance: any) => {
   instance
