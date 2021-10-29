@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.topicRepo = new TopicRepository(dbPassword);
         }
+
+        public TopicLogic(ITopicRepository repo)
+        {
+            this.topicRepo = repo;
+        }
+
         public bool CreateTopic(Topic topic)
         {
             try

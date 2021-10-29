@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.subjectRepo = new SubjectRepository(dbPassword);
         }
+
+        public SubjectLogic(ISubjectRepository repo)
+        {
+            this.subjectRepo = repo;
+        }
+
         public bool CreateSubject(Subject subject)
         {
             try
