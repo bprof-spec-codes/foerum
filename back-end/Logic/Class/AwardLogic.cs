@@ -19,9 +19,15 @@ namespace Logic.Class
             this.awardRepo = new AwardRepository(dbPassword);
         }
 
+<<<<<<< HEAD
         public AwardLogic(IAwardRepository repo)
         {
             this.awardRepo = repo;
+=======
+        public AwardLogic()
+        {
+
+>>>>>>> test/basic-crud
         }
 
         public bool CreateAward(Award award)

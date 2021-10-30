@@ -24,6 +24,12 @@ namespace Logic.Class
             this.tagRepo = repo;
         }
 
+
+        public TagLogic()
+        {
+
+        }
+
         public bool CreateTag(Tag tag)
         {
             try
