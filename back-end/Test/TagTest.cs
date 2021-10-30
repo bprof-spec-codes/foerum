@@ -21,7 +21,7 @@ namespace Test
         {
             tagRepository.Setup(subject => subject.Add(It.IsAny<Tag>()));
 
-            TagLogic tagLogic = new TagLogic();
+            TagLogic tagLogic = new TagLogic(tagRepository.Object);
 
             Tag tag = new Tag()
             {
@@ -38,7 +38,7 @@ namespace Test
         {
             tagRepository.Setup(tag => tag.Delete(It.IsAny<string>()));
 
-            TagLogic tagLogic = new TagLogic();
+            TagLogic tagLogic = new TagLogic(tagRepository.Object);
 
             Tag tag = new Tag()
             {
@@ -66,7 +66,7 @@ namespace Test
 
             tagRepository.Setup(tag => tag.Update(oldTag.TagID, newTag));
 
-            TagLogic tagLogic = new TagLogic();
+            TagLogic tagLogic = new TagLogic(tagRepository.Object);
 
             tagLogic.EditTag(oldTag.TagID, newTag);
             tagRepository.Verify(repo => repo.Update(oldTag.TagID, newTag), Times.Once);
@@ -75,7 +75,7 @@ namespace Test
         [Test]
         public void GetOneTagTest()
         {
-            TagLogic tagLogic = new TagLogic();
+            TagLogic tagLogic = new TagLogic(tagRepository.Object);
 
             List<Tag> tags = new List<Tag>()
             {
@@ -105,7 +105,7 @@ namespace Test
         [Test]
         public void GetAllTagTest()
         {
-            TagLogic tagLogic = new TagLogic();
+            TagLogic tagLogic = new TagLogic(tagRepository.Object);
 
             List<Tag> tags = new List<Tag>()
             {

@@ -21,7 +21,7 @@ namespace Test
         {
             commentRepository.Setup(comment => comment.Add(It.IsAny<Comment>()));
 
-            CommentLogic commentLogic = new CommentLogic();
+            CommentLogic commentLogic = new CommentLogic(commentRepository.Object);
 
             Comment comment = new Comment()
             {
@@ -44,7 +44,7 @@ namespace Test
         {
             commentRepository.Setup(award => award.Delete(It.IsAny<string>()));
 
-            CommentLogic commentLogic = new CommentLogic();
+            CommentLogic commentLogic = new CommentLogic(commentRepository.Object);
 
             Comment comment = new Comment()
             {
@@ -91,7 +91,7 @@ namespace Test
 
             commentRepository.Setup(comment => comment.Update(oldComment.CommentID, newComment));
 
-            CommentLogic commentLogic = new CommentLogic();
+            CommentLogic commentLogic = new CommentLogic(commentRepository.Object);
 
             commentLogic.EditComment(oldComment.CommentID, newComment);
             commentRepository.Verify(repo => repo.Update(oldComment.CommentID, newComment), Times.Once);
@@ -100,7 +100,7 @@ namespace Test
         [Test]
         public void GetOneCommentTest()
         {
-            CommentLogic commentLogic = new CommentLogic();
+            CommentLogic commentLogic = new CommentLogic(commentRepository.Object);
 
             List<Comment> comments = new List<Comment>()
             {
@@ -148,7 +148,7 @@ namespace Test
         [Test]
         public void GetAllCommentTest()
         {
-            CommentLogic commentLogic = new CommentLogic();
+            CommentLogic commentLogic = new CommentLogic(commentRepository.Object);
 
             List<Comment> comments = new List<Comment>()
             {

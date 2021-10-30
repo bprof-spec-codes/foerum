@@ -21,7 +21,7 @@ namespace Test
         {
             subjectRepository.Setup(subject => subject.Add(It.IsAny<Subject>()));
 
-            SubjectLogic subjectLogic = new SubjectLogic();
+            SubjectLogic subjectLogic = new SubjectLogic(subjectRepository.Object);
 
             Subject subject = new Subject()
             {
@@ -39,7 +39,7 @@ namespace Test
         {
             this.subjectRepository.Setup(subject => subject.Delete(It.IsAny<string>()));
 
-            SubjectLogic subjectLogic = new SubjectLogic();
+            SubjectLogic subjectLogic = new SubjectLogic(subjectRepository.Object);
 
             Subject subject = new Subject()
             {
@@ -70,7 +70,7 @@ namespace Test
 
             subjectRepository.Setup(subject => subject.Update(oldSubject.SubjectID, newSubject));
 
-            SubjectLogic subjectLogic = new SubjectLogic();
+            SubjectLogic subjectLogic = new SubjectLogic(subjectRepository.Object);
 
             subjectLogic.EditSubject(oldSubject.SubjectID, newSubject);
             subjectRepository.Verify(repo => repo.Update(oldSubject.SubjectID, newSubject), Times.Once);
@@ -79,7 +79,7 @@ namespace Test
         [Test]
         public void GetOneSubjectTest()
         {
-            SubjectLogic subjectLogic = new SubjectLogic();
+            SubjectLogic subjectLogic = new SubjectLogic(subjectRepository.Object);
 
             List<Subject> subjects = new List<Subject>()
             {
@@ -112,7 +112,7 @@ namespace Test
         [Test]
         public void GetAllSubjectTest()
         {
-            SubjectLogic subjectLogic = new SubjectLogic();
+            SubjectLogic subjectLogic = new SubjectLogic(subjectRepository.Object);
 
             List<Subject> subjects = new List<Subject>()
             {

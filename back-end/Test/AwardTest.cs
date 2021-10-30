@@ -21,7 +21,7 @@ namespace Test
         {
             awardRepository.Setup(award => award.Add(It.IsAny<Award>()));
 
-            AwardLogic awardLogic = new AwardLogic();
+            AwardLogic awardLogic = new AwardLogic(awardRepository.Object);
 
             Award award = new Award()
             {
@@ -40,7 +40,7 @@ namespace Test
         {
             awardRepository.Setup(award => award.Delete(It.IsAny<string>()));
 
-            AwardLogic awardLogic = new AwardLogic();
+            AwardLogic awardLogic = new AwardLogic(awardRepository.Object);
 
             Award award = new Award()
             {
@@ -74,7 +74,7 @@ namespace Test
 
             awardRepository.Setup(award => award.Update(oldAward.AwardID, newAward));
 
-            AwardLogic awardLogic = new AwardLogic();
+            AwardLogic awardLogic = new AwardLogic(awardRepository.Object);
 
             awardLogic.EditAward(oldAward.AwardID, newAward);
             awardRepository.Verify(repo => repo.Update(oldAward.AwardID, newAward), Times.Once);
@@ -83,7 +83,7 @@ namespace Test
         [Test]
         public void GetOneAwardTest()
         {
-            AwardLogic awardLogic = new AwardLogic();
+            AwardLogic awardLogic = new AwardLogic(awardRepository.Object);
 
             List<Award> awards = new List<Award>()
             {
@@ -119,7 +119,7 @@ namespace Test
         [Test]
         public void GetAllAwardTest()
         {
-            AwardLogic awardLogic = new AwardLogic();
+            AwardLogic awardLogic = new AwardLogic(awardRepository.Object);
 
             List<Award> awards = new List<Award>()
             {

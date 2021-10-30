@@ -25,11 +25,6 @@ namespace Logic.Class
         }
 
 
-        public TagLogic()
-        {
-
-        }
-
         public bool CreateTag(Tag tag)
         {
             try
