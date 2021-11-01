@@ -15,7 +15,13 @@ namespace Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string TopicID { get; set; }
         public string SubjectID { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        public Subject Subject { get; set; }
         public string UserID { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        public MyUser User { get; set; }
         public string TopicName { get; set; }
         public DateTime CreationDate { get; set; }
         public int OfferedCoins { get; set; }

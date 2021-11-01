@@ -16,6 +16,9 @@ namespace Models
         public string SubjectID { get; set; }
         //[ForeignKey("Year")]
         public string YearID { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        public Year Year { get; set; }
         public string SubjectName { get; set; }
         public bool IsPrivate { get; set; }
         public string InviteKeyIfPrivate { get; set; }

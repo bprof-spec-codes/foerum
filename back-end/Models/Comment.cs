@@ -15,7 +15,13 @@ namespace Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string CommentID { get; set; }
         public string TopicID { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        public Topic Topic { get; set; }
         public string UserID { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        public MyUser User { get; set; }
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
         public string AttachmentUrl { get; set; }
