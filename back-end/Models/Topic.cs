@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Models
@@ -19,5 +20,12 @@ namespace Models
         public DateTime CreationDate { get; set; }
         public int OfferedCoins { get; set; }
         public string AttachmentURL { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<TopicTags> Tags { get; set; }
+
+        public Topic()
+        {
+            this.Tags = new HashSet<TopicTags>();
+        }
     }
 }
