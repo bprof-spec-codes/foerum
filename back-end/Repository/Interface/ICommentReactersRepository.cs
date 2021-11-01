@@ -9,7 +9,7 @@ namespace Repository.Interface
 {
     public interface ICommentReactersRepository
     {
-        public IEnumerable<string> GetOneCommentAllUser(string commentId);
-        public IEnumerable<string> GetOneUserAllComment(string userId);
+        public IEnumerable<MyUser> GetOneCommentAllUser(string commentId);
+        public IEnumerable<Comment> GetOneUserAllComment(string userId);
     }
 }
