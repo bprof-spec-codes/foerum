@@ -182,6 +182,5 @@ namespace Test
             topicLogic.GetAllTopic();
             topicRepository.Verify(repo => repo.GetAll(), Times.Once);
         }
-
     }
 }
