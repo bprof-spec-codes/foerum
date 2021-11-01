@@ -24,6 +24,12 @@ namespace Test
         public Mock<ICommentReactersRepository> commentReactersRepository = new Mock<ICommentReactersRepository>();
         
         [Test]
+        public void GetOneUserAllCommentTest()
+        {
+            // TODO
+        }
+
+        [Test]
         public void GetOneCommentAllUserTest()
         {
             CommentReactersLogic commentReactersLogic = new CommentReactersLogic(commentReactersRepository.Object);
