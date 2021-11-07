@@ -5,6 +5,7 @@ import Topic from "../Misc/Topic";
 
 const Feed = () => {
   const [topics, setTopics] = useState<ITopic[]>([]);
+  const [showAddComment, setShowAddComment] = useState(false)
 
   useEffect(() => {
     axios
@@ -25,7 +26,12 @@ const Feed = () => {
         {topics &&
             topics.map((topic) => (
               <div>
-                <Topic {...topic}/>
+                <Topic 
+                  {...topic} 
+                  onAdd={()=>setShowAddComment(!showAddComment)}
+                  showAdd={showAddComment}
+                />
+
               </div>
             ))}
         </div>

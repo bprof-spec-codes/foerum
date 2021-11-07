@@ -6,6 +6,9 @@ export interface ITopic {
   creationDate?: string | Date;
   offeredCoins?: number;
   attachmentUrl?: string;
+
+  onAdd?: any;
+  showAdd?: boolean;
 }
 
 export const defaultValue: Readonly<ITopic> = {};

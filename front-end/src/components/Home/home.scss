@@ -22,10 +22,16 @@ $cool-blueish-color: #E6E6E6;
     background: #E6E6E6;
 
     &__inner{
-        border: 0px;
+        border: 2px solid #182A4E;
         border-radius: 5px;
-        min-height: 100px;
+        min-height: 5px;
         background: #ffffff;
+        &__comment-container{
+            min-height: 150px;
+            background: #ffffff;
+            border: 2px solid #182A4E;
+            border-radius: 5px;
+        }
     }
 }
 
@@ -42,3 +48,32 @@ $cool-blueish-color: #E6E6E6;
         transition: transform 1s ease;
     }
 }
+
+.btn {
+    display:flexbox;
+    background: rgb(19, 90, 122);
+    color: #fff;
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .btn:focus {
+    outline: none;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
