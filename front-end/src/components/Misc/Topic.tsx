@@ -16,7 +16,7 @@ const Topic = (topic: ITopic, onAdd: any, showAdd: boolean) =>{
             <h3>Létrehozás dátuma: {topic.creationDate}</h3>
             <h2>A válaszért {topic.offeredCoins} db NIKCoint ajánlok fel.</h2>
             <br/>
-            <p className="container__inner__comment-container">Kommentek:</p>
+            <p className="container__inner__comment-container">Hozzászólások:</p>
             <br/>
             
             <header>
