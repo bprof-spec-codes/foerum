@@ -7,12 +7,12 @@ const Topic = (topic: ITopic) =>{
         <div className="container">
             <h1>User ID-je: {topic.userId}</h1><br/>
             <h1 className="container__inner">{topic.topicName}</h1>
-            <p>A kérdés a {topic.subjectId} id-jű témához tartozik</p>
             <h2>Csatolmányok: {topic.attachmentUrl}</h2>
             <h3>Létrehozás dátuma: {topic.creationDate}</h3>
             <h2>A válaszért {topic.offeredCoins} db NIKCoint ajánlok fel.</h2>
             <br/>
             <p className="container__inner">Kommentek:</p>
+            
         </div>
     )
 }

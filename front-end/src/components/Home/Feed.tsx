@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "src/axios";
 import { ITopic } from "src/models/topic.model";
 import Topic from "../Misc/Topic";
-import { TopicCard } from "./feed-components";
 
 const Feed = () => {
   const [topics, setTopics] = useState<ITopic[]>([]);

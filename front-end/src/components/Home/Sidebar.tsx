@@ -2,9 +2,12 @@ import axios from "../../axios";
 import React, { useEffect, useState } from "react";
 import { ISubject } from "src/models/subject.model";
 import Subject from "./sidebar-components/Subject";
+import { IYear } from "src/models/year.model";
+import Year from "./sidebar-components/Year";
 
 const Sidebar = () => {
   const [subjects, setSubjects] = useState<ISubject[]>([]);
+  const [years, setYears] = useState<IYear[]>([]);
 
   useEffect(() => {
     axios
@@ -16,22 +19,44 @@ const Sidebar = () => {
       .catch((err) => {
         console.log(err);
       });
+
+      axios
+      .get<IYear[]>("http://localhost:8585/Year")
+      .then((res) => {
+        setYears(res.data);
+        //console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }, []);
   
 
   return (
     <div>
       <div className="flex-col bg-basewhitebg">
-        <div className="h-16 bg-basebg text-white rounded-t-2xl">
-          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Évfolyamok/témák</h4>
+      <div className="h-16 bg-basebg text-white rounded-t-2xl">
+          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Évfolyamok</h4>
         </div>
+        <div>
+          {years &&
+            years.map((year) => (
+              <div>
+                <Year {...year}/>
+              </div>
+            ))}
 
+        </div>
+      
+        <div className="h-16 bg-basebg text-white rounded-t-2xl">
+          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Témák</h4>
+        </div>
         <div className="flex w-full p-3  px-5 self-center">
             <div className="flex w-full h-8 bg-white rounded-2xl">
             <input type="text" className="flex w-full my-1 mx-2 text-black outline-none text-center bg-white" placeholder={`Keress rá egy témára!`} />
             </div>
         </div>
-
         <div>
           {subjects &&
             subjects.map((subject) => (
@@ -41,6 +66,8 @@ const Sidebar = () => {
             ))}
 
         </div>
+
+
       </div>
     </div>
   );
