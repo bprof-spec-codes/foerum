@@ -55,5 +55,21 @@ namespace Repository.Class
                 this.db.SaveChanges();
             }
         }
+
+        public void AddTagToTopic(Tag tag, string topicId)
+        {
+            this.GetOne(topicId).Tags.Add(new TopicTags { TagID = tag.TagID });
+            this.db.SaveChanges();
+        }
+
+        public void DeleteTagFromTopic(Tag tag, string topicId)
+        {
+            TopicTags topicTags = this.GetOne(topicId).Tags.FirstOrDefault(tag => tag.TagID == tag.TagID);
+            if (topicTags != null)
+            {
+                this.GetOne(topicId).Tags.Remove(topicTags);
+                this.db.SaveChanges();
+            }
+        }
     }
 }
