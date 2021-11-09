@@ -10,6 +10,7 @@ const AddComment = (topic: ITopic) => {
                 <input placeholder='Ide írhatod hozzászólásod szövegét' type='text' onChange={e => setCommentBody(e.target.value)}/>
                 <br/>
             </div>
+            
             <button style={{backgroundColor:"#182A4E"}} className='btn'>Küldés</button>
         </div>
     )
