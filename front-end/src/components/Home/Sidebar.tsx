@@ -41,8 +41,8 @@ const Sidebar = () => {
         </div>
         <div>
           {years &&
-            years.map((year) => (
-              <div>
+            years.map((year,i) => (
+              <div key={i}>
                 <Year {...year}/>
               </div>
             ))}
@@ -59,8 +59,8 @@ const Sidebar = () => {
         </div>
         <div>
           {subjects &&
-            subjects.map((subject) => (
-              <div>
+            subjects.map((subject,i) => (
+              <div key={i}>
                 <Subject {...subject}/>
               </div>
             ))}

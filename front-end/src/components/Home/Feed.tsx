@@ -12,7 +12,7 @@ const Feed = () => {
       .get<ITopic[]>("http://localhost:8585/Topic")
       .then((res) => {
         setTopics(res.data);
-        //console.log(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -24,11 +24,10 @@ const Feed = () => {
       <div>
         <div>
         {topics &&
-            topics.map((topic) => (
-              <div>
+            topics.map((topic,i) => (
+              <div key={i}>
                 <Topic 
                   {...topic} 
-                  onAdd={()=>setShowAddComment(!showAddComment)}
                   showAdd={showAddComment}
                 />
 
