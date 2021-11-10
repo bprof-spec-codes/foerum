@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data.SqlClient;
@@ -46,6 +47,69 @@ namespace Data
                 new { Id = "d2b948cc-8ba9-4ad4-b1d0-958432e22d2e", Name = "Moderator", NormalizedName = "MODERATOR" },
                 new { Id = "d2b948cc-8ba9-4ad4-b1b0-958432e22d3e", Name = "User", NormalizedName = "USER" }
             );
+
+            // Comment-User
+            modelBuilder.Entity<CommentReacters>(entity =>
+            {
+                entity
+                .HasKey(commentReacters => new { commentReacters.CommentID, commentReacters.UserID });
+            });
+            modelBuilder.Entity<CommentReacters>(entity =>
+            {
+                entity
+                .HasOne(commentReacters => commentReacters.Comment)
+                .WithMany(comment => comment.Reacters)
+                .HasForeignKey(commentReacters => commentReacters.CommentID);
+            });
+            modelBuilder.Entity<CommentReacters>(entity =>
+            {
+                entity
+                .HasOne(commentReacters => commentReacters.User)
+                .WithMany(user => user.Comments)
+                .HasForeignKey(commentReacters => commentReacters.UserID);
+            });
+
+            // Subject-User
+            modelBuilder.Entity<SubjectUsers>(entity =>
+            {
+                entity
+                .HasKey(subjectUsers => new { subjectUsers.SubjectID, subjectUsers.UserID });
+            });
+            modelBuilder.Entity<SubjectUsers>(entity =>
+            {
+                entity
+                .HasOne(subjectUsers => subjectUsers.Subject)
+                .WithMany(subject => subject.Users)
+                .HasForeignKey(subjectUsers => subjectUsers.SubjectID);
+            });
+            modelBuilder.Entity<SubjectUsers>(entity =>
+            {
+                entity
+                .HasOne(subjectUsers => subjectUsers.User)
+                .WithMany(user => user.Subjects)
+                .HasForeignKey(subjectUsers => subjectUsers.UserID);
+            });
+
+            // Topic-Tag
+            modelBuilder.Entity<TopicTags>(entity =>
+            {
+                entity
+                .HasKey(topicTags => new { topicTags.TopicID, topicTags.TagID });
+            });
+            modelBuilder.Entity<TopicTags>(entity =>
+            {
+                entity
+                .HasOne(topicTags => topicTags.Topic)
+                .WithMany(topic => topic.Tags)
+                .HasForeignKey(topicTags => topicTags.TopicID);
+            });
+            modelBuilder.Entity<TopicTags>(entity =>
+            {
+                entity
+                .HasOne(topicTags => topicTags.Tag)
+                .WithMany(user => user.Topics)
+                .HasForeignKey(topicTags => topicTags.TagID);
+            });
         }
         public virtual DbSet<Models.MyRole> MyRole { get; set; }
         public virtual DbSet<Models.Award> Award { get; set; }
