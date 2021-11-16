@@ -59,5 +59,21 @@ namespace Repository.Class
             this.db.Set<Comment>().Add(newComment);
             this.db.SaveChanges();
         }
+
+        public void AddUserToComment(MyUser user, string commentId)
+        {
+            this.GetOne(commentId).Reacters.Add(new CommentReacters { UserID = user.Id });
+            this.db.SaveChanges();
+        }
+
+        public void DeleteUserFromComment(MyUser user, string commentId)
+        {
+            CommentReacters commentReacters = this.GetOne(commentId).Reacters.FirstOrDefault(user => user.UserID == user.UserID);
+            if (commentReacters != null)
+            {
+                this.GetOne(commentId).Reacters.Remove(commentReacters);
+                this.db.SaveChanges();
+            }
+        }
     }
 }

@@ -18,14 +18,14 @@ namespace Repository.Class
             this.db = new FoerumDbContext(dbPassword);
         }
 
-        public IEnumerable<string> GetOneCommentAllUser(string commentId)
+        public IEnumerable<MyUser> GetOneCommentAllUser(string commentId)
         {
-            return this.db.Set<CommentReacters>().Where(x => x.CommentID == commentId).Select(x => x.UserID);
+            return this.db.Set<CommentReacters>().Where(x => x.CommentID == commentId).Select(x => x.User);
         }
 
-        public IEnumerable<string> GetOneUserAllComment(string userId)
+        public IEnumerable<Comment> GetOneUserAllComment(string userId)
         {
-            return this.db.Set<CommentReacters>().Where(x => x.UserID == userId).Select(x => x.CommentID);
+            return this.db.Set<CommentReacters>().Where(x => x.UserID == userId).Select(x => x.Comment);
         }
     }
 }
