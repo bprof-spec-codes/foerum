@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.awardRepo = new AwardRepository(dbPassword);
         }
+
+        public AwardLogic(IAwardRepository repo)
+        {
+            this.awardRepo = repo;
+        }
+
         public bool CreateAward(Award award)
         {
             try

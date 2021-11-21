@@ -17,6 +17,11 @@ namespace Logic
             this.yearRepo = new YearRepository(dbPassword);
         }
 
+        public YearLogic(IYearRepository repo)
+        {
+            this.yearRepo = repo;
+        }
+
         public bool CreateYear(Year year)
         {
             try

@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.subjectRepo = new SubjectUsersRepository(dbPassword);
         }
+
+        public SubjectUsersLogic(ISubjectUsersRepository repo)
+        {
+            this.subjectRepo = repo;
+        }
+
         /// TODO: uncomment after repo is implemented
         public bool CreateSubjectUsers(SubjectUsers subjectUsers)
         {
