@@ -57,9 +57,6 @@ const LogIn: FC<ILoginProps> = (props) => {
             <div>
               <SignInButton />
             </div>
-            <div>
-              <SignOutButton />
-            </div>
           </div>
         </div>
       </div>

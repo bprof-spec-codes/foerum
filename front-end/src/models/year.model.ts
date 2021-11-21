@@ -3,4 +3,6 @@ export interface IYear {
   yearName?: string;
 }
 
-export const defaultValue:Readonly<IYear>={}
+export const defaultValue:Readonly<IYear>={
+  yearId: null
+}

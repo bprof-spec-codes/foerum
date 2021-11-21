@@ -23,7 +23,7 @@ export const SignInButton: FC<ILoginProps> = (props) => {
 
   return (
     <button onClick={() => login(instance, dispatch)}>
-      Sign in using Redirect
+      Bejelentkezés Microsoft fiókkal
     </button>
   );
 };
