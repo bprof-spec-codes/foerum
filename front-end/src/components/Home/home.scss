@@ -1,0 +1,119 @@
+$base-color: #182A4E;
+$cool-yellow-color: #FCAF26;
+$cool-blueish-color: #E6E6E6;
+
+.header{
+    background-color: #182A4E;
+}
+
+.home{
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 700px;
+    min-width: 20px;
+    margin: 30px auto;
+    overflow: auto;
+    min-height: 400px;
+    border: 3px solid #182A4E;
+    padding: 30px;
+    border-radius: 5px;
+    background: #E6E6E6;
+
+    &__inner{
+        border: 2px solid #182A4E;
+        border-radius: 5px;
+        min-height: 5px;
+        background: #ffffff;
+        &__comment-container{
+            min-height: 150px;
+            background: #ffffff;
+            border: 2px solid #182A4E;
+            border-radius: 5px;
+        }
+    }
+}
+
+.topics {
+    display: flex;
+    height: 100%;
+    background-color: #E6E6E6;
+    &__colored-container {
+        position: absolute;
+        background-color:#182A4E;
+        width: 25%;
+        height: 100vh;
+        z-index: 1;
+        transition: transform 1s ease;
+    }
+}
+
+.btn {
+    display:flexbox;
+    background: rgb(19, 90, 122);
+    color: #fff;
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .btn:focus {
+    outline: none;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+}
+
+.form-control {
+    margin: 20px;
+  }
+  
+  .form-control label {
+    display: block;
+  }
+  
+  .form-control input {
+    width: 100%;
+    margin: 5px;
+    padding: 3px 7px;
+    font-size: 15px;
+    min-height: 50px;
+  }
+  
+  .form-control select 
+  {
+    width: 100%;
+    height: 40px;
+    margin: 5px;
+    padding: 3px 7px;
+    font-size: 17px;
+  }
+  
+  .form-control-check {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .form-control-check label {
+    flex: 1;
+  }
+  
+  .form-control-check input {
+    flex: 2;
+    height: 20px;
+  }
