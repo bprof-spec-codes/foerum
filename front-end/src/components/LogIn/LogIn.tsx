@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
 import "./login.scss";
 import logo from "../../assets/images/logo.png";
+import micro from "../../assets/images/micro.png";
+
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
@@ -30,34 +32,12 @@ const LogIn: FC<ILoginProps> = (props) => {
         }`}
       >
         <div className="login__login-container__main-container">
-          Kérlek jelentkezz be
-          <div className="login__login-container__main-container__form-container">
-            <form
-              className="login__login-container__main-container__form-container__form"
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <input
-                className="login__login-container__main-container__form-container__form--email"
-                type="email"
-                placeholder="E-mail cím"
-                required
-              />
-              <input
-                className="login__login-container__main-container__form-container__form--password"
-                type="password"
-                placeholder="Jelszó"
-                required
-              />
-              <button className="login__login-container__main-container__form-container__form--submit">
-                Bejelentkezés
-              </button>
-            </form>
-            <div>
-              <SignInButton />
-            </div>
-          </div>
+          <img
+                //className="login__colored-container__logo-container--image"
+                src={micro}
+                alt="alt"
+            />
+          <SignInButton />
         </div>
       </div>
     </div>
