@@ -1,4 +1,7 @@
-import React, { useState } from "react"
+import axios from "axios";
+import React, { useEffect, useState } from "react"
+import { IComment } from "src/models/comment.model";
+import Comment from "../Misc/Comment";
 import { ITopic } from "src/models/topic.model"
 import AddComment from "../Home/feed-components/AddComment";
 import Button from "../Home/feed-components/Button";
@@ -6,6 +9,21 @@ import "../Home/home.scss"
 
 const Topic = (topic: ITopic, onAdd: any) =>{
     const [showAdd, setShowAdd] = useState(false)
+
+    const [comments, setComments] = useState<IComment[]>([]);
+    const [showAddComment, setShowAddComment] = useState(false)
+  
+    useEffect(() => {
+      axios
+        .get<ITopic[]>("http://localhost:8585/Comment")
+        .then((res) => {
+          setComments(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
 
     return(
         <div className="container">
@@ -15,9 +33,18 @@ const Topic = (topic: ITopic, onAdd: any) =>{
             <h2>Csatolmányok: {topic.attachmentUrl}</h2>
             <h3>Létrehozás dátuma: {topic.creationDate}</h3>
             <h2>A válaszért {topic.offeredCoins} db NIKCoint ajánlok fel.</h2>
+            <h2>Hozzászólások:</h2>
             <br/>
-            <p className="container__inner__comment-container">Hozzászólások:</p>
-            <br/>
+
+            {comments &&
+            comments.map((comment,i) => (
+              <div key={i}>
+                <Comment 
+                  {...comment}
+                />
+
+              </div>
+            ))}
             
             <header>
                 <Button 
