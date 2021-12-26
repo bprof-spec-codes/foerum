@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.transactionRepo = new TransactionRepository(dbPassword);
         }
+
+        public TransactionLogic(ITransactionRepository repo)
+        {
+            this.transactionRepo = repo;
+        }
+
         public bool CreateTransaction(Transaction transaction)
         {
             try

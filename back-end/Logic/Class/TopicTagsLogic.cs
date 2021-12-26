@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.topicTagsRepo = new TopicTagsRepository(dbPassword);
         }
+
+        public TopicTagsLogic(ITopicTagsRepository repo)
+        {
+            this.topicTagsRepo = repo;
+        }
+
         /// TODO: uncomment after repo is implemented
         public bool CreateTopicTags(TopicTags topicTags)
         {

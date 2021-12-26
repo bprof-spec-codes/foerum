@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.myUserRepo = new MyUserRepository(dbPassword);
         }
+
+        public MyUserLogic(IMyUserRepository repo)
+        {
+            this.myUserRepo = repo;
+        }
+
         public bool CreateUser(MyUser myUser)
         {
             try

@@ -18,6 +18,13 @@ namespace Logic.Class
         {
             this.tagRepo = new TagRepository(dbPassword);
         }
+
+        public TagLogic(ITagRepository repo)
+        {
+            this.tagRepo = repo;
+        }
+
+
         public bool CreateTag(Tag tag)
         {
             try

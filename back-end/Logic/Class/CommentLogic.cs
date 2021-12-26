@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.commentRepo = new CommentRepository(dbPassword);
         }
+
+        public CommentLogic(ICommentRepository repo)
+        {
+            this.commentRepo = repo;
+        }
+
         public bool CreateComment(Comment comment)
         {
             try
