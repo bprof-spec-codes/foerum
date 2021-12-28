@@ -11,15 +11,24 @@ const Feed = () => {
 
   useEffect(() => {
     const getTopics = async () => {
-      const data = await axios.get<ITopic[]>("http://localhost:8585/Topic");
-      setTopics(data);
+      const topics = await axios.get<ITopic[]>("http://localhost:8585/Topic");
+      setTopics(topics.data);
     };
 
     const getUsers = async () => {
-      const data = await axios.get<IUser[]>("http://localhost:8585/User");
-      setUsers(data);
+      const users = await axios.get<IUser[]>("http://localhost:8585/User");
+      setUsers(users.data);
     };
+
+    getTopics();
+    getUsers();
   }, []);
+
+  const selectUser = (tid: any) => {
+    const user = users.find((u) => u.id === tid);
+
+    return user ? user : ({} as IUser);
+  };
 
   return (
     <div>
@@ -28,7 +37,13 @@ const Feed = () => {
           {topics &&
             topics.map((topic, i) => (
               <div key={i}>
-                <Topic {...topic} showAdd={showAddComment} user={users.find(u=>u.id===topic.userID)} />
+                {users && (
+                  <Topic
+                    topic={topic}
+                    onAdd={showAddComment}
+                    user={selectUser(topic.userID)}
+                  />
+                )}
               </div>
             ))}
         </div>
