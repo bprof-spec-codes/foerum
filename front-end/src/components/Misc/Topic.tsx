@@ -6,8 +6,9 @@ import { ITopic } from "src/models/topic.model"
 import AddComment from "../Home/feed-components/AddComment";
 import Button from "../Home/feed-components/Button";
 import "../Home/home.scss"
+import { IUser } from "src/models/user.model";
 
-const Topic = (topic: ITopic, onAdd: any) =>{
+const Topic = (topic: ITopic, onAdd: any, user = {}) =>{
     const [showAdd, setShowAdd] = useState(false)
 
     const [comments, setComments] = useState<IComment[]>([]);
@@ -27,9 +28,12 @@ const Topic = (topic: ITopic, onAdd: any) =>{
 
     return(
         <div className="container">
+            <h1>Kérdező: {topic.userID}</h1>
+            <br/>
+
             <h1 className="container__inner">{topic.topicName}</h1>
             <br/>
-            <h1>User: {topic.userID}</h1>
+            
             <h2>Csatolmányok: {topic.attachmentUrl}</h2>
             <h3>Létrehozás dátuma: {topic.creationDate}</h3>
             <h2>A válaszért {topic.offeredCoins} db NIKCoint ajánlok fel.</h2>
