@@ -10,6 +10,31 @@ $cool-blueish-color: #E6E6E6;
     background-color: #ffffff;
 }
 
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left {
+  width: 85%;
+}
+
+.right {
+  width: 15%;
+}
+
+
+.comment {
+  max-width: 700px;
+  min-width: 20px;
+  margin: 30px auto;
+  overflow: auto;
+  border: 3px solid #FCAF26;
+  padding: 10px;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
 .container {
     max-width: 700px;
     min-width: 20px;
@@ -24,8 +49,10 @@ $cool-blueish-color: #E6E6E6;
     &__inner{
         border: 2px solid #182A4E;
         border-radius: 5px;
-        min-height: 5px;
+        min-height: 40px;
         background: #ffffff;
+        font-weight: bold;
+        text-align: center;
         &__comment-container{
             min-height: 150px;
             background: #ffffff;
