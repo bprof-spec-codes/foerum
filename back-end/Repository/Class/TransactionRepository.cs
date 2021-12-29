@@ -68,7 +68,6 @@ namespace Repository.Class
             if (user == null) throw new ArgumentNullException(nameof(user));
             user.NikCoin += amount;
             this.db.SaveChanges();
-
         }
     }
 }
