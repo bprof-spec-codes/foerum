@@ -26,7 +26,7 @@ namespace Logic.Class
 
         public bool CreateTransaction(Transaction transaction)
         {
-            if(!this.UserCanCompleteTransaction(transaction) return false;
+            if(!this.UserCanCompleteTransaction(transaction)) return false;
 
             try
             {
