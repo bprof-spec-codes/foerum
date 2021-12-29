@@ -75,9 +75,9 @@ namespace Logic.Class
             return this.transactionRepo.GetOne(id);
         }
 
-        private bool UserCanCompleteTransaction(Transaction Transaction)
+        private bool UserCanCompleteTransaction(Transaction transaction)
         {
-            return true;
+            return this.transactionRepo.GetUserFromTransaction(transaction.Source).NikCoin >= transaction.Quantity;
         }
     }
 }
