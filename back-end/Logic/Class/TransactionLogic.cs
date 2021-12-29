@@ -26,6 +26,8 @@ namespace Logic.Class
 
         public bool CreateTransaction(Transaction transaction)
         {
+            if(!this.UserCanCompleteTransaction(transaction) return false;
+
             try
             {
                 this.transactionRepo.Add(transaction);
@@ -71,6 +73,11 @@ namespace Logic.Class
         public Transaction GetOneTransaction(string id)
         {
             return this.transactionRepo.GetOne(id);
+        }
+
+        private bool UserCanCompleteTransaction(Transaction Transaction)
+        {
+            return true;
         }
     }
 }
