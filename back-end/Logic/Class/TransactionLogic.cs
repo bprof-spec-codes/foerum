@@ -27,10 +27,10 @@ namespace Logic.Class
         public bool CreateTransaction(Transaction transaction)
         {
             if(!this.UserCanCompleteTransaction(transaction)) return false;
-
             try
             {
                 this.transactionRepo.Add(transaction);
+                this.UpdateUsersWithTransactionAmount(transaction);
                 return true;
             }
             catch
@@ -78,6 +78,12 @@ namespace Logic.Class
         private bool UserCanCompleteTransaction(Transaction transaction)
         {
             return this.transactionRepo.GetUserFromTransaction(transaction.Source).NikCoin >= transaction.Quantity;
+        }
+
+        private void UpdateUsersWithTransactionAmount(Transaction transaction)
+        {
+            this.transactionRepo.UpdateUserWithTransactionAmount(transaction.Source, transaction.Quantity * -1);
+            this.transactionRepo.UpdateUserWithTransactionAmount(transaction.Recipient, transaction.Quantity);
         }
     }
 }
