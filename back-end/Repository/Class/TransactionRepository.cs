@@ -56,5 +56,10 @@ namespace Repository.Class
                 this.db.SaveChanges();
             }
         }
+
+        public MyUser GetUserFromTransaction(string userId)
+        {
+            return this.db.Set<MyUser>().SingleOrDefault(x => x.Id == userId);
+        }
     }
 }
