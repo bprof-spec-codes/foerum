@@ -15,5 +15,6 @@ namespace Repository.Interface
             public Transaction GetOne(string id);
             public void Update(string id, Transaction transaction);
             public MyUser GetUserFromTransaction(string userId);
+            public void UpdateUserWithTransactionAmount(string userId, int amount);
       }
 }
