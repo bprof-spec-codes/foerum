@@ -1,9 +1,9 @@
 .root {
-  @apply flex fixed left-0;
+  @apply flex;
   height: 100vh;
 
   .sidebar {
-    @apply flex h-full bg-gray-100 shadow;
+    @apply flex fixed left-0 h-full bg-gray-100 shadow-md;
 
     .sidebarList {
       @apply flex flex-col;
@@ -37,9 +37,42 @@
   }
 
   .main {
-    @apply mx-12 mt-4;
+    @apply flex flex-col w-full mx-12 pl-24;
+
+    .hotTopics {
+      @apply flex h-2/3 w-full mt-4;
+
+      .topicContainer {
+        @apply flex h-full w-full;
+
+        .topicItem {
+          @apply flex flex-col p-8 mr-6 rounded-2xl bg-gray-100 my-auto cursor-pointer shadow-md;
+          height: 30vh;
+          max-height: 40vh;
+
+          h4 {
+            @apply text-lg font-semibold space-x-8 break-normal;
+          }
+
+          p {
+            @apply text-sm space-x-6 mb-4;
+          }
+
+          span {
+            @apply text-4xl space-x-6 m-0;
+          }
+
+          &:last-child {
+            @apply mr-0;
+          }
+        }
+      }
+    }
 
     .latestActivity {
+        h3{
+            @apply text-5xl font-normal space-x-6 text-gray-600;
+        }
     }
   }
 }

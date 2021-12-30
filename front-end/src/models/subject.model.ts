@@ -1,5 +1,5 @@
 export interface ISubject {
-  subjectId?: string | null;
+  subjectID?: string | null;
   yearId?: string;
   subjectName?: string;
   isPrivate?: boolean;
@@ -7,6 +7,6 @@ export interface ISubject {
 }
 
 export const defaultValue: Readonly<ISubject> = {
-  subjectId: null,
+  subjectID: null,
   isPrivate: false,
 };
