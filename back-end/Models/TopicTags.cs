@@ -11,9 +11,9 @@ namespace Models
 {
     public class TopicTags
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public string TopicTagsID { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string TopicTagsID { get; set; }
         public string TopicID { get; set; }
         [JsonIgnore]
         public Topic Topic { get; set; }

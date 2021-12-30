@@ -11,9 +11,9 @@ namespace Models
 {
     public class CommentReacters
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public string CommentReactersID { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string CommentReactersID { get; set; }
         public string CommentID { get; set; }
         [JsonIgnore]
         public Comment Comment { get; set; }

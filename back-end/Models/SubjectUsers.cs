@@ -11,9 +11,9 @@ namespace Models
 {
     public class SubjectUsers
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public string SubjectUsersID { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string SubjectUsersID { get; set; }
         public string SubjectID { get; set; }
         [JsonIgnore]
         public Subject Subject { get; set; }
