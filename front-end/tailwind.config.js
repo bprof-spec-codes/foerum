@@ -10,7 +10,8 @@ module.exports = {
         oeyellow: "#FAB001",
       },
       colors: {
-        basebg: "#0E1B38",
+        basebg: "#182A4E",
+        basewhitebg: "#E6E6E6"
       },
     },
   },

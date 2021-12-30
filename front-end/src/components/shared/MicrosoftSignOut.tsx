@@ -14,7 +14,7 @@ export const SignOutButton = () => {
 
   return (
     <button onClick={() => logout(instance)}>
-      Sign out using Redirect
+      Kijelentkezés
     </button>
   );
 };

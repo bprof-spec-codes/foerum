@@ -1,37 +1,73 @@
 import axios from "../../axios";
 import React, { useEffect, useState } from "react";
-import { ITopic } from "src/models/topic.model";
-import Topic from "./sidebar-components/Topic";
+import { ISubject } from "src/models/subject.model";
+import Subject from "./sidebar-components/Subject";
+import { IYear } from "src/models/year.model";
+import Year from "./sidebar-components/Year";
 
 const Sidebar = () => {
-  const [topics, setTopics] = useState<ITopic[]>([]);
+  const [subjects, setSubjects] = useState<ISubject[]>([]);
+  const [years, setYears] = useState<IYear[]>([]);
 
   useEffect(() => {
     axios
-      .get<ITopic[]>("/majdleszurl")
+      .get<ISubject[]>("http://localhost:8585/Subject")
       .then((res) => {
-        setTopics(res.data);
+        setSubjects(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
+
+      axios
+      .get<IYear[]>("http://localhost:8585/Year")
+      .then((res) => {
+        setYears(res.data);
+        //console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }, []);
+  
 
   return (
     <div>
-      <div className="flex-col">
-        <div className="h-16 bg-basebg text-white rounded-t-2xl">
-          <h4 className="text-4xl font-thin tracking-wider p-2">Topics</h4>
+      <div className="flex-col bg-basewhitebg">
+      <div className="h-16 bg-basebg text-white rounded-t-2xl">
+          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Évfolyamok</h4>
         </div>
-
         <div>
-          {topics &&
-            topics.map((topic) => (
-              <div>
-                <Topic />
+          {years &&
+            years.map((year,i) => (
+              <div key={i}>
+                <Year {...year}/>
               </div>
             ))}
+
         </div>
+      
+        <div className="h-16 bg-basebg text-white rounded-t-2xl">
+          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Témák</h4>
+        </div>
+        <div className="flex w-full p-3  px-5 self-center">
+            <div className="flex w-full h-8 bg-white rounded-2xl">
+            <input type="text" className="flex w-full my-1 mx-2 text-black outline-none text-center bg-white" placeholder={`Keress rá egy témára!`} />
+            </div>
+        </div>
+        <div>
+          {subjects &&
+            subjects.map((subject,i) => (
+              <div key={i}>
+                <Subject {...subject}/>
+              </div>
+            ))}
+
+        </div>
+
+
       </div>
     </div>
   );

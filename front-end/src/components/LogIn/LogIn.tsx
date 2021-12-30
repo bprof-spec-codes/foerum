@@ -1,4 +1,6 @@
 import React, { FC, useState } from "react";
+import "./login.scss";
+import logo from "../../assets/images/logo.png";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
@@ -12,46 +14,61 @@ export interface ILoginProps
 
 const LogIn: FC<ILoginProps> = (props) => {
   return (
-    <div>
-      <div>
-        {/* this div is the left sido of the login page(figma) */}
-        <div></div>
-
-        <div>
-          <SignInButton />
+    <div className="login">
+      <div className="login__colored-container">
+        <img
+          className="login__colored-container__logo-container--image"
+          src={logo}
+          alt="alt"
+        />
+      </div>
+      <div
+        className={`login__login-container ${
+          true
+            ? "login__login-container--active"
+            : "login__login-container--inactive"
+        }`}
+      >
+        <div className="login__login-container__main-container">
+          Kérlek jelentkezz be
+          <div className="login__login-container__main-container__form-container">
+            <form
+              className="login__login-container__main-container__form-container__form"
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <input
+                className="login__login-container__main-container__form-container__form--email"
+                type="email"
+                placeholder="E-mail cím"
+                required
+              />
+              <input
+                className="login__login-container__main-container__form-container__form--password"
+                type="password"
+                placeholder="Jelszó"
+                required
+              />
+              <button className="login__login-container__main-container__form-container__form--submit">
+                Bejelentkezés
+              </button>
+            </form>
+            <div>
+              <SignInButton />
+            </div>
+          </div>
         </div>
-        <div>
-          <SignOutButton />
-        </div>
-
-        <div>
-          <SignOutButton />
-        </div>
-
-        {/* this div is the left sido of the login page(figma) */}
-        {/*
-        <div>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-            <button type="submit">button</button>
-          </form>
-        </div>
-        */}
       </div>
     </div>
   );
 };
-
 const mapStateToProps = ({ authentication }: IRootState) => ({
   isAuthenticated: authentication.isAuthenticated,
   loginError: authentication.loginError,
 });
 
-const mapDispatchToProps = { login };
+const mapDispatchToProps = { login};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

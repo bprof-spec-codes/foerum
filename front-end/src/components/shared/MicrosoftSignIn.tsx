@@ -1,27 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
+import React, { FC, useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../../ms-auth-config";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { IRootState } from "src/store/reducers";
 import { login } from "../../store/reducers/ms-authentication";
+import { useHistory } from "react-router";
 
-/**
- * Renders a button which, when selected, will redirect the page to the login prompt
- */
-export const SignInButton = () => {
+export interface ILoginProps extends StateProps, DispatchProps {}
+
+export const SignInButton: FC<ILoginProps> = (props) => {
+  const { isAuthenticated } = props;
+  const dispatch = useDispatch();
+  const history = useHistory();
   const { instance } = useMsal();
 
+  useEffect(() => {
+    console.log(isAuthenticated);
+    if (isAuthenticated) {
+      history.push("/home");
+    }
+  }, [isAuthenticated]);
+
   return (
-    <button onClick={() => login(instance)}>
-      Sign in using Redirect
+    <button onClick={() => login(instance, dispatch)}>
+      Bejelentkezés Microsoft fiókkal
     </button>
   );
 };
 
 const mapStateToProps = ({ msAuthentication }: IRootState) => ({
   isAuthenticated: msAuthentication.isAuthenticated,
-  loginError: msAuthentication.loginError,
 });
 
 const mapDispatchToProps = { login };
