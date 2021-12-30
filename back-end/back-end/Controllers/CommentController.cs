@@ -44,6 +44,12 @@ namespace back_end.Controllers
             this.commentLogic.CreateComment(comment);
         }
 
+        [HttpPost("AddUserToComment{commentId}")]
+        public void AddUserToComment([FromBody] MyUser user, string commentId)
+        {
+            this.commentLogic.AddUserToComment(user, commentId);
+        }
+
         [HttpPut("{id}")]
         public void EditComment(string id, [FromBody] Comment newComment)
         {
@@ -54,6 +60,12 @@ namespace back_end.Controllers
         public void DeleteComment(string id)
         {
             this.commentLogic.DeleteComment(id);
+        }
+
+        [HttpDelete("DeleteUserFromComment{commentId}")]
+        public void DeleteUserFromComment([FromBody] MyUser user, string commentId)
+        {
+            this.commentLogic.DeleteUserFromComment(user, commentId);
         }
     }
 }

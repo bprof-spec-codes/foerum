@@ -73,6 +73,16 @@ namespace Logic.Class
             return this.commentRepo.GetOne(id);
         }
 
+        public void AddUserToComment(MyUser user, string commentId)
+        {
+            this.commentRepo.AddUserToComment(user, commentId);
+        }
+
+        public void DeleteUserFromComment(MyUser user, string commentId)
+        {
+            this.commentRepo.DeleteUserFromComment(user, commentId);
+        }
+
         public IQueryable<Comment> GetOneTopicAllComment(string topicId)
         {
             return this.commentRepo.GetOneTopicAllComment(topicId);
