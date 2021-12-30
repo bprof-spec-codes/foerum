@@ -72,5 +72,10 @@ namespace Logic.Class
         {
             return this.commentRepo.GetOne(id);
         }
+
+        public IQueryable<Comment> GetOneTopicAllComment(string topicId)
+        {
+            return this.commentRepo.GetOneTopicAllComment(topicId);
+        }
     }
 }

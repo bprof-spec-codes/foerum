@@ -75,5 +75,10 @@ namespace Repository.Class
                 this.db.SaveChanges();
             }
         }
+
+        public IQueryable<Comment> GetOneTopicAllComment(string topicId)
+        {
+            return this.GetAll().Where(comment => comment.TopicID == topicId);
+        }
     }
 }

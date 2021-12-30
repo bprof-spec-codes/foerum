@@ -32,6 +32,12 @@ namespace back_end.Controllers
             return this.commentLogic.GetOneComment(id);
         }
 
+        [HttpGet("GetOneTopicAllComment{topicId}")]
+        public IEnumerable<Comment> GetOneTopicAllComment(string topicId)
+        {
+            return this.commentLogic.GetOneTopicAllComment(topicId);
+        }
+
         [HttpPost]
         public void CreateComment([FromBody] Comment comment)
         {
