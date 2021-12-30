@@ -9,10 +9,12 @@ namespace Repository.Interface
 {
       public interface ITopicRepository
       {
-            public void Add(Topic topic);
-            public void Delete(string id);
-            public IQueryable<Topic> GetAll();
-            public Topic GetOne(string id);
-            public void Update(string id, Topic topic);
+            void Add(Topic topic);
+            void Delete(string id);
+            IQueryable<Topic> GetAll();
+            Topic GetOne(string id);
+            void Update(string id, Topic topic);
+            void AddTagToTopic(Tag tag, string topicId);
+            void DeleteTagFromTopic(Tag tag, string topicId);
       }
 }

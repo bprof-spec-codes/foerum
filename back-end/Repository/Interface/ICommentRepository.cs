@@ -9,10 +9,13 @@ namespace Repository.Interface
 {
       public interface ICommentRepository
       {
-            public void Add(Comment comment);
-            public void Delete(string id);
-            public IQueryable<Comment> GetAll();
-            public Comment GetOne(string id);
-            public void Update(string id, Comment comment);
+            void Add(Comment comment);
+            void Delete(string id);
+            IQueryable<Comment> GetAll();
+            Comment GetOne(string id);
+            void Update(string id, Comment comment);
+            void AddUserToComment(MyUser user, string commentId);
+            void DeleteUserFromComment(MyUser user, string commentId);
+            IQueryable<Comment> GetOneTopicAllComment(string commentId);
       }
 }

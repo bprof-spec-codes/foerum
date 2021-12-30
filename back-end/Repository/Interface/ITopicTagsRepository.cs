@@ -9,7 +9,7 @@ namespace Repository.Interface
 {
     public interface ITopicTagsRepository
     {
-        public IEnumerable<Tag> GetOneTopicAllTag(string topicId);
-        public IEnumerable<Topic> GetOneTagAllTopic(string tagId);
+        IEnumerable<Tag> GetOneTopicAllTag(string topicId);
+        IEnumerable<Topic> GetOneTagAllTopic(string tagId);
     }
 }

@@ -9,10 +9,12 @@ namespace Repository.Interface
 {
       public interface ISubjectRepository
       {
-            public void Add(Subject subject);
-            public void Delete(string id);
-            public IQueryable<Subject> GetAll();
-            public Subject GetOne(string id);
-            public void Update(string id, Subject subject);
+            void Add(Subject subject);
+            void Delete(string id);
+            IQueryable<Subject> GetAll();
+            Subject GetOne(string id);
+            void Update(string id, Subject subject);
+            void AddUserToSubject(MyUser user, string subjectId);
+            void DeleteUserFromSubject(MyUser user, string subjectId);
       }
 }

@@ -9,10 +9,10 @@ namespace Repository.Interface
 {
       public interface ITagRepository
       {
-            public void Add(Tag tag);
-            public void Delete(string id);
-            public IQueryable<Tag> GetAll();
-            public Tag GetOne(string id);
-            public void Update(string id, Tag tag);
+            void Add(Tag tag);
+            void Delete(string id);
+            IQueryable<Tag> GetAll();
+            Tag GetOne(string id);
+            void Update(string id, Tag tag);
       }
 }
