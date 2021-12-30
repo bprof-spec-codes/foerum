@@ -1,7 +1,7 @@
 export interface IComment {
   commentId?: string | null;
   topicId?: string;
-  userId?: string;
+  userID?: string;
   content?: string;
   creationDate?: string | Date;
   replyToCommentId?: string | null;

@@ -21,6 +21,7 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, user }) => {
   const [showAddComment, setShowAddComment] = useState(false);
 
   useEffect(() => {
+    console.log(user)
     axios
       .get<ITopic[]>("http://localhost:8585/Comment")
       .then((res) => {
@@ -49,7 +50,7 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, user }) => {
       {comments &&
         comments.map((comment, i) => (
           <div key={i}>
-            <Comment {...comment} />
+            <Comment comment={comment} />
           </div>
         ))}
 

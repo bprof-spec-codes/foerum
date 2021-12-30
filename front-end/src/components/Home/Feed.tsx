@@ -16,7 +16,7 @@ const Feed = () => {
     };
 
     const getUsers = async () => {
-      const users = await axios.get<IUser[]>("http://localhost:8585/User");
+      const users = await axios.get<IUser[]>("http://localhost:8585/MyUser");
       setUsers(users.data);
     };
 
@@ -26,7 +26,7 @@ const Feed = () => {
 
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
-
+    console.log(user)
     return user ? user : ({} as IUser);
   };
 

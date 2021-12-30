@@ -1,14 +1,17 @@
-import React from "react"
+import React, { FC } from "react"
 import { IComment } from "src/models/comment.model"
 import "../Home/home.scss"
 import { FaTimes } from 'react-icons/fa'
 
-const Comment = (comment: IComment) => {
-    
+interface ICommentProps{
+    comment: IComment
+}
+
+const Comment:FC<ICommentProps> = ({comment}) => {
     
     return(
         <div className="comment">
-            <h1>Hozzászóló: {comment.userId} *hozzászóló neve*</h1>
+            <h1>Hozzászóló: {comment.userID}</h1>
             <br/>
             <h1>{comment.content}</h1>
             <h3>Válaszadás dátuma: {comment.creationDate}</h3>
