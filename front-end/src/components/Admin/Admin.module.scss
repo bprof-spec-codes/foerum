@@ -1,0 +1,45 @@
+.root {
+  @apply flex fixed left-0;
+  height: 100vh;
+
+  .sidebar {
+    @apply flex h-full bg-gray-100 shadow;
+
+    .sidebarList {
+      @apply flex flex-col;
+    }
+
+    .sidebarListItem {
+      @apply flex flex-col justify-center
+      items-center text-center m-4 cursor-pointer;
+
+      &:hover {
+        @apply text-gray-600;
+      }
+
+      .listIcon {
+        @apply flex justify-center items-center
+        rounded-lg bg-gray-100 text-gray-700 mx-2 mb-2 p-4 shadow;
+        max-width: 3rem;
+        max-height: 3rem;
+
+        &:hover {
+          @apply bg-gray-200 shadow-2xl text-gray-600;
+        }
+      }
+      .active {
+        @apply flex justify-center items-center
+    rounded-lg bg-basebg text-gray-200 mx-2 mb-2 p-4 shadow;
+        max-width: 3rem;
+        max-height: 3rem;
+      }
+    }
+  }
+
+  .main {
+    @apply mx-12 mt-4;
+
+    .latestActivity {
+    }
+  }
+}
