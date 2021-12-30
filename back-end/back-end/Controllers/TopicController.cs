@@ -38,6 +38,12 @@ namespace back_end.Controllers
             this.topicLogic.CreateTopic(topic);
         }
 
+        [HttpPost("AddTagToTopic{topicId}")]
+        public void AddTagToTopic([FromBody] Tag tag, string topicId)
+        {
+            this.topicLogic.AddTagToTopic(tag, topicId);
+        }
+
         [HttpPut("{id}")]
         public void EditTopic(string id, [FromBody] Topic newTopic)
         {
@@ -48,6 +54,12 @@ namespace back_end.Controllers
         public void DeleteTopic(string id)
         {
             this.topicLogic.DeleteTopic(id);
+        }
+
+        [HttpDelete("DeleteTagFromTopic{topicId}")]
+        public void DeleteTagFromTopic([FromBody] Tag tag, string topicId)
+        {
+            this.subjectLogic.DeleteTagFromTopic(tag, topicId);
         }
     }
 }

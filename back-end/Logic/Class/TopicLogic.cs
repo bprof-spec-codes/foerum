@@ -72,5 +72,15 @@ namespace Logic.Class
         {
             return this.topicRepo.GetOne(id);
         }
+
+        public void AddTagToTopic(Tag tag, string topicId)
+        {
+            this.topicRepo.AddTagToTopic(tag, topicId);
+        }
+
+        public void DeleteTagFromTopic(Tag tag, string topicId)
+        {
+            this.topicRepo.DeleteTagFromTopic(tag, topicId);
+        }
     }
 }
