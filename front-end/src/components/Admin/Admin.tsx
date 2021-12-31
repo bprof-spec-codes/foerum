@@ -1,5 +1,5 @@
 import axios from "../../axios";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./Admin.module.scss";
 import { IUser } from "src/models/user.model";
 import Header from "../Home/Header";
@@ -9,17 +9,38 @@ import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import LocalFireDepartmentOutlinedIcon from "@mui/icons-material/LocalFireDepartmentOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import Zoom from "@mui/material/Zoom";
+
 import { IComment } from "src/models/comment.model";
 import { ICommentReacters } from "src/models/commentReacters.model";
 import { ITopic } from "src/models/topic.model";
 import { ISubject } from "src/models/subject.model";
-import { Box, Skeleton } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  Skeleton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { boxSizing } from "@mui/system";
 import moment from "moment";
 import Timer from "./Timer";
+import { ITransaction } from "src/models/transaction.model";
 
-const Admin = () => {
+type concatArray = IComment & ITopic;
+
+const Admin: FC = () => {
   const [users, setUsers] = useState<IUser[] | null>(null);
+  const [transactions, setTransactions] = useState<ITransaction[] | null>(null);
+
   const [comments, setComments] = useState<IComment[] | null>(null);
   const [reactions, setReactions] = useState<ICommentReacters[] | null>(null);
   const [topics, setTopics] = useState<ITopic[] | null>(null);
@@ -29,6 +50,7 @@ const Admin = () => {
   useEffect(() => {
     const getData = async () => {
       await getUsers();
+      await getTransactions();
       await getComments();
       // getReacters();
       await getTopics();
@@ -37,10 +59,18 @@ const Admin = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    console.log(transactions);
+  }, [transactions]);
 
   const getUsers = async () => {
     const { data } = await axios.get<IUser[]>("/MyUser");
     setUsers(data);
+  };
+
+  const getTransactions = async () => {
+    const { data } = await axios.get<ITransaction[]>("/Transaction");
+    setTransactions(data);
   };
 
   const getComments = async () => {
@@ -82,15 +112,46 @@ const Admin = () => {
     return subject?.subjectName;
   };
 
-  // TODO: rerender problem
+  const updateLatest = async () => {
+    await getUsers();
+    await getTransactions();
+    await getComments();
+    // getReacters();
+    await getTopics();
+    await getSubjects();
+
+    createActivityList();
+  };
+
   const createActivityList = () => {
-    if (comments && topics) {
-      const arr = comments.concat(topics);
+    if (comments && topics && /* reactions&& */ subjects) {
+      const arr: concatArray[] = comments.concat(topics);
       console.log(arr);
 
       return arr.map((q, i) => (
-        <li key={i}>
-          <p>igen</p>
+        <li key={i} className={s.activityListItem}>
+          {q.content && (
+            <div className={s.listItemContent}>
+              <div className={s.contentChat}>
+                <ChatOutlinedIcon />
+              </div>
+              <div>
+                <h5>{q.content}</h5>
+                <p>{moment(q.creationDate).format("yyyy-mm-dd, hh:mm:ss")}</p>
+              </div>
+            </div>
+          )}
+          {q.topicName && (
+            <div className={s.listItemContent}>
+              <div className={s.contentLamp}>
+                <LightbulbOutlinedIcon />
+              </div>
+              <div>
+                <h5>{q.topicName}</h5>
+                <p>{moment(q.creationDate).format("yyyy-mm-dd, hh:mm:ss")}</p>
+              </div>
+            </div>
+          )}
         </li>
       ));
     }
@@ -100,7 +161,99 @@ const Admin = () => {
   const renderMain = (): JSX.Element => {
     switch (actualPage) {
       case 2:
+        return (
+          <>
+            <div className={s.userManagement}>
+              <h3>Felhasználók kezelése</h3>
+              <div className={s.manageList}>
+                {users &&
+                  users.map((u, i) => (
+                    <Accordion key={i} className={s.manageItem}>
+                      <AccordionSummary
+                        className={s.itemSummary}
+                        expandIcon={<KeyboardArrowDownOutlinedIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <div className={s.manageUser}>
+                          <PersonOutlineOutlinedIcon />
+                        </div>
+
+                        <Typography className={s.itemTitle}>
+                          {u.id} - {u.fullName}
+                        </Typography>
+                      </AccordionSummary>
+
+                      <AccordionDetails className={s.itemDetails}>
+                        <Typography className={s.detailItem}>
+                          emial: {u.email}
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          coinok: {u.nikCoin} coin
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          kezdés éve: {u.startYear}
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          státusz: {u.isActive ? "Aktív" : "Nem Aktív"}
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          {u.role && u.role.map((r, i) => <p>{r}</p>)}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+              </div>
+            </div>
+          </>
+        );
       case 3:
+        return (
+          <>
+            <div className={s.transactionManagement}>
+              <h3>Jóváírások</h3>
+              <div className={s.manageList}>
+                {transactions &&
+                  transactions.map((u, i) => (
+                    <Accordion key={i} className={s.manageItem}>
+                      <AccordionSummary
+                        className={s.itemSummary}
+                        expandIcon={<KeyboardArrowDownOutlinedIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <div className={s.manageCash}>
+                          <MonetizationOnOutlinedIcon />
+                        </div>
+
+                        <Typography className={s.itemTitle}>
+                          {u.reason}
+                        </Typography>
+                      </AccordionSummary>
+
+                      <AccordionDetails className={s.itemDetails}>
+                        <Typography className={s.detailItem}>
+                          osszeg: {u.quantity}
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          feladó: {u.source}
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          címzett: {u.recipient}
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          {moment(u.transactionDate).format("hh:mm:ss, d-mm-yyyy")}
+                        </Typography>
+                        <Typography className={s.detailItem}>
+                          {u.transactionId}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+              </div>
+            </div>
+          </>
+        );
       case 4:
       default:
         return (
@@ -125,25 +278,41 @@ const Admin = () => {
                           variant="rectangular"
                           width={210}
                           height={118}
+                          animation="wave"
                         />
-                        <Skeleton />
-                        <Skeleton width="60%" />
+                        <Skeleton animation="wave" />
+                        <Skeleton animation="wave" width="60%" />
                       </Box>
                     ))}
               </div>
             </div>
 
             <div className={s.latestActivity}>
-              <h3>Latest Activity</h3>
+              <div className={s.latestActivityHead}>
+                <h3>Legutóbbi aktivitások</h3>
+                <Tooltip
+                  title="Frissítés"
+                  placement="top"
+                  TransitionComponent={Zoom}
+                  enterDelay={500}
+                  disableInteractive
+                >
+                  <Button
+                    className={s.updateButton}
+                    onClick={() => updateLatest()}
+                  >
+                    <UpdateOutlinedIcon />
+                  </Button>
+                </Tooltip>
+              </div>
               <Timer />
               {comments || reactions || topics || subjects ? (
-                <ul>{createActivityList()}</ul>
+                <ul className={s.activityList}>{createActivityList()}</ul>
               ) : (
-                Array.from(new Array(3)).map((item, index) => (
+                Array.from(new Array(10)).map((item, index) => (
                   <Box key={index} className={s.topicItem}>
-                    <Skeleton variant="rectangular" width={210} height={118} />
-                    <Skeleton />
-                    <Skeleton width="60%" />
+                    <Skeleton animation="wave" />
+                    <Skeleton animation="wave" width="60%" />
                   </Box>
                 ))
               )}
@@ -155,40 +324,121 @@ const Admin = () => {
 
   return (
     <>
-      <Header />
+      <div className="fixed w-full z-50">
+        <Header />
+      </div>
       <div className={s.root}>
         <div className={s.sidebar}>
           <ul className={s.sidebarList}>
             <li className={s.sidebarListItem} onClick={() => setActualPage(1)}>
-              <div className={actualPage === 1 ? s.active : s.listIcon}>
+              <Button className={actualPage === 1 ? s.active : s.listIcon}>
                 <GridViewOutlinedIcon />
-              </div>
+              </Button>
               <p>Áttekintés</p>
             </li>
             <li className={s.sidebarListItem} onClick={() => setActualPage(2)}>
-              <div className={actualPage === 2 ? s.active : s.listIcon}>
+              <Button className={actualPage === 2 ? s.active : s.listIcon}>
                 <PermIdentityOutlinedIcon />
-              </div>
+              </Button>
               <p>Felhasználók</p>
             </li>
             <li className={s.sidebarListItem} onClick={() => setActualPage(3)}>
-              <div className={actualPage === 3 ? s.active : s.listIcon}>
+              <Button className={actualPage === 3 ? s.active : s.listIcon}>
                 <PaidOutlinedIcon />
-              </div>
+              </Button>
               <p>Jóváírások</p>
             </li>
             <li className={s.sidebarListItem} onClick={() => setActualPage(4)}>
-              <div className={actualPage === 4 ? s.active : s.listIcon}>
+              <Button className={actualPage === 4 ? s.active : s.listIcon}>
                 <LocalFireDepartmentOutlinedIcon />
-              </div>
+              </Button>
               <p>Népszerű</p>
             </li>
           </ul>
         </div>
 
         <div className={s.main}>{renderMain()}</div>
+        {actualPage === 1 && (
+          <div className={s.manage}>
+            <div className={s.manageContent}>
+              <div className="flex justify-between">
+                <h3>Jóváírások</h3>
+                <Tooltip
+                  title="Frissítés"
+                  placement="top"
+                  TransitionComponent={Zoom}
+                  enterDelay={500}
+                  disableInteractive
+                >
+                  <Button
+                    className={s.updateButton2}
+                    onClick={() => updateLatest()}
+                  >
+                    <UpdateOutlinedIcon />
+                  </Button>
+                </Tooltip>
+              </div>
+              <Timer />
+              <ul className={s.manageList}>
+                {transactions
+                  ? transactions.map((t, i) => (
+                      <li key={i} className={s.manageItem}>
+                        <div className={s.manageTransaction}>
+                          <MonetizationOnOutlinedIcon />
+                        </div>
+                        <div>
+                          <h5>{t.reason}</h5>
+                        </div>
+                      </li>
+                    ))
+                  : Array.from(new Array(10)).map((item, index) => (
+                      <Box key={index}>
+                        <Skeleton animation="wave" />
+                      </Box>
+                    ))}
+              </ul>
+            </div>
 
-        <div>bval</div>
+            <div className={s.manageContent}>
+              <div className="flex justify-between">
+                <h3>Felhasználók</h3>
+                <Tooltip
+                  title="Frissítés"
+                  placement="top"
+                  TransitionComponent={Zoom}
+                  enterDelay={500}
+                  disableInteractive
+                >
+                  <Button
+                    className={s.updateButton2}
+                    onClick={() => updateLatest()}
+                  >
+                    <UpdateOutlinedIcon />
+                  </Button>
+                </Tooltip>
+              </div>
+              <Timer />
+              <ul className={s.manageList}>
+                {users
+                  ? users.map((t, i) => (
+                      <li key={i} className={s.manageItem}>
+                        <div className={s.manageUser}>
+                          <PersonOutlineOutlinedIcon />
+                        </div>
+                        <div>
+                          <h5>{t.fullName}</h5>
+                        </div>
+                      </li>
+                    ))
+                  : Array.from(new Array(10)).map((item, index) => (
+                      <Box key={index}>
+                        <Skeleton animation="wave" />
+                      </Box>
+                    ))}
+              </ul>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
