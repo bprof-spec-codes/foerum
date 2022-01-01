@@ -1,5 +1,5 @@
 export interface IAward {
-  awardId?: string | null;
+  awardID?: string | null;
   awardName?: string;
   points?: number;
   iconUrl?: string;

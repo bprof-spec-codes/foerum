@@ -1,6 +1,6 @@
 export interface ISubjectUsers {
-  subjectId?: string;
-  userId?: string;
+  subjectID?: string;
+  userID?: string;
 }
 
 export const defaultValue: Readonly<ISubjectUsers> = {};

@@ -1,6 +1,6 @@
 export interface ICommentReacters {
-  commentId?: string | null;
-  userId?: string;
+  commentID?: string | null;
+  userID?: string;
   choice?: number;
 }
 

@@ -1,5 +1,5 @@
 export interface ITransaction {
-  transactionId?: string | null;
+  transactionID?: string | null;
   source?: string;
   recipient?: string;
   quantity?: number;

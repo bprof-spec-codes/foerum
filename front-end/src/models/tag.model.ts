@@ -1,5 +1,5 @@
 export interface ITag {
-  tagId?: string | null;
+  tagID?: string | null;
   tagName?: string;
 }
 

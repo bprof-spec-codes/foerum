@@ -1,8 +1,8 @@
 export interface IYear {
-  yearId?: string | null;
+  yearID?: string | null;
   yearName?: string;
 }
 
 export const defaultValue:Readonly<IYear>={
-  yearId: null
+  yearID: null
 }

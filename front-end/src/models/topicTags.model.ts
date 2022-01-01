@@ -1,6 +1,6 @@
 export interface ITopicTags {
-  topicId?: string | null;
-  tagId?: string;
+  topicID?: string | null;
+  tagID?: string;
   creationDate?: string | Date;
 }
 
