@@ -22,8 +22,8 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   const [showAddComment, setShowAddComment] = useState(false);
 
   //kiszedi azokat a kommenteket, amik nem ehhez a poszthoz vannak
-  /*comments.forEach(comment => {
-    if(comment.topicId!==topic.topicID){
+  comments.forEach(comment => {
+    if(comment.topicID!==topic.topicID){
       var idx=-1
       idx = comments.indexOf(comment);
       if (idx!== -1){
@@ -31,7 +31,7 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
       }
     }
     
-  });*/
+  });
 
   useEffect(() => {
     console.log(user)
