@@ -41,6 +41,7 @@ const Feed = () => {
                   <Topic
                     topic={topic}
                     onAdd={showAddComment}
+                    allUsers={users}
                     user={selectUser(topic.userID)}
                   />
                 )}

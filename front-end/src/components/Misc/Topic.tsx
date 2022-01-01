@@ -11,12 +11,13 @@ import { IUser } from "src/models/user.model";
 interface ITopicProps {
   topic: ITopic;
   onAdd: any;
+  allUsers: IUser[];
   user: IUser;
 }
 
-const Topic: FC<ITopicProps> = ({ topic, onAdd, user }) => {
+const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   const [showAdd, setShowAdd] = useState(false);
-
+  //const [users, setUsers] = useState<IUser[]>([]);
   const [comments, setComments] = useState<IComment[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
 
@@ -50,7 +51,10 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, user }) => {
       {comments &&
         comments.map((comment, i) => (
           <div key={i}>
-            <Comment comment={comment} />
+            <Comment
+              comment={comment}
+              allUsers={allUsers}
+            />
           </div>
         ))}
 
