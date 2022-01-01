@@ -14,6 +14,7 @@ import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import Zoom from "@mui/material/Zoom";
 
 import { IComment } from "src/models/comment.model";
@@ -32,7 +33,7 @@ import {
 } from "@mui/material";
 import { boxSizing } from "@mui/system";
 import moment from "moment";
-import Timer from "./Timer";
+import { Timer } from "./admin-components";
 import { ITransaction } from "src/models/transaction.model";
 
 type concatArray = IComment & ITopic;
@@ -242,11 +243,16 @@ const Admin: FC = () => {
                           címzett: {u.recipient}
                         </Typography>
                         <Typography className={s.detailItem}>
-                          {moment(u.transactionDate).format("hh:mm:ss, d-mm-yyyy")}
+                          {moment(u.transactionDate).format(
+                            "hh:mm:ss, d-mm-yyyy"
+                          )}
                         </Typography>
                         <Typography className={s.detailItem}>
                           {u.transactionId}
                         </Typography>
+                        <Button className={s.itemButton}>
+                          elfogadás
+                        </Button>
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -363,22 +369,8 @@ const Admin: FC = () => {
             <div className={s.manageContent}>
               <div className="flex justify-between">
                 <h3>Jóváírások</h3>
-                <Tooltip
-                  title="Frissítés"
-                  placement="top"
-                  TransitionComponent={Zoom}
-                  enterDelay={500}
-                  disableInteractive
-                >
-                  <Button
-                    className={s.updateButton2}
-                    onClick={() => updateLatest()}
-                  >
-                    <UpdateOutlinedIcon />
-                  </Button>
-                </Tooltip>
               </div>
-              <Timer />
+              {/* <Timer /> */}
               <ul className={s.manageList}>
                 {transactions
                   ? transactions.map((t, i) => (
@@ -402,22 +394,8 @@ const Admin: FC = () => {
             <div className={s.manageContent}>
               <div className="flex justify-between">
                 <h3>Felhasználók</h3>
-                <Tooltip
-                  title="Frissítés"
-                  placement="top"
-                  TransitionComponent={Zoom}
-                  enterDelay={500}
-                  disableInteractive
-                >
-                  <Button
-                    className={s.updateButton2}
-                    onClick={() => updateLatest()}
-                  >
-                    <UpdateOutlinedIcon />
-                  </Button>
-                </Tooltip>
               </div>
-              <Timer />
+              {/*  <Timer /> */}
               <ul className={s.manageList}>
                 {users
                   ? users.map((t, i) => (

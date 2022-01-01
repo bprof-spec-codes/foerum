@@ -19,6 +19,7 @@ const Timer: FC = () => {
       if (loadedTime) {
         const newTime = actualDate - loadedTime;
         setTimer(Math.floor((newTime % hour) / minute));
+        console.log(timer)
       }
       clearInterval(timeout);
     }, 1000);
