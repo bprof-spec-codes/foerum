@@ -1,6 +1,6 @@
 export interface IComment {
-  commentId?: string | null;
-  topicId?: string;
+  commentID?: string | null;
+  topicID?: string;
   userID?: string;
   content?: string;
   creationDate?: string | Date;

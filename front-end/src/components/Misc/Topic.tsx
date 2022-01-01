@@ -21,10 +21,22 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
 
+  //kiszedi azokat a kommenteket, amik nem ehhez a poszthoz vannak
+  /*comments.forEach(comment => {
+    if(comment.topicId!==topic.topicID){
+      var idx=-1
+      idx = comments.indexOf(comment);
+      if (idx!== -1){
+        comments.splice(idx,1)
+      }
+    }
+    
+  });*/
+
   useEffect(() => {
     console.log(user)
     axios
-      .get<ITopic[]>("http://localhost:8585/Comment")
+      .get<IComment[]>("http://localhost:8585/Comment")
       .then((res) => {
         setComments(res.data);
         console.log(res.data);

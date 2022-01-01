@@ -22,7 +22,7 @@ const Comment:FC<ICommentProps> = ({comment, allUsers}) => {
 
     return(
         <div className="comment">
-            <h1>Hozzászóló: {getCommenter()}</h1>
+            <h1>{getCommenter()}:</h1>
             <br/>
             <h1>{comment.content}</h1>
             <h1>{comment.attachmentUrl}</h1>
