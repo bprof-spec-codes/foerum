@@ -14,15 +14,15 @@ interface ICommentProps{
 const Comment:FC<ICommentProps> = ({comment, allUsers}) => {
     
     //const user = allUsers.find((u) => u.id === comment.userID);
-    /*const getCommenter = () => {
+    const getCommenter = () => {
         const user = allUsers.find((u) => u.id === comment.userID);
         console.log(user)
-        return user ? user : ({} as IUser);
-      };*/
+        return user ? user.fullName:"";
+      };
 
     return(
         <div className="comment">
-            <h1>Hozzászóló: </h1>
+            <h1>Hozzászóló: {getCommenter()}</h1>
             <br/>
             <h1>{comment.content}</h1>
             <h1>{comment.attachmentUrl}</h1>
