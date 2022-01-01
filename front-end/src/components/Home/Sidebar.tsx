@@ -4,8 +4,12 @@ import { ISubject } from "src/models/subject.model";
 import Subject from "./sidebar-components/Subject";
 import { IYear } from "src/models/year.model";
 import Year from "./sidebar-components/Year";
+import Button from "./feed-components/Button";
+import AddSubject from "./feed-components/AddSubject";
 
 const Sidebar = () => {
+  const [showAdd, setShowAdd] = useState(false);
+
   const [subjects, setSubjects] = useState<ISubject[]>([]);
   const [years, setYears] = useState<IYear[]>([]);
 
@@ -66,7 +70,14 @@ const Sidebar = () => {
             ))}
 
         </div>
-
+        <div>
+        {showAdd && <AddSubject />}
+          <Button
+            onClicked={() => setShowAdd(!showAdd)}
+            color={showAdd ? "#FAB001" : "#182A4E"}
+            text={showAdd ? "Mégse" : "Új téma hozzáadása"}
+          />
+        </div>
 
       </div>
     </div>
