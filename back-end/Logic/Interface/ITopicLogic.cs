@@ -14,5 +14,7 @@ namespace Logic.Interface
             bool CreateTopic(Topic topic);
             bool EditTopic(string id, Topic newTopic);
             bool DeleteTopic(string id);
+            void AddTagToTopic(Tag tag, string topicId);
+            void DeleteTagFromTopic(Tag tag, string topicId);
       }
 }

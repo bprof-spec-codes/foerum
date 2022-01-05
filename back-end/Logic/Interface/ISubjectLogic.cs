@@ -14,5 +14,7 @@ namespace Logic.Interface
             bool CreateSubject(Subject subject);
             bool EditSubject(string id, Subject newSubject);
             bool DeleteSubject(string id);
+            void AddUserToSubject(MyUser user, string subjectId);
+            void DeleteUserFromSubject(MyUser user, string subjectId);
       }
 }

@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace Logic.Interface
 {
-      public interface ICommentLogic
-      {
-            IQueryable<Comment> GetAllComment();
-            Comment GetOneComment(string id);
-            bool CreateComment(Comment comment);
-            bool EditComment(string id, Comment newComment);
-            bool DeleteComment(string id);
-      }
+    public interface ICommentLogic
+    {
+        IQueryable<Comment> GetAllComment();
+        Comment GetOneComment(string id);
+        bool CreateComment(Comment comment);
+        bool EditComment(string id, Comment newComment);
+        bool DeleteComment(string id);
+        void AddUserToComment(MyUser user, string commentId);
+        void DeleteUserFromComment(MyUser user, string commentId);
+        IQueryable<Comment> GetOneTopicAllComment(string topicId);
+    }
 }

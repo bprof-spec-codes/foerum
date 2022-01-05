@@ -9,10 +9,10 @@ namespace Repository.Interface
 {
       public interface IMyUserRepository
       {
-            public void Add(MyUser user);
-            public void Delete(string id);
-            public IQueryable<MyUser> GetAll();
-            public MyUser GetOne(string id);
-            public void Update(string id, MyUser user);
+            void Add(MyUser user);
+            void Delete(string id);
+            IQueryable<MyUser> GetAll();
+            MyUser GetOne(string id);
+            void Update(string id, MyUser user);
       }
 }

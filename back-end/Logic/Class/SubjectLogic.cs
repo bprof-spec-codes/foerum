@@ -72,5 +72,15 @@ namespace Logic.Class
         {
             return this.subjectRepo.GetOne(id);
         }
+
+        public void AddUserToSubject(MyUser user, string subjectId)
+        {
+            this.AddUserToSubject(user, subjectId);
+        }
+
+        public void DeleteUserFromSubject(MyUser user, string subjectId)
+        {
+            this.DeleteUserFromSubject(user, subjectId);
+        }
     }
 }

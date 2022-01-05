@@ -54,5 +54,21 @@ namespace Repository.Class
                 this.db.SaveChanges();
             }
         }
+
+        public void AddUserToSubject(MyUser user, string subjectId)
+        {
+            this.GetOne(subjectId).Users.Add(new SubjectUsers { UserID = user.Id });
+            this.db.SaveChanges();
+        }
+
+        public void DeleteUserFromSubject(MyUser user, string subjectId)
+        {
+            SubjectUsers subjectUsers = this.GetOne(subjectId).Users.FirstOrDefault(user => user.UserID == user.UserID);
+            if (subjectUsers != null)
+            {
+                this.GetOne(subjectId).Users.Remove(subjectUsers);
+                this.db.SaveChanges();
+            }
+        }
     }
 }

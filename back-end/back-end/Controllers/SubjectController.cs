@@ -38,6 +38,12 @@ namespace back_end.Controllers
             this.subjectLogic.CreateSubject(subject);
         }
 
+        [HttpPost("AddUserToSubject{subjectId}")]
+        public void AddUserToSubject([FromBody] MyUser user, string subjectId)
+        {
+            this.subjectLogic.AddUserToSubject(user, subjectId);
+        }
+
         [HttpPut("{id}")]
         public void EditSubject(string id, [FromBody] Subject newSubject)
         {
@@ -48,6 +54,12 @@ namespace back_end.Controllers
         public void DeleteSubject(string id)
         {
             this.subjectLogic.DeleteSubject(id);
+        }
+
+        [HttpDelete("DeleteUserFromSubject{subjectId}")]
+        public void DeleteUserFromSubject([FromBody] MyUser user, string subjectId)
+        {
+            this.subjectLogic.DeleteUserFromSubject(user, subjectId);
         }
     }
 }
