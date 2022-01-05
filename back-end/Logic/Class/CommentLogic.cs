@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.commentRepo = new CommentRepository(dbPassword);
         }
+
+        public CommentLogic(ICommentRepository repo)
+        {
+            this.commentRepo = repo;
+        }
+
         public bool CreateComment(Comment comment)
         {
             try
@@ -65,6 +71,21 @@ namespace Logic.Class
         public Comment GetOneComment(string id)
         {
             return this.commentRepo.GetOne(id);
+        }
+
+        public void AddUserToComment(MyUser user, string commentId)
+        {
+            this.commentRepo.AddUserToComment(user, commentId);
+        }
+
+        public void DeleteUserFromComment(MyUser user, string commentId)
+        {
+            this.commentRepo.DeleteUserFromComment(user, commentId);
+        }
+
+        public IQueryable<Comment> GetOneTopicAllComment(string topicId)
+        {
+            return this.commentRepo.GetOneTopicAllComment(topicId);
         }
     }
 }

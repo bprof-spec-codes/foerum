@@ -14,5 +14,7 @@ namespace Repository.Interface
             public IQueryable<Transaction> GetAll();
             public Transaction GetOne(string id);
             public void Update(string id, Transaction transaction);
+            public MyUser GetUserFromTransaction(string userId);
+            public void UpdateUserWithTransactionAmount(string userId, int amount);
       }
 }

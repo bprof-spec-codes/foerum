@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.subjectRepo = new SubjectRepository(dbPassword);
         }
+
+        public SubjectLogic(ISubjectRepository repo)
+        {
+            this.subjectRepo = repo;
+        }
+
         public bool CreateSubject(Subject subject)
         {
             try
@@ -65,6 +71,16 @@ namespace Logic.Class
         public Subject GetOneSubject(string id)
         {
             return this.subjectRepo.GetOne(id);
+        }
+
+        public void AddUserToSubject(MyUser user, string subjectId)
+        {
+            this.AddUserToSubject(user, subjectId);
+        }
+
+        public void DeleteUserFromSubject(MyUser user, string subjectId)
+        {
+            this.DeleteUserFromSubject(user, subjectId);
         }
     }
 }

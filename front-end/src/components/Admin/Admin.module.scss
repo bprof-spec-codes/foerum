@@ -1,0 +1,272 @@
+.root {
+  @apply flex pt-14;
+  height: 100vh;
+
+  .sidebar {
+    @apply flex fixed left-0 h-full bg-gray-100 shadow-md;
+
+    .sidebarList {
+      @apply flex flex-col mt-4;
+    }
+
+    .sidebarListItem {
+      @apply flex flex-col justify-center
+      items-center text-center m-4 cursor-pointer;
+
+      .listIcon {
+        @apply flex justify-center items-center
+        rounded-lg bg-gray-100 text-gray-700 mx-2 mb-2 p-4 shadow;
+        max-width: 3rem;
+        max-height: 3rem;
+
+        &:hover {
+          @apply bg-gray-200 shadow-md text-gray-700;
+        }
+      }
+      .active {
+        @apply flex justify-center items-center
+    rounded-lg bg-basebg text-gray-200 mx-2 mb-2 p-4 shadow;
+        max-width: 3rem;
+        max-height: 3rem;
+      }
+    }
+  }
+
+  .main {
+    @apply flex flex-col w-full mx-12 pl-32;
+
+    .hotTopics {
+      @apply flex h-2/3 w-full my-8;
+
+      .topicContainer {
+        @apply flex h-full w-full overflow-scroll;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: 3px;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .topicItem {
+          @apply flex flex-col relative p-8 mr-6 mb-4 rounded-2xl bg-gray-50 my-auto cursor-pointer shadow-md;
+          height: 30vh;
+          max-height: 40vh;
+          width: 250px;
+
+          h4 {
+            @apply text-lg font-semibold space-x-8 break-normal;
+          }
+
+          p {
+            @apply h-4 text-sm space-x-6 mb-24;
+          }
+
+          span {
+            @apply text-4xl space-x-6 m-0;
+          }
+
+          &:last-child {
+            @apply mr-0;
+          }
+        }
+      }
+    }
+
+    .latestActivity {
+      .latestActivityHead {
+        @apply flex justify-between;
+
+        h3 {
+          @apply text-5xl font-normal space-x-6;
+        }
+      }
+
+      .activityList {
+        @apply mt-6  overflow-scroll;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .activityListItem {
+          @apply flex mb-4 p-4 rounded-xl shadow-md bg-gray-50;
+
+          .listItemContent {
+            @apply flex;
+
+            h5 {
+              @apply text-lg space-x-6;
+            }
+
+            p {
+              @apply text-sm space-x-3 text-gray-400;
+            }
+
+            .contentChat {
+              @apply flex justify-center items-center h-12 w-12 bg-purple-200 rounded-xl mr-4 text-purple-400;
+            }
+
+            .contentLamp {
+              @apply flex justify-center items-center h-12 w-12 bg-yellow-200 rounded-xl mr-4 text-yellow-400;
+            }
+          }
+        }
+      }
+    }
+
+    .userManagement {
+      @apply flex flex-col w-full mt-4;
+
+      h3 {
+        @apply text-5xl text-gray-600;
+      }
+
+      .manageList {
+        @apply flex flex-col w-full mt-6 p-2 overflow-scroll;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .manageItem {
+          @apply flex flex-col mb-4 p-4 rounded-xl bg-gray-50 shadow-md;
+          border: none;
+
+          &::before {
+            height: 0;
+          }
+
+          .itemSummary {
+            @apply flex justify-between items-center w-full;
+
+            .itemTitle {
+              @apply my-1 text-2xl items-center space-x-6;
+            }
+
+            .itemDetails {
+              .detailItem {
+                @apply text-lg space-x-3;
+              }
+
+              .itemButton{
+                @apply mt-2 text-green-400;
+              }
+            }
+
+            .manageUser {
+              @apply flex justify-center items-center h-10 w-10 bg-red-200 rounded-lg mr-4 text-red-400;
+            }
+          }
+        }
+      }
+    }
+
+    .transactionManagement {
+      @apply flex flex-col w-full mt-4;
+
+      h3 {
+        @apply text-5xl text-gray-600;
+      }
+
+      .manageList {
+        @apply flex flex-col w-full mt-6 p-2 overflow-scroll;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .manageItem {
+          @apply flex flex-col mb-4 p-4 rounded-xl bg-gray-50 shadow-md;
+          border: none;
+
+          &::before {
+            height: 0;
+          }
+
+          .itemSummary {
+            @apply flex justify-between items-center w-full;
+
+            .itemTitle {
+              @apply my-1 text-2xl items-center space-x-6;
+            }
+
+            .itemDetails {
+              .detailItem {
+                @apply text-lg space-x-3;
+              }
+            }
+
+            .manageCash {
+              @apply flex justify-center items-center h-10 w-10 bg-green-200 rounded-lg mr-4 text-green-400;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .manage {
+    @apply flex flex-col w-1/3 p-4;
+
+    h3 {
+      @apply text-3xl font-normal space-x-6;
+    }
+
+    .manageContent {
+      @apply flex flex-col h-1/2;
+
+      &:last-child {
+        @apply mt-6;
+      }
+
+      .manageList {
+        @apply flex flex-col w-full mt-6 p-2 overflow-scroll;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .manageItem {
+          @apply flex items-center mb-4 p-4 rounded-xl bg-gray-50 shadow-md;
+
+          h5 {
+            @apply text-lg space-x-6;
+          }
+
+          p {
+            @apply text-sm space-x-3;
+          }
+
+          .manageTransaction {
+            @apply flex justify-center items-center h-12 w-12 bg-green-200 rounded-xl mr-4 text-green-400;
+          }
+
+          .manageUser {
+            @apply flex justify-center items-center h-10 w-10 bg-red-200 rounded-lg mr-4 text-red-400;
+          }
+        }
+      }
+    }
+  }
+
+  .updateButton {
+    @apply h-full mr-2 p-4 rounded-lg shadow-md text-gray-600 bg-gray-50;
+  }
+
+  .updateButton2 {
+    @apply mr-2 p-2 rounded-lg shadow-md bg-gray-50 text-gray-600 text-xs;
+  }
+}

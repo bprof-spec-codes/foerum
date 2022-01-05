@@ -18,6 +18,12 @@ namespace Logic.Class
         {
             this.topicRepo = new TopicRepository(dbPassword);
         }
+
+        public TopicLogic(ITopicRepository repo)
+        {
+            this.topicRepo = repo;
+        }
+
         public bool CreateTopic(Topic topic)
         {
             try
@@ -65,6 +71,16 @@ namespace Logic.Class
         public Topic GetOneTopic(string id)
         {
             return this.topicRepo.GetOne(id);
+        }
+
+        public void AddTagToTopic(Tag tag, string topicId)
+        {
+            this.topicRepo.AddTagToTopic(tag, topicId);
+        }
+
+        public void DeleteTagFromTopic(Tag tag, string topicId)
+        {
+            this.topicRepo.DeleteTagFromTopic(tag, topicId);
         }
     }
 }

@@ -18,11 +18,19 @@ namespace Logic.Class
         {
             this.transactionRepo = new TransactionRepository(dbPassword);
         }
+
+        public TransactionLogic(ITransactionRepository repo)
+        {
+            this.transactionRepo = repo;
+        }
+
         public bool CreateTransaction(Transaction transaction)
         {
+            if(!this.UserCanCompleteTransaction(transaction)) return false;
             try
             {
                 this.transactionRepo.Add(transaction);
+                this.UpdateUsersWithTransactionAmount(transaction);
                 return true;
             }
             catch
@@ -65,6 +73,17 @@ namespace Logic.Class
         public Transaction GetOneTransaction(string id)
         {
             return this.transactionRepo.GetOne(id);
+        }
+
+        private bool UserCanCompleteTransaction(Transaction transaction)
+        {
+            return this.transactionRepo.GetUserFromTransaction(transaction.Source).NikCoin >= transaction.Quantity;
+        }
+
+        private void UpdateUsersWithTransactionAmount(Transaction transaction)
+        {
+            this.transactionRepo.UpdateUserWithTransactionAmount(transaction.Source, transaction.Quantity * -1);
+            this.transactionRepo.UpdateUserWithTransactionAmount(transaction.Recipient, transaction.Quantity);
         }
     }
 }

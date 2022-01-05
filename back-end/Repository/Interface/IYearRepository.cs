@@ -10,10 +10,10 @@ namespace Repository.Interface
 {
       public interface IYearRepository
       {
-            public void Add(Year year);
-            public void Delete(string id);
-            public IQueryable<Year> GetAll();
-            public Year GetOne(string id);
-            public void Update(string id, Year year);
+            void Add(Year year);
+            void Delete(string id);
+            IQueryable<Year> GetAll();
+            Year GetOne(string id);
+            void Update(string id, Year year);
       }
 }

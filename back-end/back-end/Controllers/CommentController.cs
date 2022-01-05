@@ -32,10 +32,22 @@ namespace back_end.Controllers
             return this.commentLogic.GetOneComment(id);
         }
 
+        [HttpGet("GetOneTopicAllComment{topicId}")]
+        public IEnumerable<Comment> GetOneTopicAllComment(string topicId)
+        {
+            return this.commentLogic.GetOneTopicAllComment(topicId);
+        }
+
         [HttpPost]
         public void CreateComment([FromBody] Comment comment)
         {
             this.commentLogic.CreateComment(comment);
+        }
+
+        [HttpPost("AddUserToComment{commentId}")]
+        public void AddUserToComment([FromBody] MyUser user, string commentId)
+        {
+            this.commentLogic.AddUserToComment(user, commentId);
         }
 
         [HttpPut("{id}")]
@@ -48,6 +60,12 @@ namespace back_end.Controllers
         public void DeleteComment(string id)
         {
             this.commentLogic.DeleteComment(id);
+        }
+
+        [HttpDelete("DeleteUserFromComment{commentId}")]
+        public void DeleteUserFromComment([FromBody] MyUser user, string commentId)
+        {
+            this.commentLogic.DeleteUserFromComment(user, commentId);
         }
     }
 }

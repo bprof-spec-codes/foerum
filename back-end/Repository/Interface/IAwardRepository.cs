@@ -9,10 +9,10 @@ namespace Repository.Interface
 {
       public interface IAwardRepository
       {
-            public void Add(Award award);
-            public void Delete(string id);
-            public IQueryable<Award> GetAll();
-            public Award GetOne(string id);
-            public void Update(string id, Award award);
+            void Add(Award award);
+            void Delete(string id);
+            IQueryable<Award> GetAll();
+            Award GetOne(string id);
+            void Update(string id, Award award);
       }
 }

@@ -19,6 +19,11 @@ namespace Logic.Class
             this.commentReactersRepo = new CommentReactersRepository(dbPassword);
         }
 
+        public CommentReactersLogic(ICommentReactersRepository repo)
+        {
+            this.commentReactersRepo = repo;
+        }
+
         /// TODO: uncomment after repo is implemented
         public bool CreateCommentReacters(CommentReacters CommentReacters)
         {

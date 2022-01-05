@@ -9,7 +9,7 @@ namespace Repository.Interface
 {
     public interface ISubjectUsersRepository
     {
-        public IEnumerable<string> GetOneSubjectAllUser(string subjectId);
-        public IEnumerable<string> GetOneUserAllSubject(string userId);
+        IEnumerable<MyUser> GetOneSubjectAllUser(string subjectId);
+        IEnumerable<Subject> GetOneUserAllSubject(string userId);
     }
 }

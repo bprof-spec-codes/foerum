@@ -56,5 +56,18 @@ namespace Repository.Class
                 this.db.SaveChanges();
             }
         }
+
+        public MyUser GetUserFromTransaction(string userId)
+        {
+            return this.db.Set<MyUser>().SingleOrDefault(x => x.Id == userId);
+        }
+
+        public void UpdateUserWithTransactionAmount(string userId, int amount)
+        {
+            var user = this.db.Set<MyUser>().SingleOrDefault(x => x.Id == userId);
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            user.NikCoin += amount;
+            this.db.SaveChanges();
+        }
     }
 }
