@@ -248,7 +248,7 @@ const Admin: FC = () => {
                           )}
                         </Typography>
                         <Typography className={s.detailItem}>
-                          {u.transactionId}
+                          {u.transactionID}
                         </Typography>
                         <Button className={s.itemButton}>
                           elfogadás
