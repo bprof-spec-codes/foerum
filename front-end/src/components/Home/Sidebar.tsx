@@ -46,8 +46,8 @@ const Sidebar = () => {
         <div>
           {years &&
             years.map((year,i) => (
-              <div key={i}>
-                <Year {...year}/>
+              <div key={i} style={{cursor: 'pointer' }}>
+                <Year {...year} />
               </div>
             ))}
 
@@ -64,7 +64,7 @@ const Sidebar = () => {
         <div>
           {subjects &&
             subjects.map((subject,i) => (
-              <div key={i}>
+              <div key={i} style={{cursor: 'pointer' }}>
                 <Subject {...subject}/>
               </div>
             ))}
