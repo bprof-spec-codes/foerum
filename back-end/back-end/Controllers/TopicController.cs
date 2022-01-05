@@ -59,7 +59,7 @@ namespace back_end.Controllers
         [HttpDelete("DeleteTagFromTopic{topicId}")]
         public void DeleteTagFromTopic([FromBody] Tag tag, string topicId)
         {
-            this.subjectLogic.DeleteTagFromTopic(tag, topicId);
+            this.topicLogic.DeleteTagFromTopic(tag, topicId);
         }
     }
 }
