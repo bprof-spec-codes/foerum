@@ -125,7 +125,7 @@ const Admin: FC = () => {
   };
 
   const createActivityList = () => {
-    if (comments && topics && /* reactions&& */ subjects) {
+    /* if (comments && topics && subjects) {
       const arr: concatArray[] = comments.concat(topics);
       console.log(arr);
 
@@ -155,7 +155,7 @@ const Admin: FC = () => {
           )}
         </li>
       ));
-    }
+    } */
     return <></>;
   };
 

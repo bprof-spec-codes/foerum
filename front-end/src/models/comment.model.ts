@@ -11,5 +11,3 @@ export interface IComment {
   isEdited?: string | null; // prev state id
   isActive?: boolean;
 }
-
-export const defaultValue: Readonly<IComment> = {};

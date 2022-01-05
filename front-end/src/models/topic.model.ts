@@ -1,5 +1,5 @@
 export interface ITopic {
-  topicID?: string | null;
+  topicID: string;
   subjectID?: string;
   userID?: string;
   topicName?: string;
@@ -11,4 +11,6 @@ export interface ITopic {
   showAdd?: boolean;
 }
 
-export const defaultValue: Readonly<ITopic> = {};
+export const defaultValue: Readonly<ITopic> = {
+  topicID:""
+};
