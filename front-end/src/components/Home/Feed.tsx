@@ -3,11 +3,15 @@ import axios from "src/axios";
 import { ITopic } from "src/models/topic.model";
 import { IUser } from "src/models/user.model";
 import Topic from "../Misc/Topic";
+import AddTopic from "./feed-components/AddTopic";
+import Button from "./feed-components/Button";
 
 const Feed = () => {
   const [topics, setTopics] = useState<ITopic[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
+  const [showAddTopic, setShowAddTopic] = useState(false);
+
 
   useEffect(() => {
     const getTopics = async () => {
@@ -33,6 +37,16 @@ const Feed = () => {
   return (
     <div>
       <div>
+        <div>
+          <header>
+            {showAddTopic && <AddTopic />}
+              <Button
+                onClicked={() => setShowAddTopic(!showAddTopic)}
+                color={showAddTopic ? "#FAB001" : "#182A4E"}
+                text={showAddTopic ? "Mégse" : "Új téma hozzáadása"}
+              />
+        </header>
+        </div>
         <div>
           {topics &&
             topics.map((topic, i) => (
