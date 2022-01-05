@@ -9,10 +9,12 @@ namespace Repository.Interface
 {
       public interface ITransactionRepository
       {
-            void Add(Transaction transaction);
-            void Delete(string id);
-            IQueryable<Transaction> GetAll();
-            Transaction GetOne(string id);
-            void Update(string id, Transaction transaction);
+            public void Add(Transaction transaction);
+            public void Delete(string id);
+            public IQueryable<Transaction> GetAll();
+            public Transaction GetOne(string id);
+            public void Update(string id, Transaction transaction);
+            public MyUser GetUserFromTransaction(string userId);
+            public void UpdateUserWithTransactionAmount(string userId, int amount);
       }
 }
