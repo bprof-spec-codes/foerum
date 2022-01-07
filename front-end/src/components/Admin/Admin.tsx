@@ -150,17 +150,17 @@ const Admin: FC = () => {
         });
       });
 
-      subjects.map((s) => {
+     /*  subjects.map((s) => {
         arr.push({
           content: s.subjectName ? s.subjectName : "",
           creationDate: "",
           identity: "SUBJECT",
         });
-      });
+      }); */
 
       const sortedArr = arr.sort(
         (cd1, cd2) => +cd1.creationDate - +cd2.creationDate
-      );
+      ).reverse();
 
       return sortedArr.map((q, i) => (
         <li key={i} className={s.activityListItem}>
@@ -369,9 +369,6 @@ const Admin: FC = () => {
 
   return (
     <>
-      <div className="fixed w-full z-50">
-        <Header />
-      </div>
       <div className={s.root}>
         <div className={s.sidebar}>
           <ul className={s.sidebarList}>

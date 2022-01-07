@@ -7,7 +7,7 @@ const Header = () => {
   const history = useHistory();
 
   return (
-    <div className="h-14 bg-basebg">
+    <div className="fixed w-full h-14 bg-basebg shadow-lg z-50">
       <div className="flex justify-between h-full content-center text-center text-white">
         <img
           className="cursor-pointer"
@@ -17,20 +17,10 @@ const Header = () => {
           onClick={() => history.push("/home")}
         />
 
-        <div className="flex p-1 w-full px-56 self-center">
-          <div className="flex w-full h-8 bg-white rounded-2xl">
-            <input
-              type="text"
-              className="flex w-full my-1 mx-2 text-black outline-none text-center bg-white"
-              placeholder={`Keress rá bármire!`}
-            />
-          </div>
-        </div>
-
         <div className="flex content-center p-2 self-center">
-          <a href="/Admin" className="font-bold">
+          <p className="font-bold cursor-pointer" onClick={() => history.push("/Admin")}>
             Admin felület
-          </a>
+          </p>
         </div>
       </div>
     </div>

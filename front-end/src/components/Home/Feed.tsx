@@ -12,15 +12,14 @@ const Feed = () => {
   const [showAddComment, setShowAddComment] = useState(false);
   const [showAddTopic, setShowAddTopic] = useState(false);
 
-
   useEffect(() => {
     const getTopics = async () => {
-      const topics = await axios.get<ITopic[]>("http://localhost:8585/Topic");
+      const topics = await axios.get<ITopic[]>("/Topic");
       setTopics(topics.data);
     };
 
     const getUsers = async () => {
-      const users = await axios.get<IUser[]>("http://localhost:8585/MyUser");
+      const users = await axios.get<IUser[]>("/MyUser");
       setUsers(users.data);
     };
 
@@ -30,40 +29,30 @@ const Feed = () => {
 
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
-    console.log(user)
+    console.log(user);
     return user ? user : ({} as IUser);
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <header>
-            {showAddTopic && <AddTopic />}
-              <Button
-                onClicked={() => setShowAddTopic(!showAddTopic)}
-                color={showAddTopic ? "#FAB001" : "#182A4E"}
-                text={showAddTopic ? "Mégse" : "Új téma hozzáadása"}
-              />
-        </header>
-        </div>
-        <div>
-          {topics &&
-            topics.map((topic, i) => (
-              <div key={i}>
-                {users && (
-                  <Topic
-                    topic={topic}
-                    onAdd={showAddComment}
-                    allUsers={users}
-                    user={selectUser(topic.userID)}
-                  />
-                )}
-              </div>
-            ))}
-        </div>
+    <>
+      <div className="flex flex-col w-full bg-gray-100 rounded-lg">
+        <AddTopic />
       </div>
-    </div>
+
+      {topics &&
+        topics.map((topic, i) => (
+          <div key={i}>
+            {users && (
+              <Topic
+                topic={topic}
+                onAdd={showAddComment}
+                allUsers={users}
+                user={selectUser(topic.userID)}
+              />
+            )}
+          </div>
+        ))}
+    </>
   );
 };
 

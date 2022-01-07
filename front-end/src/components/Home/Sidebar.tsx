@@ -4,8 +4,11 @@ import { ISubject } from "src/models/subject.model";
 import Subject from "./sidebar-components/Subject";
 import { IYear } from "src/models/year.model";
 import Year from "./sidebar-components/Year";
-import Button from "./feed-components/Button";
 import AddSubject from "./feed-components/AddSubject";
+import { Button, ButtonProps } from "@mui/material";
+
+import { styled, createTheme } from "@mui/material/styles";
+import { blue } from "@mui/material/colors";
 
 const Sidebar = () => {
   const [showAdd, setShowAdd] = useState(false);
@@ -15,7 +18,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     axios
-      .get<ISubject[]>("http://localhost:8585/Subject")
+      .get<ISubject[]>("/Subject")
       .then((res) => {
         setSubjects(res.data);
         //console.log(res.data);
@@ -24,8 +27,8 @@ const Sidebar = () => {
         console.log(err);
       });
 
-      axios
-      .get<IYear[]>("http://localhost:8585/Year")
+    axios
+      .get<IYear[]>("/Year")
       .then((res) => {
         setYears(res.data);
         //console.log(res.data);
@@ -33,52 +36,47 @@ const Sidebar = () => {
       .catch((err) => {
         console.log(err);
       });
-
   }, []);
-  
 
   return (
     <div>
-      <div className="flex-col bg-basewhitebg">
-      <div className="h-16 bg-basebg text-white rounded-t-2xl">
-          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Évfolyamok</h4>
-        </div>
-        <div>
-          {years &&
-            years.map((year,i) => (
-              <div key={i} style={{cursor: 'pointer' }}>
-                <Year {...year} />
-              </div>
-            ))}
-
-        </div>
-      
-        <div className="h-16 bg-basebg text-white rounded-t-2xl">
-          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Témák</h4>
-        </div>
-        <div className="flex w-full p-3  px-5 self-center">
-            <div className="flex w-full h-8 bg-white rounded-2xl">
-            <input type="text" className="flex w-full my-1 mx-2 text-black outline-none text-center bg-white" placeholder={`Keress rá egy témára!`} />
+      <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
+        Évfolyamok
+      </h4>
+      <div className="">
+        {years &&
+          years.map((year, i) => (
+            <div key={i} style={{ cursor: "pointer" }}>
+              <Year yearName={year.yearName} />
             </div>
-        </div>
-        <div>
-          {subjects &&
-            subjects.map((subject,i) => (
-              <div key={i} style={{cursor: 'pointer' }}>
-                <Subject {...subject}/>
-              </div>
-            ))}
-
-        </div>
-        <div>
+          ))}
+      </div>
+      <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
+        Témák
+      </h4>
+      <div className="mt-4">
+        {subjects &&
+          subjects.map((subject, i) => (
+            <div key={i} style={{ cursor: "pointer" }}>
+              <Subject subjectName={subject.subjectName} />
+            </div>
+          ))}
+      </div>
+      <div>
         {showAdd && <AddSubject />}
-          <Button
-            onClicked={() => setShowAdd(!showAdd)}
-            color={showAdd ? "#FAB001" : "#182A4E"}
-            text={showAdd ? "Mégse" : "Új téma hozzáadása"}
-          />
-        </div>
-
+        <Button
+          className="w-full"
+          variant="outlined"
+          onClick={() => setShowAdd(!showAdd)}
+          style={{
+            backgroundColor: `${showAdd ? "#FAB001" : "#182A4E"}`,
+            color: "white",
+            outline: "none",
+            border: "none",
+          }}
+        >
+          {showAdd ? "Mégse" : "Új téma hozzáadása"}
+        </Button>
       </div>
     </div>
   );
