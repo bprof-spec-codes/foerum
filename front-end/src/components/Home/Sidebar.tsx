@@ -13,6 +13,8 @@ const Sidebar = () => {
   const [subjects, setSubjects] = useState<ISubject[]>([]);
   const [years, setYears] = useState<IYear[]>([]);
 
+  const [subjectName, setSubjectName] = useState('');
+
   useEffect(() => {
     axios
       .get<ISubject[]>("http://localhost:8585/Subject")
@@ -36,6 +38,25 @@ const Sidebar = () => {
 
   }, []);
   
+  const createSubject = ()=> {
+    const data = {
+      subjectID: "string",
+      yearID: "string",
+      subjectName: subjectName,
+      isPrivate: true,
+      inviteKeyIfPrivate: "string"
+    };
+
+
+    axios.post("/Subject")
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  }
 
   return (
     <div>
@@ -63,7 +84,14 @@ const Sidebar = () => {
         </div>
         <div>
           {subjects &&
-            subjects.map((subject,i) => (
+            subjects
+            
+            .sort(function(a, b){
+              if(a.subjectName! < b.subjectName!) { return -1; }
+              if(a.subjectName! > b.subjectName!) { return 1; }
+              return 0;
+          })
+            .map((subject,i) => (
               <div key={i} style={{cursor: 'pointer' }}>
                 <Subject {...subject}/>
               </div>

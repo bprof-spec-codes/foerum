@@ -30,13 +30,13 @@ export default (
 ): MSAuthenticationState => {
   switch (action.type) {
     case ACTION_TYPES.LOGIN:
-      console.log("succ");
       return {
         ...state,
         loading: false,
         loginError: false,
         loginSuccess: true,
         isAuthenticated: true,
+        account:action.payload,
       };
     default:
       return state;
