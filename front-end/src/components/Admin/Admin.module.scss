@@ -113,6 +113,26 @@
             .contentLamp {
               @apply flex justify-center items-center h-12 w-12 bg-yellow-200 rounded-xl mr-4 text-yellow-400;
             }
+
+            .contentBook {
+              @apply flex justify-center items-center h-12 w-12 bg-blue-200 rounded-xl mr-4 text-blue-400;
+            }
+          }
+        }
+
+        .noActivity {
+          @apply flex flex-col justify-center items-center mb-4 p-4 text-gray-400;
+          height: 24vh;
+
+          span {
+            @apply flex justify-center items-center h-16 w-16 border-2 border-gray-400 border-dashed rounded-full;
+
+            .noActivityIcon {
+            }
+          }
+
+          p {
+            @apply mt-4 text-lg;
           }
         }
       }
@@ -155,7 +175,7 @@
                 @apply text-lg space-x-3;
               }
 
-              .itemButton{
+              .itemButton {
                 @apply mt-2 text-green-400;
               }
             }
