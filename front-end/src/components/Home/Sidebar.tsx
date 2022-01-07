@@ -39,7 +39,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mx-5">
       <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
         Évfolyamok
       </h4>

@@ -23,7 +23,6 @@ const Comment: FC<ICommentProps> = ({ comment, allUsers }) => {
   // const user = allUsers.find((u) => u.id === comment.userID);
   const getCommenter = (): string => {
     const user = allUsers.find((u) => u.id === comment.userID);
-    console.log(user);
     return user && user.fullName ? user.fullName : "";
   };
 
@@ -32,9 +31,9 @@ const Comment: FC<ICommentProps> = ({ comment, allUsers }) => {
   };
 
   return (
-    <div className="flex my-2 border-l-2 border-gray-100">
-      <div className="px-2">
-        <Avatar />
+    <div className="flex border-l-2 border-gray-100">
+      <div className="px-2 pt-1">
+        <Avatar sx={{ height: '30px', width: '30px' }} />
       </div>
       <div className="flex justify-between w-full">
         <div>

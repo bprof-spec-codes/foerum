@@ -29,13 +29,12 @@ const Feed = () => {
 
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
-    console.log(user);
     return user ? user : ({} as IUser);
   };
 
   return (
     <>
-      <div className="flex flex-col w-full bg-gray-100 rounded-lg">
+      <div className="flex flex-col w-full bg-gray-100 rounded-lg shadow-md">
         <AddTopic />
       </div>
 

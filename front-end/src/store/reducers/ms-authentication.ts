@@ -30,7 +30,7 @@ export default (
 ): MSAuthenticationState => {
   switch (action.type) {
     case ACTION_TYPES.LOGIN:
-      console.log("succ");
+      console.log(action.payload);
       return {
         ...state,
         loading: false,
@@ -47,6 +47,10 @@ export const login = (instance: any, dispatch: any) => {
   instance
     .loginPopup(loginRequest)
     .then((res: any) => {
+      console.log(res);
+      sessionStorage.setItem("username", res.account.name);
+      sessionStorage.setItem("useremail", res.account.username);
+
       const bearerToken = `Bearer ${res.idToken}`;
       sessionStorage.setItem(AUTH_TOKEN_KEY, bearerToken);
       dispatch(setLoginState(res));
@@ -57,7 +61,6 @@ export const login = (instance: any, dispatch: any) => {
 };
 
 export const setLoginState = (data: any) => {
-  console.log("hello");
   return {
     type: ACTION_TYPES.LOGIN,
     payload: axios

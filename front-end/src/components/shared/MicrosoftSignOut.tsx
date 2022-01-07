@@ -5,6 +5,8 @@ import { loginRequest } from "../../ms-auth-config";
 import { connect } from "react-redux";
 import { IRootState } from "src/store/reducers";
 import { logout } from "../../store/reducers/ms-authentication";
+import { Button, IconButton } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 /**
  * Renders a button which, when selected, will redirect the page to the login prompt
@@ -13,9 +15,11 @@ export const SignOutButton = () => {
   const { instance } = useMsal();
 
   return (
-    <button onClick={() => logout(instance)}>
-      Kijelentkezés
-    </button>
+    <div onClick={() => logout(instance)}>
+      <IconButton>
+        <LogoutIcon sx={{ color: "white" }} />
+      </IconButton>
+    </div>
   );
 };
 

@@ -35,12 +35,10 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   });
 
   useEffect(() => {
-    console.log(user);
     axios
       .get<IComment[]>("/Comment")
       .then((res) => {
         setComments(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -52,37 +50,7 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   };
 
   return (
-    /*     <div className="">
-      <h1>Kérdező: {user.fullName}</h1>
-      <br />
-
-      <h1 className="container__inner">{topic.topicName}</h1>
-      <br />
-
-      <h2>Csatolmányok: {topic.attachmentUrl}</h2>
-      <h3>Létrehozás dátuma: {topic.creationDate}</h3>
-      <h2>A válaszért {topic.offeredCoins} db NIKCoint ajánlok fel.</h2>
-      <h2>Hozzászólások:</h2>
-      <br />
-
-      {comments &&
-        comments.map((comment, i) => (
-          <div key={i}>
-            <Comment comment={comment} allUsers={allUsers} />
-          </div>
-        ))}
-
-      <header>
-        <Button
-          onClicked={() => setShowAdd(!showAdd)}
-          color={showAdd ? "#FAB001" : "#182A4E"}
-          text={showAdd ? "Mégse" : "Új hozzászólás írása"}
-        />
-      </header>
-
-      {showAdd && <AddComment {...topic} />}
-    </div> */
-    <div className="flex w-full mt-4 border-b-2 border-gray-100">
+    <div className="flex w-full mt-4 p-4 rounded-lg shadow-md">
       <Avatar style={{ backgroundColor: "#b9b9b9" }} />
       <div className="flex flex-col w-full ml-2">
         <div className="flex h-10 pt-2">
@@ -97,22 +65,23 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
         <p>{topic.topicName}</p>
         {topic.attachmentUrl}
 
-        {comments &&
-          comments.map((comment, i) => (
-            <div key={i}>
-              <Comment comment={comment} allUsers={allUsers} />
-            </div>
-          ))}
-
-        <header>
+        <div className="mt-4">
+          {comments &&
+            comments.map((comment, i) => (
+              <div key={i}>
+                <Comment comment={comment} allUsers={allUsers} />
+              </div>
+            ))}
+        </div>
+        {/*
           <Button
             onClicked={() => setShowAdd(!showAdd)}
             color={showAdd ? "#FAB001" : "#182A4E"}
             text={showAdd ? "Mégse" : "Új hozzászólás írása"}
           />
-        </header>
+ */}
 
-        {showAdd && <AddComment {...topic} />}
+        <AddComment {...topic} />
       </div>
     </div>
   );

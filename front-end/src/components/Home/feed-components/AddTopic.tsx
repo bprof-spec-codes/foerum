@@ -12,7 +12,7 @@ const AddTopic: FC = () => {
 
   return (
     <>
-      <div className="flex w-full p-4 pb-0">
+      <div className="flex justify-between w-full p-4 pb-0">
         <TextField
           className="w-3/4"
           placeholder="Mi a kérdés tárgya?"
@@ -21,18 +21,20 @@ const AddTopic: FC = () => {
           variant="standard"
           InputProps={{ disableUnderline: true }}
         />
-        <TextField
-          placeholder="0"
-          type="number"
-          onChange={(e) => setNikCoin(e.target.value)}
-          variant="standard"
-          InputProps={{ disableUnderline: true }}
-          style={{ width: "50px" }}
-        />
-        <MonetizationOnOutlinedIcon
-          className="text-gray-400"
-          style={{ marginTop: "2px" }}
-        />
+        <div>
+          <TextField
+            placeholder="0"
+            type="number"
+            onChange={(e) => setNikCoin(e.target.value)}
+            variant="standard"
+            InputProps={{ disableUnderline: true }}
+            style={{ width: "50px" }}
+          />
+          <MonetizationOnOutlinedIcon
+            className="text-gray-400"
+            style={{ marginTop: "2px" }}
+          />
+        </div>
       </div>
 
       <div className="flex justify-between w-full p-2">
