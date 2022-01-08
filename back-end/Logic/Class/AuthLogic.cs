@@ -74,6 +74,7 @@ namespace Logic.Class
                 );
                 return new TokenViewModel
                 {
+                    UserId = user.Id,
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
                     Expiration = token.ValidTo
                 };
@@ -133,6 +134,7 @@ namespace Logic.Class
             );
             return new TokenViewModel
             {
+                UserId = user.Id,
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = token.ValidTo
             };
