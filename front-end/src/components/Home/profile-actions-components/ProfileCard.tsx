@@ -9,18 +9,12 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
   const [userName, setUserName] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   useEffect(() => {
-    console.log(sessionStorage.getItem("username"));
-    console.log(sessionStorage.getItem("useremail"));
     const userName = sessionStorage.getItem("username");
     const userEmail = sessionStorage.getItem("useremail");
 
     setUserName(userName);
     setUserEmail(userEmail);
   }, []);
-
-  useEffect(() => {
-    console.log(userName, userEmail);
-  }, [userName, userEmail]);
 
   const normalizeUserName = (name: string) => {
     return name.toLowerCase().replace(/\s/g, "");

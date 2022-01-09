@@ -33,7 +33,8 @@
   }
 
   .main {
-    @apply flex flex-col w-full mx-12 pl-32;
+    @apply flex flex-col mx-12 pl-32;
+    width: calc(100% - 25%);
 
     .hotTopics {
       @apply flex h-2/3 w-full my-8;
