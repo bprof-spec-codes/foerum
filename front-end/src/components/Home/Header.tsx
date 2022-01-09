@@ -1,10 +1,8 @@
-import { IconButton } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { IRootState } from "src/store/reducers";
 import minilogo from "../../assets/images/minilogo.png";
-import { SignInButton } from "../shared/MicrosoftSignIn";
 import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
 
