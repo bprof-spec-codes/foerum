@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -9,6 +10,7 @@ namespace Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID { get; set; }
+        public string UserID { get; set; }
         public MyUser User { get; set; }
         public MyRole Role { get; set; }
     }

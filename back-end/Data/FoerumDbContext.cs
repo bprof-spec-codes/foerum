@@ -48,6 +48,14 @@ namespace Data
                 new { Id = "d2b948cc-8ba9-4ad4-b1b0-958432e22d3e", Name = "User", NormalizedName = "USER" }
             );
 
+            // User Roles
+            modelBuilder.Entity<MyUserRoles>(e =>
+            {
+                e.HasOne(mur => mur.User)
+                 .WithMany(u => u.Role)
+                 .HasForeignKey(mur=>mur.UserID);
+            });
+
             // Comment-User
             modelBuilder.Entity<CommentReacters>(entity =>
             {
