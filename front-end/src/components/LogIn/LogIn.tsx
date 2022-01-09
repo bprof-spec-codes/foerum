@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import "./login.scss";
+import s from "./Login.module.scss";
 import logo from "../../assets/images/logo.png";
 import micro from "../../assets/images/micro.png";
 
@@ -8,6 +8,9 @@ import { RouteComponentProps } from "react-router-dom";
 import { IRootState } from "src/store/reducers";
 import { login } from "../../store/reducers/authentication";
 import { SignInButton, SignOutButton } from "../shared";
+import { LoginSVG } from "./login-components";
+import { Button } from "@mui/material";
+
 
 export interface ILoginProps
   extends StateProps,
@@ -16,8 +19,17 @@ export interface ILoginProps
 
 const LogIn: FC<ILoginProps> = (props) => {
   return (
-    <div className="login">
-      <div className="login__colored-container">
+    <div className={s.root}>
+      <div className={s.form}>
+        <div className={s.svg}>
+          <LoginSVG />
+        </div>
+        <div className={s.button}>
+          <SignInButton />
+        </div>
+      </div>
+
+      {/*       <div className="login__colored-container">
         <img
           className="login__colored-container__logo-container--image"
           src={logo}
@@ -33,13 +45,13 @@ const LogIn: FC<ILoginProps> = (props) => {
       >
         <div className="login__login-container__main-container">
           <img
-                //className="login__colored-container__logo-container--image"
-                src={micro}
-                alt="alt"
-            />
+            //className="login__colored-container__logo-container--image"
+            src={micro}
+            alt="alt"
+          />
           <SignInButton />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -48,7 +60,7 @@ const mapStateToProps = ({ authentication }: IRootState) => ({
   loginError: authentication.loginError,
 });
 
-const mapDispatchToProps = { login};
+const mapDispatchToProps = { login };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

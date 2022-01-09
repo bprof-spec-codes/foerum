@@ -52,9 +52,9 @@ const Sidebar = () => {
           ))}
       </div>
       <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
-        Témák
+        Tantárgyak
       </h4>
-      <div className="mt-4">
+      <div>
         {subjects &&
           subjects.map((subject, i) => (
             <div key={i} style={{ cursor: "pointer" }}>

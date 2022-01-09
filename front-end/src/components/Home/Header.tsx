@@ -1,13 +1,22 @@
-import { IconButton } from "@mui/material";
-import React from "react";
+import React, { FC, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router";
+import { IRootState } from "src/store/reducers";
 import minilogo from "../../assets/images/minilogo.png";
-import { SignInButton } from "../shared/MicrosoftSignIn";
 import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
 
-const Header = () => {
+export interface IHeaderProps extends StateProps {}
+
+const Header: FC<IHeaderProps> = (props) => {
   const history = useHistory();
+
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsAuth(!!sessionStorage.getItem("token"));
+    console.log(isAuth);
+  }, [props]);
 
   return (
     <div className="fixed w-full h-14 bg-basebg shadow-lg z-50">
@@ -28,11 +37,17 @@ const Header = () => {
             Admin felület
           </p>
 
-            <SignOutButton />
+          {isAuth && <SignOutButton />}
         </div>
       </div>
     </div>
   );
 };
 
-export default Header;
+const mapStateToProps = ({ authentication }: IRootState) => ({
+  authenticated: authentication.isAuthenticated,
+});
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+
+export default connect(mapStateToProps)(Header);

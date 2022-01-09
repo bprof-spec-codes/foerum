@@ -35,6 +35,10 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   });
 
   useEffect(() => {
+    getComments();
+  }, []);
+
+  const getComments = () => {
     axios
       .get<IComment[]>("/Comment")
       .then((res) => {
@@ -43,7 +47,7 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
   const normalizeUserName = (name: string) => {
     return name.toLowerCase().replace(/\s/g, "");
@@ -58,7 +62,11 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
           {user.fullName && (
             <p className="text-gray-400 space-x-6">
               @{normalizeUserName(user.fullName)} · {topic.offeredCoins} coin ·{" "}
-              {moment(topic.creationDate).format("d")} napja
+              {+moment(topic.creationDate).format("d") > 0
+                ? `${moment(topic.creationDate).format("d")} napja`
+                : +moment(topic.creationDate).format("h") > 1
+                ? `${moment(topic.creationDate).format("h")} órája`
+                : `${moment(topic.creationDate).format("m")} perce`}
             </p>
           )}
         </div>
@@ -81,7 +89,7 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
           />
  */}
 
-        <AddComment {...topic} />
+        <AddComment refresh={getComments} topic={topic} />
       </div>
     </div>
   );

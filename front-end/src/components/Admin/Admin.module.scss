@@ -14,18 +14,16 @@
       items-center text-center m-4 cursor-pointer;
 
       .listIcon {
-        @apply flex justify-center items-center
-        rounded-lg bg-gray-100 text-gray-700 mx-2 mb-2 p-4 shadow;
+        @apply flex justify-center items-center bg-gray-100 text-gray-700 mx-2 mb-2 p-4;
         max-width: 3rem;
         max-height: 3rem;
 
         &:hover {
-          @apply bg-gray-200 shadow-md text-gray-700;
+          @apply bg-gray-200 text-gray-700;
         }
       }
       .active {
-        @apply flex justify-center items-center
-    rounded-lg bg-basebg text-gray-200 mx-2 mb-2 p-4 shadow;
+        @apply flex justify-center items-center bg-basebg text-gray-200 mx-2 mb-2 p-4;
         max-width: 3rem;
         max-height: 3rem;
       }
@@ -33,7 +31,8 @@
   }
 
   .main {
-    @apply flex flex-col w-full mx-12 pl-32;
+    @apply flex flex-col mx-12 pl-32;
+    width: calc(100% - 25%);
 
     .hotTopics {
       @apply flex h-2/3 w-full my-8;
@@ -171,9 +170,9 @@
             }
 
             .itemDetails {
-              .detailItem {
-                @apply text-lg space-x-3;
-              }
+              /*   .detailItem {
+                @apply text-base m-4;
+              } */
 
               .itemButton {
                 @apply mt-2 text-green-400;

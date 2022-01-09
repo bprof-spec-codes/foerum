@@ -1,0 +1,74 @@
+#boy-leg-left {
+  animation: leg1 6s ease-in-out infinite alternate;
+  transform-box: fill-box;
+}
+
+#boy-leg-right {
+  animation: leg2 4s ease-in-out infinite alternate;
+  transform-box: fill-box;
+}
+
+#boy-hand-right {
+  animation: hand1 2s ease-in-out infinite alternate;
+  transform-box: fill-box;
+}
+
+#girl-leg-left {
+  animation: leg3 5s ease-in-out infinite alternate;
+  transform-box: fill-box;
+}
+
+#girl-hand-left {
+  animation: hand2 2s ease-in-out infinite alternate;
+  transform-box: fill-box;
+}
+
+@keyframes leg1 {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(5deg);
+  }
+}
+
+@keyframes leg2 {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(10deg);
+  }
+}
+
+@keyframes leg2 {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(5deg);
+  }
+}
+
+@keyframes hand1 {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(-5deg);
+  }
+}
+
+@keyframes hand2 {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(3deg);
+  }
+}

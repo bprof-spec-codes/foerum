@@ -73,7 +73,9 @@ export const setLoginState = (data: any) => {
         baseHeader
       )
       .then((res) => {
+        console.log(res);
         sessionStorage.setItem(AUTH_TOKEN_KEY, `Bearer ${res.data.token}`);
+        sessionStorage.setItem("userid", res.data.userId);
       })
       .catch((err) => console.error(err)),
   };
@@ -82,7 +84,13 @@ export const setLoginState = (data: any) => {
 export const logout = (instance: any) => {
   instance
     .logoutPopup()
-    .then((res: any) => console.log(res))
+    .then((res: any) => {
+      console.log(res);
+
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("username");
+      sessionStorage.removeItem("useremail");
+    })
     .catch((e: any) => {
       console.error(e);
     });
