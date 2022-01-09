@@ -2,8 +2,6 @@ import axios from "../../axios";
 import React, { FC, useEffect, useState } from "react";
 import s from "./Admin.module.scss";
 import { IUser } from "src/models/user.model";
-import Header from "../Home/Header";
-
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
@@ -11,10 +9,11 @@ import LocalFireDepartmentOutlinedIcon from "@mui/icons-material/LocalFireDepart
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import Zoom from "@mui/material/Zoom";
 
 import { IComment } from "src/models/comment.model";
@@ -27,16 +26,22 @@ import {
   AccordionSummary,
   Box,
   Button,
+  IconButton,
   Skeleton,
+  Switch,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { boxSizing } from "@mui/system";
 import moment from "moment";
 import { Timer } from "./admin-components";
 import { ITransaction } from "src/models/transaction.model";
 
-type concatArray = IComment & ITopic;
+type concatArray = {
+  content: string;
+  creationDate: Date | string | number;
+  identity: "TOPIC" | "COMMENT" | "SUBJECT";
+};
 
 const Admin: FC = () => {
   const [users, setUsers] = useState<IUser[] | null>(null);
@@ -113,6 +118,17 @@ const Admin: FC = () => {
     return subject?.subjectName;
   };
 
+  const editUser = (user: any) => {
+    axios
+      .put(`/MyUser/${user.id}`, user)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const updateLatest = async () => {
     await getUsers();
     await getTransactions();
@@ -125,38 +141,73 @@ const Admin: FC = () => {
   };
 
   const createActivityList = () => {
-    /* if (comments && topics && subjects) {
-      const arr: concatArray[] = comments.concat(topics);
+    if (comments && topics && subjects) {
+      const arr = new Array<concatArray>();
       console.log(arr);
+      comments.map((c) => {
+        arr.push({
+          content: c.content ? c.content : "",
+          creationDate: c.creationDate ? c.creationDate : "",
+          identity: "COMMENT",
+        });
+      });
 
-      return arr.map((q, i) => (
+      topics.map((t) => {
+        arr.push({
+          content: t.topicName ? t.topicName : "",
+          creationDate: t.creationDate ? t.creationDate : "",
+          identity: "TOPIC",
+        });
+      });
+
+      /*  subjects.map((s) => {
+        arr.push({
+          content: s.subjectName ? s.subjectName : "",
+          creationDate: "",
+          identity: "SUBJECT",
+        });
+      }); */
+
+      const sortedArr = arr
+        .sort((cd1, cd2) => +cd1.creationDate - +cd2.creationDate)
+        .reverse();
+
+      return sortedArr.map((q, i) => (
         <li key={i} className={s.activityListItem}>
-          {q.content && (
-            <div className={s.listItemContent}>
+          <div className={s.listItemContent}>
+            {q.identity === "COMMENT" && (
               <div className={s.contentChat}>
                 <ChatOutlinedIcon />
               </div>
-              <div>
-                <h5>{q.content}</h5>
-                <p>{moment(q.creationDate).format("yyyy-mm-dd, hh:mm:ss")}</p>
-              </div>
-            </div>
-          )}
-          {q.topicName && (
-            <div className={s.listItemContent}>
+            )}
+            {q.identity === "TOPIC" && (
               <div className={s.contentLamp}>
                 <LightbulbOutlinedIcon />
               </div>
-              <div>
-                <h5>{q.topicName}</h5>
-                <p>{moment(q.creationDate).format("yyyy-mm-dd, hh:mm:ss")}</p>
+            )}
+            {q.identity === "SUBJECT" && (
+              <div className={s.contentBook}>
+                <MenuBookOutlinedIcon />
               </div>
+            )}
+            <div>
+              <h5>{q.content}</h5>
+              {q.identity !== "SUBJECT" && (
+                <p>{moment(q.creationDate).format("dd-mm-yyyy, hh:mm:ss")}</p>
+              )}
             </div>
-          )}
+          </div>
         </li>
       ));
-    } */
-    return <></>;
+    }
+    return (
+      <li className={s.noActivity}>
+        <span>
+          <LightbulbOutlinedIcon />
+        </span>
+        <p>Nincsenek aktivitások</p>
+      </li>
+    );
   };
 
   const renderMain = (): JSX.Element => {
@@ -181,25 +232,65 @@ const Admin: FC = () => {
                         </div>
 
                         <Typography className={s.itemTitle}>
-                          {u.id} - {u.fullName}
+                          {u.fullName}
                         </Typography>
                       </AccordionSummary>
 
                       <AccordionDetails className={s.itemDetails}>
                         <Typography className={s.detailItem}>
-                          emial: {u.email}
+                          Nem aktiv
+                          <Switch value={u.isActive} />
+                          aktiv
+                        </Typography>
+                        <Typography
+                          className={s.detailItem}
+                          sx={{ marginBottom: "0.5rem" }}
+                        >
+                          <TextField
+                            type="text"
+                            className="focus:text-red-600"
+                            variant="outlined"
+                            value={u.fullName}
+                            sx={{
+                              color: "red",
+                              border: "none",
+                            }}
+                          />
+                        </Typography>
+                        <Typography
+                          className={s.detailItem}
+                          sx={{ marginBottom: "0.5rem" }}
+                        >
+                          <TextField
+                            type="number"
+                            variant="outlined"
+                            value={u.nikCoin}
+                          />
+                        </Typography>
+                        <Typography
+                          className={s.detailItem}
+                          sx={{ marginBottom: "0.5rem" }}
+                        >
+                          <TextField
+                            type="number"
+                            variant="outlined"
+                            value={u.startYear}
+                          />
                         </Typography>
                         <Typography className={s.detailItem}>
-                          coinok: {u.nikCoin} coin
-                        </Typography>
-                        <Typography className={s.detailItem}>
-                          kezdés éve: {u.startYear}
-                        </Typography>
-                        <Typography className={s.detailItem}>
-                          státusz: {u.isActive ? "Aktív" : "Nem Aktív"}
-                        </Typography>
-                        <Typography className={s.detailItem}>
-                          {u.role && u.role.map((r, i) => <p>{r}</p>)}
+                          <Button
+                            onClick={() => editUser(u)}
+                            variant="contained"
+                            style={{
+                              backgroundColor: "#182A4E",
+                              color: "white",
+                              outline: "none",
+                              border: "none",
+                            }}
+                            disabled={true}
+                          >
+                            Szerkesztés
+                          </Button>
                         </Typography>
                       </AccordionDetails>
                     </Accordion>
@@ -250,7 +341,16 @@ const Admin: FC = () => {
                         <Typography className={s.detailItem}>
                           {u.transactionID}
                         </Typography>
-                        <Button className={s.itemButton}>
+                        <Button
+                          variant="contained"
+                          style={{
+                            backgroundColor: "#182A4E",
+                            color: "white",
+                            outline: "none",
+                            border: "none",
+                          }}
+                          disabled={true}
+                        >
                           elfogadás
                         </Button>
                       </AccordionDetails>
@@ -330,34 +430,31 @@ const Admin: FC = () => {
 
   return (
     <>
-      <div className="fixed w-full z-50">
-        <Header />
-      </div>
       <div className={s.root}>
         <div className={s.sidebar}>
           <ul className={s.sidebarList}>
             <li className={s.sidebarListItem} onClick={() => setActualPage(1)}>
-              <Button className={actualPage === 1 ? s.active : s.listIcon}>
+              <IconButton className={actualPage === 1 ? s.active : s.listIcon}>
                 <GridViewOutlinedIcon />
-              </Button>
+              </IconButton>
               <p>Áttekintés</p>
             </li>
             <li className={s.sidebarListItem} onClick={() => setActualPage(2)}>
-              <Button className={actualPage === 2 ? s.active : s.listIcon}>
+              <IconButton className={actualPage === 2 ? s.active : s.listIcon}>
                 <PermIdentityOutlinedIcon />
-              </Button>
+              </IconButton>
               <p>Felhasználók</p>
             </li>
             <li className={s.sidebarListItem} onClick={() => setActualPage(3)}>
-              <Button className={actualPage === 3 ? s.active : s.listIcon}>
+              <IconButton className={actualPage === 3 ? s.active : s.listIcon}>
                 <PaidOutlinedIcon />
-              </Button>
+              </IconButton>
               <p>Jóváírások</p>
             </li>
             <li className={s.sidebarListItem} onClick={() => setActualPage(4)}>
-              <Button className={actualPage === 4 ? s.active : s.listIcon}>
+              <IconButton className={actualPage === 4 ? s.active : s.listIcon}>
                 <LocalFireDepartmentOutlinedIcon />
-              </Button>
+              </IconButton>
               <p>Népszerű</p>
             </li>
           </ul>

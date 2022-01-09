@@ -1,3 +1,4 @@
+import { Box, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "src/axios";
 import { ITopic } from "src/models/topic.model";
@@ -5,22 +6,17 @@ import { IUser } from "src/models/user.model";
 import Topic from "../Misc/Topic";
 import AddTopic from "./feed-components/AddTopic";
 import Button from "./feed-components/Button";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 
 const Feed = () => {
-  const [topics, setTopics] = useState<ITopic[]>([]);
+  const [topics, setTopics] = useState<ITopic[] | null>(null);
   const [users, setUsers] = useState<IUser[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
   const [showAddTopic, setShowAddTopic] = useState(false);
 
-
   useEffect(() => {
-    const getTopics = async () => {
-      const topics = await axios.get<ITopic[]>("http://localhost:8585/Topic");
-      setTopics(topics.data);
-    };
-
     const getUsers = async () => {
-      const users = await axios.get<IUser[]>("http://localhost:8585/MyUser");
+      const users = await axios.get<IUser[]>("/MyUser");
       setUsers(users.data);
     };
 
@@ -28,42 +24,60 @@ const Feed = () => {
     getUsers();
   }, []);
 
+  const getTopics = async () => {
+    const topics = await axios.get<ITopic[]>("/Topic");
+    setTopics(topics.data.reverse());
+  };
+
+  useEffect(() => {
+    console.log(topics);
+  }, [topics]);
+
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
-    console.log(user)
     return user ? user : ({} as IUser);
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <header>
-            {showAddTopic && <AddTopic />}
-              <Button
-                onClicked={() => setShowAddTopic(!showAddTopic)}
-                color={showAddTopic ? "#FAB001" : "#182A4E"}
-                text={showAddTopic ? "Mégse" : "Új téma hozzáadása"}
-              />
-        </header>
-        </div>
-        <div>
-          {topics &&
-            topics.map((topic, i) => (
-              <div key={i}>
-                {users && (
-                  <Topic
-                    topic={topic}
-                    onAdd={showAddComment}
-                    allUsers={users}
-                    user={selectUser(topic.userID)}
-                  />
-                )}
-              </div>
-            ))}
-        </div>
+    <>
+      <div className="flex flex-col w-full bg-gray-100 rounded-lg shadow-md">
+        <AddTopic getTopics={getTopics} />
       </div>
-    </div>
+
+      {topics ? (
+        topics.length > 0 ? (
+          topics.map((topic, i) => (
+            <div key={i}>
+              {users && (
+                <Topic
+                  topic={topic}
+                  onAdd={showAddComment}
+                  allUsers={users}
+                  user={selectUser(topic.userID)}
+                />
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="flex flex-col justify-center items-center mt-16 p-4 text-gray-400">
+            <span className="flex justify-center items-center h-16 w-16 mb-4 border-2 border-gray-400 border-dashed rounded-full">
+              <ChatOutlinedIcon />
+            </span>
+            <p>Nem találtunk egyetlen témát sem.</p>
+          </div>
+        )
+      ) : (
+        Array.from(new Array(15)).map((item, index) => (
+          <Box key={index} className="mt-4">
+            <Skeleton animation="wave" width="30%" />
+            <Skeleton animation="wave" width="70%" />
+            <Skeleton animation="wave" width="50%" />
+            <Skeleton animation="wave" width="50%" />
+            <Skeleton animation="wave" width="50%" />
+          </Box>
+        ))
+      )}
+    </>
   );
 };
 

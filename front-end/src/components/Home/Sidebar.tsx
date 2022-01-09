@@ -4,7 +4,10 @@ import { ISubject } from "src/models/subject.model";
 import Subject from "./sidebar-components/Subject";
 import { IYear } from "src/models/year.model";
 import Year from "./sidebar-components/Year";
-import Button from "./feed-components/Button";
+import { Button, ButtonProps } from "@mui/material";
+
+import { styled, createTheme } from "@mui/material/styles";
+import { blue } from "@mui/material/colors";
 import AddSubject from "./feed-components/AddSubject";
 
 const Sidebar = () => {
@@ -17,7 +20,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     axios
-      .get<ISubject[]>("http://localhost:8585/Subject")
+      .get<ISubject[]>("/Subject")
       .then((res) => {
         setSubjects(res.data);
         //console.log(res.data);
@@ -26,8 +29,8 @@ const Sidebar = () => {
         console.log(err);
       });
 
-      axios
-      .get<IYear[]>("http://localhost:8585/Year")
+    axios
+      .get<IYear[]>("/Year")
       .then((res) => {
         setYears(res.data);
         //console.log(res.data);
@@ -35,55 +38,25 @@ const Sidebar = () => {
       .catch((err) => {
         console.log(err);
       });
-
   }, []);
   
-  const createTopic = ()=> {
 
-    const data = {
-      userID: "string",
-      topicName: "string",
-      creationDate: "2022-01-07T16:40:19.225Z",
-      offeredCoins: 0,
-      attachmentURL: "string"
-    };
-
-
-    axios.put("/Topic", data)
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  }
 
   return (
-    <div>
-      <div className="flex-col bg-basewhitebg">
-      <div className="h-16 bg-basebg text-white rounded-t-2xl">
-          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Évfolyamok</h4>
-        </div>
+    <div className="mx-5">
+      <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
+        Évfolyamok
+      </h4>
+      <div className="">
+        {years &&
+          years.map((year, i) => (
+            <div key={i} style={{ cursor: "pointer" }}>
+              <Year yearName={year.yearName} />
+            </div>))}
         <div>
-          {years &&
-            years.map((year,i) => (
-              <div key={i} style={{cursor: 'pointer' }}>
-                <Year {...year} />
-              </div>
-            ))}
-
-        </div>
-      
-        <div className="h-16 bg-basebg text-white rounded-t-2xl">
-          <h4 className="text-4xl font-thin tracking-wider p-2 text-center">Témák</h4>
-        </div>
-        <div className="flex w-full p-3  px-5 self-center">
-            <div className="flex w-full h-8 bg-white rounded-2xl">
-            <input type="text" className="flex w-full my-1 mx-2 text-black outline-none text-center bg-white" placeholder={`Keress rá egy témára!`} />
-            </div>
-        </div>
-        <div>
+        <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
+        Tantárgyak
+      </h4>
           {subjects &&
             subjects
             .sort(function(a, b){
@@ -99,14 +72,21 @@ const Sidebar = () => {
         </div>
         <div>
         {showAdd && <AddSubject />}
-          <Button
-            onClicked={() => setShowAdd(!showAdd)}
-            color={showAdd ? "#FAB001" : "#182A4E"}
-            text={showAdd ? "Mégse" : "Új téma hozzáadása"}
-          />
-        </div>
-
+        <Button
+          className="w-full"
+          variant="outlined"
+          onClick={() => setShowAdd(!showAdd)}
+          style={{
+            backgroundColor: `${showAdd ? "#FAB001" : "#182A4E"}`,
+            color: "white",
+            outline: "none",
+            border: "none",
+          }}
+        >
+          {showAdd ? "Mégse" : "Új téma hozzáadása"}
+        </Button>
       </div>
+    </div>
     </div>
   );
 };

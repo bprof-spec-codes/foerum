@@ -1,14 +1,26 @@
-import React from "react";
+import React, { FC, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { useHistory } from "react-router";
+import { IRootState } from "src/store/reducers";
 import minilogo from "../../assets/images/minilogo.png";
+import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
 
-const Header = () => {
+export interface IHeaderProps extends StateProps {}
+
+const Header: FC<IHeaderProps> = (props) => {
   const history = useHistory();
 
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsAuth(!!sessionStorage.getItem("token"));
+    console.log(isAuth);
+  }, [props]);
+
   return (
-    <div className="h-14 bg-basebg">
-      <div className="flex justify-between h-full content-center text-center text-white">
+    <div className="fixed w-full h-14 bg-basebg shadow-lg z-50">
+      <div className="flex justify-between h-full mx-5 content-center text-center text-white">
         <img
           className="cursor-pointer"
           src={minilogo}
@@ -17,24 +29,25 @@ const Header = () => {
           onClick={() => history.push("/home")}
         />
 
-        <div className="flex p-1 w-full px-56 self-center">
-          <div className="flex w-full h-8 bg-white rounded-2xl">
-            <input
-              type="text"
-              className="flex w-full my-1 mx-2 text-black outline-none text-center bg-white"
-              placeholder={`Keress rá bármire!`}
-            />
-          </div>
-        </div>
-
         <div className="flex content-center p-2 self-center">
-          <a href="/Admin" className="font-bold">
+          <p
+            className="font-bold cursor-pointer mt-2 mr-4"
+            onClick={() => history.push("/Admin")}
+          >
             Admin felület
-          </a>
+          </p>
+
+          {isAuth && <SignOutButton />}
         </div>
       </div>
     </div>
   );
 };
 
-export default Header;
+const mapStateToProps = ({ authentication }: IRootState) => ({
+  authenticated: authentication.isAuthenticated,
+});
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+
+export default connect(mapStateToProps)(Header);

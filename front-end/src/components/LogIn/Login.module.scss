@@ -1,11 +1,26 @@
-$base-color: #182A4E;
+$base-color: #182a4e;
 //yellow-color: FCAF26;
 //cool blueish-white color: E6E6E6;
 
 $breakpoint-mobile: 768px;
 
-.login {
-    display: flex;
+.root {
+  @apply flex justify-end pt-14 mx-5;
+  height: calc(100vh - 3.5rem);
+
+  .form {
+    @apply flex justify-center items-center mt-4;
+
+    .svg {
+      @apply relative z-0;
+    }
+    .button {
+      @apply absolute z-50;
+      top: 45vh;
+    }
+  }
+
+  /* display: flex;
     height: 100%;
     background-color: #E6E6E6;
 
@@ -147,5 +162,5 @@ $breakpoint-mobile: 768px;
                 justify-content: center;
             }
         }
-    }
+    } */
 }

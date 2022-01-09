@@ -1,20 +1,52 @@
-import React, { useState } from 'react'
-import { ISubject } from 'src/models/subject.model';
+import { Button, Input } from "@mui/material";
+import React, { useState } from "react";
+import { ISubject } from "src/models/subject.model";
+import axios from "../../../axios";
+
 
 const AddSubject = (topic: ISubject) => {
+  const [subjectName, setSubjectName] = useState("");
 
-    const [subjectName, setSubjectName] = useState('');
 
-    return (
-        <div >
-            <div className='form-control'>
-                <input placeholder='Mi lesz a téma neve?' type='text' onChange={e => setSubjectName(e.target.value)}/>
-                <br/>
-            </div>
-            
-            <button onClick={createTopic} style={{backgroundColor:"#182A4E"}} className='btn'>Hozzáadás</button>
-        </div>
-    )
-}
+  const createSubject = ()=> {
 
-export default AddSubject
+    const data = {
+      SubjectName: subjectName,
+      IsPrivate: false,
+    };
+
+    axios.post("/Subject", data)
+    .then((res) => {
+      console.log(res.data)
+    })
+    
+    .catch((err) => {
+      console.log(err);
+    })};
+
+
+  return (
+    <div>
+      <Input
+        className="w-full ml-1 mb-4"
+        placeholder="Mi lesz a téma neve?"
+        type="text"
+        onChange={(e) => setSubjectName(e.target.value)}
+      />
+
+      <Button
+        onClick={createSubject}
+        style={{
+          backgroundColor: "#182A4E",
+          color: "white",
+          marginBottom: "10px",
+          outline: "none",
+          border: "none",
+        }}>
+        Hozzáadás
+      </Button>
+    </div>
+  );
+};
+
+export default AddSubject;

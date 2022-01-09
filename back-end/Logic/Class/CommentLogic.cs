@@ -85,7 +85,7 @@ namespace Logic.Class
 
         public IQueryable<Comment> GetOneTopicAllComment(string topicId)
         {
-            return this.commentRepo.GetOneTopicAllComment(topicId);
+            return this.commentRepo.GetOneTopicAllComment(topicId).OrderByDescending(comment => comment.CreationDate);
         }
     }
 }

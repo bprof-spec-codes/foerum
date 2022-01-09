@@ -5,7 +5,9 @@ import { connect, useDispatch } from "react-redux";
 import { IRootState } from "src/store/reducers";
 import { login } from "../../store/reducers/ms-authentication";
 import { useHistory } from "react-router";
-import mslogo from "../../assets/images/micro.png"
+import mslogo from "../../assets/images/micro.png";
+import { Button } from "@mui/material";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 
 export interface ILoginProps extends StateProps, DispatchProps {}
 
@@ -23,10 +25,19 @@ export const SignInButton: FC<ILoginProps> = (props) => {
   }, [isAuthenticated]);
 
   return (
-
-    <button className="login__login-container__main-container__form-container__form--submit" onClick={() => login(instance, dispatch)}>
-      Bejelentkezés Microsoft fiókkal
-    </button>
+    <Button
+      variant="contained"
+      onClick={() => login(instance, dispatch)}
+      style={{
+        backgroundColor: "#182A4E",
+        color: "white",
+        outline: "none",
+        border: "none",
+      }}
+    >
+      <LockOpenOutlinedIcon />
+      Bejelentkezés
+    </Button>
   );
 };
 

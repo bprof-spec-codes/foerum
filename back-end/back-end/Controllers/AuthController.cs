@@ -47,7 +47,6 @@ namespace back_end.Controllers
             return _authLogic.GetAllUsers();
         }
 
-        [Authorize]
         [HttpPut("microsoft")]
         public async Task<ActionResult> MicrosoftAuth([FromBody] TokenLoginViewModel model)
         {
