@@ -72,6 +72,7 @@ const Admin: FC = () => {
   const getUsers = async () => {
     const { data } = await axios.get<IUser[]>("/MyUser");
     setUsers(data);
+    console.log(data)
   };
 
   const getTransactions = async () => {
@@ -142,25 +143,26 @@ const Admin: FC = () => {
 
   const createActivityList = () => {
     if (comments && topics && subjects) {
-      const arr = new Array<concatArray>();
-      console.log(arr);
-      comments.map((c) => {
-        arr.push({
-          content: c.content ? c.content : "",
-          creationDate: c.creationDate ? c.creationDate : "",
-          identity: "COMMENT",
+      if (comments.length > 0 && topics.length > 0 && subjects.length > 0) {
+        const arr = new Array<concatArray>();
+        console.log(arr);
+        comments.map((c) => {
+          arr.push({
+            content: c.content ? c.content : "",
+            creationDate: c.creationDate ? c.creationDate : "",
+            identity: "COMMENT",
+          });
         });
-      });
 
-      topics.map((t) => {
-        arr.push({
-          content: t.topicName ? t.topicName : "",
-          creationDate: t.creationDate ? t.creationDate : "",
-          identity: "TOPIC",
+        topics.map((t) => {
+          arr.push({
+            content: t.topicName ? t.topicName : "",
+            creationDate: t.creationDate ? t.creationDate : "",
+            identity: "TOPIC",
+          });
         });
-      });
 
-      /*  subjects.map((s) => {
+        /*  subjects.map((s) => {
         arr.push({
           content: s.subjectName ? s.subjectName : "",
           creationDate: "",
@@ -168,37 +170,38 @@ const Admin: FC = () => {
         });
       }); */
 
-      const sortedArr = arr
-        .sort((cd1, cd2) => +cd1.creationDate - +cd2.creationDate)
-        .reverse();
+        const sortedArr = arr
+          .sort((cd1, cd2) => +cd1.creationDate - +cd2.creationDate)
+          .reverse();
 
-      return sortedArr.map((q, i) => (
-        <li key={i} className={s.activityListItem}>
-          <div className={s.listItemContent}>
-            {q.identity === "COMMENT" && (
-              <div className={s.contentChat}>
-                <ChatOutlinedIcon />
-              </div>
-            )}
-            {q.identity === "TOPIC" && (
-              <div className={s.contentLamp}>
-                <LightbulbOutlinedIcon />
-              </div>
-            )}
-            {q.identity === "SUBJECT" && (
-              <div className={s.contentBook}>
-                <MenuBookOutlinedIcon />
-              </div>
-            )}
-            <div>
-              <h5>{q.content}</h5>
-              {q.identity !== "SUBJECT" && (
-                <p>{moment(q.creationDate).format("dd-mm-yyyy, hh:mm:ss")}</p>
+        return sortedArr.map((q, i) => (
+          <li key={i} className={s.activityListItem}>
+            <div className={s.listItemContent}>
+              {q.identity === "COMMENT" && (
+                <div className={s.contentChat}>
+                  <ChatOutlinedIcon />
+                </div>
               )}
+              {q.identity === "TOPIC" && (
+                <div className={s.contentLamp}>
+                  <LightbulbOutlinedIcon />
+                </div>
+              )}
+              {q.identity === "SUBJECT" && (
+                <div className={s.contentBook}>
+                  <MenuBookOutlinedIcon />
+                </div>
+              )}
+              <div>
+                <h5>{q.content}</h5>
+                {q.identity !== "SUBJECT" && (
+                  <p>{moment(q.creationDate).format("dd-mm-yyyy, hh:mm:ss")}</p>
+                )}
+              </div>
             </div>
-          </div>
-        </li>
-      ));
+          </li>
+        ));
+      }
     }
     return (
       <li className={s.noActivity}>
@@ -248,7 +251,6 @@ const Admin: FC = () => {
                         >
                           <TextField
                             type="text"
-                            className="focus:text-red-600"
                             variant="outlined"
                             value={u.fullName}
                             sx={{
@@ -366,30 +368,37 @@ const Admin: FC = () => {
           <>
             <div className={s.hotTopics}>
               <div className={s.topicContainer}>
-                {topics
-                  ? topics.map((t, i) => (
+                {topics ? (
+                  topics.length > 0 ? (
+                    topics.map((t, i) => (
                       <div key={i} className={s.topicItem}>
                         <h4>{t.topicName}</h4>
 
                         {subjects && <p>{findSubject(t.subjectID)}</p>}
-                        <span>
-                          {t.offeredCoins}{" "}
-                          <MonetizationOnOutlinedIcon className="text-yellow-400" />
-                        </span>
                       </div>
                     ))
-                  : Array.from(new Array(3)).map((item, index) => (
-                      <Box key={index} className={s.topicItem}>
-                        <Skeleton
-                          variant="rectangular"
-                          width={210}
-                          height={118}
-                          animation="wave"
-                        />
-                        <Skeleton animation="wave" />
-                        <Skeleton animation="wave" width="60%" />
-                      </Box>
-                    ))}
+                  ) : (
+                    <div className="flex flex-col w-full justify-center items-center mt-16 p-4 text-gray-400">
+                      <span className="flex justify-center items-center h-16 w-16 mb-4 border-2 border-gray-400 border-dashed rounded-full">
+                        <ChatOutlinedIcon />
+                      </span>
+                      <p>Nem találtunk egyetlen témát sem.</p>
+                    </div>
+                  )
+                ) : (
+                  Array.from(new Array(3)).map((item, index) => (
+                    <Box key={index} className={s.topicItem}>
+                      <Skeleton
+                        variant="rectangular"
+                        width={210}
+                        height={118}
+                        animation="wave"
+                      />
+                      <Skeleton animation="wave" />
+                      <Skeleton animation="wave" width="60%" />
+                    </Box>
+                  ))
+                )}
               </div>
             </div>
 
@@ -412,7 +421,7 @@ const Admin: FC = () => {
                 </Tooltip>
               </div>
               <Timer />
-              {comments || reactions || topics || subjects ? (
+              {comments || reactions || topics ? (
                 <ul className={s.activityList}>{createActivityList()}</ul>
               ) : (
                 Array.from(new Array(10)).map((item, index) => (
@@ -439,14 +448,24 @@ const Admin: FC = () => {
               </IconButton>
               <p>Áttekintés</p>
             </li>
-            <li className={s.sidebarListItem} onClick={() => setActualPage(2)}>
-              <IconButton className={actualPage === 2 ? s.active : s.listIcon}>
+            <li className={s.sidebarListItem}>
+              <IconButton
+                className={actualPage === 2 ? s.active : s.listIcon}
+                onClick={() => setActualPage(2)}
+                disabled={users && users.length > 0 ? false : true}
+              >
                 <PermIdentityOutlinedIcon />
               </IconButton>
               <p>Felhasználók</p>
             </li>
-            <li className={s.sidebarListItem} onClick={() => setActualPage(3)}>
-              <IconButton className={actualPage === 3 ? s.active : s.listIcon}>
+            <li className={s.sidebarListItem}>
+              <IconButton
+                className={actualPage === 3 ? s.active : s.listIcon}
+                onClick={() => setActualPage(3)}
+                disabled={
+                  transactions && transactions.length > 0 ? false : true
+                }
+              >
                 <PaidOutlinedIcon />
               </IconButton>
               <p>Jóváírások</p>
@@ -467,10 +486,10 @@ const Admin: FC = () => {
               <div className="flex justify-between">
                 <h3>Jóváírások</h3>
               </div>
-              {/* <Timer /> */}
               <ul className={s.manageList}>
-                {transactions
-                  ? transactions.map((t, i) => (
+                {transactions ? (
+                  transactions.length > 0 ? (
+                    transactions.map((t, i) => (
                       <li key={i} className={s.manageItem}>
                         <div className={s.manageTransaction}>
                           <MonetizationOnOutlinedIcon />
@@ -480,11 +499,21 @@ const Admin: FC = () => {
                         </div>
                       </li>
                     ))
-                  : Array.from(new Array(10)).map((item, index) => (
-                      <Box key={index}>
-                        <Skeleton animation="wave" />
-                      </Box>
-                    ))}
+                  ) : (
+                    <div className="flex flex-col w-full justify-center items-center mt-16 p-4 text-gray-400">
+                      <span className="flex justify-center items-center h-16 w-16 mb-4 border-2 border-gray-400 border-dashed rounded-full">
+                        <MonetizationOnOutlinedIcon />
+                      </span>
+                      <p>Nem találtunk egyetlen tranzakciot sem.</p>
+                    </div>
+                  )
+                ) : (
+                  Array.from(new Array(10)).map((item, index) => (
+                    <Box key={index}>
+                      <Skeleton animation="wave" />
+                    </Box>
+                  ))
+                )}
               </ul>
             </div>
 
@@ -492,10 +521,10 @@ const Admin: FC = () => {
               <div className="flex justify-between">
                 <h3>Felhasználók</h3>
               </div>
-              {/*  <Timer /> */}
               <ul className={s.manageList}>
-                {users
-                  ? users.map((t, i) => (
+                {users ? (
+                  users.length > 0 ? (
+                    users.map((t, i) => (
                       <li key={i} className={s.manageItem}>
                         <div className={s.manageUser}>
                           <PersonOutlineOutlinedIcon />
@@ -505,11 +534,21 @@ const Admin: FC = () => {
                         </div>
                       </li>
                     ))
-                  : Array.from(new Array(10)).map((item, index) => (
-                      <Box key={index}>
-                        <Skeleton animation="wave" />
-                      </Box>
-                    ))}
+                  ) : (
+                    <div className="flex flex-col w-full justify-center items-center mt-16 p-4 text-gray-400">
+                      <span className="flex justify-center items-center h-16 w-16 mb-4 border-2 border-gray-400 border-dashed rounded-full">
+                        <PersonOutlineOutlinedIcon />
+                      </span>
+                      <p>Nem találtunk egyetlen felhasználót sem.</p>
+                    </div>
+                  )
+                ) : (
+                  Array.from(new Array(10)).map((item, index) => (
+                    <Box key={index}>
+                      <Skeleton animation="wave" />
+                    </Box>
+                  ))
+                )}
               </ul>
             </div>
           </div>

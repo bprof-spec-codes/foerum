@@ -37,6 +37,8 @@ const AddTopic: FC<IAddTopicProps> = ({ getTopics }) => {
       .then((res) => {
         console.log(res);
         getTopics();
+        setTopicName("");
+        setNikCoin(0);
       })
       .catch((err) => {
         console.log(err);

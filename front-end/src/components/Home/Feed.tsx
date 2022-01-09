@@ -26,7 +26,7 @@ const Feed = () => {
 
   const getTopics = async () => {
     const topics = await axios.get<ITopic[]>("/Topic");
-    setTopics(topics.data.reverse());
+    setTopics(topics.data);
   };
 
   useEffect(() => {
