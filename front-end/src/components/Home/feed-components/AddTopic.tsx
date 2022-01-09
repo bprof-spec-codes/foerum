@@ -5,6 +5,8 @@ const AddTopic: FC = () => {
   const [nikCoin, setNikCoin] = useState("");
   const [attachment, setAttachment] = useState("");
 
+  
+
   return (
     <div>
       <div className="form-control">

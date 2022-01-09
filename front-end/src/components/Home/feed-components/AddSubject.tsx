@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ISubject } from 'src/models/subject.model';
 
 const AddSubject = (topic: ISubject) => {
+
     const [subjectName, setSubjectName] = useState('');
 
     return (
@@ -11,7 +12,7 @@ const AddSubject = (topic: ISubject) => {
                 <br/>
             </div>
             
-            <button style={{backgroundColor:"#182A4E"}} className='btn'>Hozzáadás</button>
+            <button onClick={createTopic} style={{backgroundColor:"#182A4E"}} className='btn'>Hozzáadás</button>
         </div>
     )
 }

@@ -38,17 +38,18 @@ const Sidebar = () => {
 
   }, []);
   
-  const createSubject = ()=> {
+  const createTopic = ()=> {
+
     const data = {
-      subjectID: "string",
-      yearID: "string",
-      subjectName: subjectName,
-      isPrivate: true,
-      inviteKeyIfPrivate: "string"
+      userID: "string",
+      topicName: "string",
+      creationDate: "2022-01-07T16:40:19.225Z",
+      offeredCoins: 0,
+      attachmentURL: "string"
     };
 
 
-    axios.post("/Subject")
+    axios.put("/Topic", data)
     .then((res) => {
       console.log(res.data)
     })
@@ -85,7 +86,6 @@ const Sidebar = () => {
         <div>
           {subjects &&
             subjects
-            
             .sort(function(a, b){
               if(a.subjectName! < b.subjectName!) { return -1; }
               if(a.subjectName! > b.subjectName!) { return 1; }
@@ -96,7 +96,6 @@ const Sidebar = () => {
                 <Subject {...subject}/>
               </div>
             ))}
-
         </div>
         <div>
         {showAdd && <AddSubject />}

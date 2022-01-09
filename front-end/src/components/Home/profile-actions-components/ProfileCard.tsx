@@ -6,6 +6,9 @@ export interface IProfileCardProps extends StateProps {}
 
 const ProfileCard: FC<IProfileCardProps> = (props) => {
   const { fullName, email, startYear, nikCoin } = props.account;
+  useEffect(()=>{
+    console.log(props)
+  },[props]) 
 
   return (
     <div>
