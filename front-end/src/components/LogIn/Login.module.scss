@@ -5,7 +5,7 @@ $base-color: #182a4e;
 $breakpoint-mobile: 768px;
 
 .root {
-  @apply flex justify-end pt-14 mx-5;
+  @apply flex justify-center pt-14 mx-5;
   height: calc(100vh - 3.5rem);
 
   .form {

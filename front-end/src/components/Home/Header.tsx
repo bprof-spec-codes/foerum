@@ -5,18 +5,25 @@ import { IRootState } from "src/store/reducers";
 import minilogo from "../../assets/images/minilogo.png";
 import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
+import jwt_decode from "jwt-decode";
 
-export interface IHeaderProps extends StateProps {}
+export interface IHeaderProps extends StateProps, DispatchProps {}
+
+interface IAuth {}
 
 const Header: FC<IHeaderProps> = (props) => {
+  const { isAuthenticated } = props;
   const history = useHistory();
 
-  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [auth, setAuth] = useState<IAuth | null>(null);
 
   useEffect(() => {
-    setIsAuth(!!sessionStorage.getItem("token"));
-    console.log(isAuth);
-  }, [props]);
+    const authToken = sessionStorage.getItem("foerumtoken");
+    if (authToken) {
+      const decodedToken = jwt_decode(authToken);
+      setAuth(decodedToken as IAuth);
+    }
+  }, [isAuthenticated, props]);
 
   return (
     <div className="fixed w-full h-14 bg-basebg shadow-lg z-50">
@@ -30,24 +37,29 @@ const Header: FC<IHeaderProps> = (props) => {
         />
 
         <div className="flex content-center p-2 self-center">
-          <p
-            className="font-bold cursor-pointer mt-2 mr-4"
-            onClick={() => history.push("/Admin")}
-          >
-            Admin felület
-          </p>
+          {auth && (
+            <p
+              className="font-bold cursor-pointer mt-2 mr-4"
+              onClick={() => history.push("/Admin")}
+            >
+              Admin felület
+            </p>
+          )}
 
-          {isAuth && <SignOutButton />}
+          {auth && <SignOutButton />}
         </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ authentication }: IRootState) => ({
-  authenticated: authentication.isAuthenticated,
+const mapStateToProps = ({ msAuthentication }: IRootState) => ({
+  isAuthenticated: msAuthentication.isAuthenticated,
 });
 
-type StateProps = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = {};
 
-export default connect(mapStateToProps)(Header);
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

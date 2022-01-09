@@ -9,9 +9,10 @@ import { IUser } from "src/models/user.model";
 
 const Home = () => {
   return (
-    <div className="flex justify-between pt-14">
+    <>
+      <Header />
+      <div className="flex justify-between pt-14">
         <div className="flex justify-between w-full">
-
           <div className="w-1/5 mr-5 shadow-sm">
             <Sidebar />
           </div>
@@ -26,7 +27,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-  )
+    </>
+  );
 };
 
 export default Home;

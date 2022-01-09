@@ -18,7 +18,6 @@ export const SignInButton: FC<ILoginProps> = (props) => {
   const { instance } = useMsal();
 
   useEffect(() => {
-    console.log(isAuthenticated);
     if (isAuthenticated) {
       history.push("/home");
     }

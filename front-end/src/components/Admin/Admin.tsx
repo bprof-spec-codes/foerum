@@ -36,6 +36,7 @@ import {
 import moment from "moment";
 import { Timer } from "./admin-components";
 import { ITransaction } from "src/models/transaction.model";
+import { Header } from "..";
 
 type concatArray = {
   content: string;
@@ -65,14 +66,9 @@ const Admin: FC = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    console.log(transactions);
-  }, [transactions]);
-
   const getUsers = async () => {
     const { data } = await axios.get<IUser[]>("/MyUser");
     setUsers(data);
-    console.log(data)
   };
 
   const getTransactions = async () => {
@@ -123,7 +119,6 @@ const Admin: FC = () => {
     axios
       .put(`/MyUser/${user.id}`, user)
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -145,7 +140,6 @@ const Admin: FC = () => {
     if (comments && topics && subjects) {
       if (comments.length > 0 && topics.length > 0 && subjects.length > 0) {
         const arr = new Array<concatArray>();
-        console.log(arr);
         comments.map((c) => {
           arr.push({
             content: c.content ? c.content : "",
@@ -439,6 +433,7 @@ const Admin: FC = () => {
 
   return (
     <>
+      <Header />
       <div className={s.root}>
         <div className={s.sidebar}>
           <ul className={s.sidebarList}>

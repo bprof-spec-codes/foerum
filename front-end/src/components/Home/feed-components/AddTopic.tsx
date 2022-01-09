@@ -35,7 +35,6 @@ const AddTopic: FC<IAddTopicProps> = ({ getTopics }) => {
     axios
       .post("/Topic", data)
       .then((res) => {
-        console.log(res);
         getTopics();
         setTopicName("");
         setNikCoin(0);
@@ -44,8 +43,6 @@ const AddTopic: FC<IAddTopicProps> = ({ getTopics }) => {
         console.log(err);
       });
   };
-
-  
 
   return (
     <>

@@ -27,7 +27,6 @@ const AddComment: FC<IAddCommentProps> = (props) => {
     axios
       .post("/Comment", data)
       .then((res) => {
-        console.log(res);
         refresh();
       })
       .catch((err) => {

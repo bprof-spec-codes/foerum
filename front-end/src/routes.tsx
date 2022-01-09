@@ -7,7 +7,6 @@ import PrivateRoute from "./shared/auth/PrivateRoute";
 const Routes = () => {
   return (
     <div className="view-routes">
-      <Header />
       <Switch>
         <PrivateRoute path="/home" component={Home}></PrivateRoute>
         <PrivateRoute path="/admin" component={Admin}></PrivateRoute>

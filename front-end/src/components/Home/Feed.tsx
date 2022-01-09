@@ -29,10 +29,6 @@ const Feed = () => {
     setTopics(topics.data);
   };
 
-  useEffect(() => {
-    console.log(topics);
-  }, [topics]);
-
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
     return user ? user : ({} as IUser);

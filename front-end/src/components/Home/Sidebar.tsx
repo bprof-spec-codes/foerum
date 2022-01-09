@@ -33,7 +33,7 @@ const Sidebar = () => {
       .get<IYear[]>("/Year")
       .then((res) => {
         setYears(res.data);
-        //console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

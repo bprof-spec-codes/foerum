@@ -30,7 +30,6 @@ export default (
 ): MSAuthenticationState => {
   switch (action.type) {
     case ACTION_TYPES.LOGIN:
-      console.log(action.payload);
       return {
         ...state,
         loading: false,
@@ -48,7 +47,6 @@ export const login = (instance: any, dispatch: any) => {
   instance
     .loginPopup(loginRequest)
     .then((res: any) => {
-      console.log(res);
       sessionStorage.setItem("username", res.account.name);
       sessionStorage.setItem("useremail", res.account.username);
 
@@ -74,8 +72,7 @@ export const setLoginState = (data: any) => {
         baseHeader
       )
       .then((res) => {
-        console.log(res);
-        sessionStorage.setItem(AUTH_TOKEN_KEY, `Bearer ${res.data.token}`);
+        sessionStorage.setItem("foerumtoken", `Bearer ${res.data.token}`);
         sessionStorage.setItem("userid", res.data.userId);
       })
       .catch((err) => console.error(err)),
@@ -86,9 +83,9 @@ export const logout = (instance: any) => {
   instance
     .logoutPopup()
     .then((res: any) => {
-      console.log(res);
-
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("foerumtoken");
+      sessionStorage.removeItem("userid");
       sessionStorage.removeItem("username");
       sessionStorage.removeItem("useremail");
     })
