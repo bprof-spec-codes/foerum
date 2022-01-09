@@ -37,6 +37,7 @@ export default (
         loginError: false,
         loginSuccess: true,
         isAuthenticated: true,
+        account:action.payload,
       };
     default:
       return state;

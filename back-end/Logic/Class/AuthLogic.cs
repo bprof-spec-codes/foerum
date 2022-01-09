@@ -22,6 +22,11 @@ namespace Logic.Class
             _roleManager = roleManager;
         }
 
+        public async Task<MyUser> GetUser(string userId)
+        {
+            return await this._userManager.FindByIdAsync(userId);
+        }
+
         public IEnumerable<MyUser> GetAllUsers()
         {
             return _userManager.Users;
@@ -138,6 +143,16 @@ namespace Logic.Class
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = token.ValidTo
             };
+        }
+
+        // egy adott id-jű usert (UserId), adott nevű role-ba (Role) helyezi
+        public async void UserToRole(UserRoleViewModel userRole)
+        {
+            var user = _userManager.FindByIdAsync(userRole.UserId);
+            if (user != null)
+            {
+                await _userManager.AddToRoleAsync(await user, userRole.Role);
+            }
         }
     }
 }

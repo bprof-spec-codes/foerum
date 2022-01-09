@@ -41,6 +41,12 @@ namespace back_end.Controllers
             }
         }
 
+        [HttpGet("GetOneUser/{userId}")]
+        public async Task<MyUser> GetUser(string userId)
+        {
+            return await this._authLogic.GetUser(userId);
+        }
+
         [HttpGet]
         public IEnumerable<MyUser> GetAllUsers()
         {
@@ -58,6 +64,12 @@ namespace back_end.Controllers
             {
                 return BadRequest(new { Error = ex.Message });
             }
+        }
+
+        [HttpPut("UserToRole")]
+        public void UserToRole([FromBody] UserRoleViewModel model)
+        {
+            this._authLogic.UserToRole(model);
         }
     }
 }

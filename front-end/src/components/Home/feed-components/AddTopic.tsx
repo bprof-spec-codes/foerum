@@ -45,6 +45,8 @@ const AddTopic: FC<IAddTopicProps> = ({ getTopics }) => {
       });
   };
 
+  
+
   return (
     <>
       <div className="flex justify-between w-full p-4 pb-0">
