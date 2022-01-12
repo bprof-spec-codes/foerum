@@ -7,15 +7,18 @@ import { IRootState } from "src/store/reducers";
 import { logout } from "../../store/reducers/ms-authentication";
 import { Button, IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useHistory } from "react-router";
 
 /**
  * Renders a button which, when selected, will redirect the page to the login prompt
  */
 export const SignOutButton = () => {
+  const history = useHistory();
+
   const { instance } = useMsal();
 
   return (
-    <div onClick={() => logout(instance)}>
+    <div onClick={() => logout(instance,history)}>
       <IconButton>
         <LogoutIcon sx={{ color: "white" }} />
       </IconButton>

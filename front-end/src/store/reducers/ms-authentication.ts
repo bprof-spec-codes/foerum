@@ -36,7 +36,7 @@ export default (
         loginError: false,
         loginSuccess: true,
         isAuthenticated: true,
-        account:action.payload,
+        account: action.payload,
       };
     default:
       return state;
@@ -79,7 +79,7 @@ export const setLoginState = (data: any) => {
   };
 };
 
-export const logout = (instance: any) => {
+export const logout = (instance: any, history: any) => {
   instance
     .logoutPopup()
     .then((res: any) => {
@@ -88,6 +88,7 @@ export const logout = (instance: any) => {
       sessionStorage.removeItem("userid");
       sessionStorage.removeItem("username");
       sessionStorage.removeItem("useremail");
+      history.push("/");
     })
     .catch((e: any) => {
       console.error(e);

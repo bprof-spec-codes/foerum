@@ -35,6 +35,7 @@ const AddSubject: FC<IAddSubject> = (props) => {
         className="w-full ml-1 mb-4"
         placeholder="Tantárgy..."
         type="text"
+        value={subjectName}
         onChange={(e) => setSubjectName(e.target.value)}
       />
 
