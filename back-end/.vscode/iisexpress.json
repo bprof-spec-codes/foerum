@@ -1,0 +1,6 @@
+{
+  "port": 8585,
+  "path": "./back-end",
+  "clr": "v4.0",
+  "protocol": "http"
+}
