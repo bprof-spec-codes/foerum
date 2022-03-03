@@ -1,3 +1,7 @@
+// This token is currently deployed on the Binance Testnet under the following contract address
+// 0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC
+// To access the Binance Testnet, follow the instructions:
+// https://academy.binance.com/en/articles/connecting-metamask-to-binance-smart-chain
 pragma solidity ^0.8.2;
 
 contract Token {
