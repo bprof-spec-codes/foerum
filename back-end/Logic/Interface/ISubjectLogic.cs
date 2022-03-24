@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace Logic.Interface
 {
-      public interface ISubjectLogic
-      {
-            IQueryable<Subject> GetAllSubject();
-            Subject GetOneSubject(string id);
-            bool CreateSubject(Subject subject);
-            bool EditSubject(string id, Subject newSubject);
-            bool DeleteSubject(string id);
-            void AddUserToSubject(MyUser user, string subjectId);
-            void DeleteUserFromSubject(MyUser user, string subjectId);
-      }
+    public interface ISubjectLogic
+    {
+        IQueryable<Subject> GetAllSubject();
+        Subject GetOneSubject(string id);
+        bool CreateSubject(Subject subject);
+        bool EditSubject(string id, Subject newSubject);
+        bool DeleteSubject(string id);
+        void AddUserToSubject(MyUser user, string subjectId);
+        void DeleteUserFromSubject(MyUser user, string subjectId);
+        IQueryable<Subject> GetAllSubjectsOfYear(string yearId);
+    }
 }

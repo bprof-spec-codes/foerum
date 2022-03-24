@@ -141,5 +141,49 @@ namespace Test
             subjectLogic.GetAllSubject();
             subjectRepository.Verify(repo => repo.GetAll(), Times.Once);
         }
+
+        [Test]
+        public void GetAllSubjectsOfYear()
+        {
+            SubjectLogic subjectLogic = new SubjectLogic(subjectRepository.Object);
+
+            Subject s1 = new Subject()
+            {
+                YearID = "2022",
+                SubjectID = "bvadubw89bcyií",
+                SubjectName = "Programming",
+                IsPrivate = false,
+            };
+
+            Subject s2 = new Subject()
+            {
+                YearID = "2022",
+                SubjectID = "oihngw9u947bwe",
+                SubjectName = "Programming II.",
+                IsPrivate = false,
+            };
+
+            Subject s3 = new Subject()
+            {
+                YearID = "2020",
+                SubjectID = "8743hsvb9whssgb",
+                SubjectName = "Programming III.",
+                IsPrivate = false,
+            };
+
+            List<Subject> allSubjects = new List<Subject>();
+            allSubjects.Add(s1);
+            allSubjects.Add(s2);
+            allSubjects.Add(s3);
+
+            List<Subject> expectedOutput = new List<Subject>();
+            expectedOutput.Add(s1);
+            expectedOutput.Add(s2);
+
+            subjectRepository.Setup(subject => subject.GetAll()).Returns(allSubjects.AsQueryable());
+
+            List<Subject> queryOutput = subjectLogic.GetAllSubjectsOfYear("2022").ToList();
+            Assert.That(queryOutput, Is.EquivalentTo(expectedOutput));
+        }
     }
 }

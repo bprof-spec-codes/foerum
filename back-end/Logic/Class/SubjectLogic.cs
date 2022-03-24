@@ -82,5 +82,10 @@ namespace Logic.Class
         {
             this.DeleteUserFromSubject(user, subjectId);
         }
+
+        public IQueryable<Subject> GetAllSubjectsOfYear(string yearId)
+        {
+            return this.subjectRepo.GetAll().Where(x => x.YearID == yearId);
+        }
     }
 }
