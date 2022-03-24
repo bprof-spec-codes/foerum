@@ -183,7 +183,7 @@ namespace Test
             subjectRepository.Setup(subject => subject.GetAll()).Returns(allSubjects.AsQueryable());
 
             List<Subject> queryOutput = subjectLogic.GetAllSubjectsOfYear("2022").ToList();
-            Assert.That(queryOutput, Is.EquivalentTo(expectedOutput));
+            Assert.AreEqual(expectedOutput, queryOutput);
         }
     }
 }
