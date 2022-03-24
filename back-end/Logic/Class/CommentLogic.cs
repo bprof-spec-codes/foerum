@@ -85,7 +85,9 @@ namespace Logic.Class
 
         public IQueryable<Comment> GetAllCommentsOfTopic(string topicId)
         {
-            return this.commentRepo.GetAll().Where(x => x.TopicID == topicId).OrderByDescending(x=>x.CreationDate);
+            // Same problem as in subjectlogic
+            // return this.commentRepo.GetAllCommentsOfTopic(topicId).OrderByDescending(x=>x.CreationDate);
+            return this.commentRepo.GetAll().Where(x => x.TopicID == topicId).OrderByDescending(x => x.CreationDate);
         }
     }
 }

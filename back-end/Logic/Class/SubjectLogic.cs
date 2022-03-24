@@ -85,6 +85,8 @@ namespace Logic.Class
 
         public IQueryable<Subject> GetAllSubjectsOfYear(string yearId)
         {
+            // Unit test fails if this uses repo, but passes like this ?! xd
+            // return this.subjectRepo.GetAllSubjectsOfYear(yearId);
             return this.subjectRepo.GetAll().Where(x => x.YearID == yearId);
         }
     }
