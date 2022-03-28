@@ -16,7 +16,10 @@ const Sidebar = () => {
   const [subjects, setSubjects] = useState<ISubject[]>([]);
   const [years, setYears] = useState<IYear[]>([]);
 
-  const [subjectName, setSubjectName] = useState('');
+  const [selectedSubject, setSelectedSubject] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
+
+  const [subjectName, setSubjectName] = useState("");
 
   useEffect(() => {
     axios
@@ -39,8 +42,6 @@ const Sidebar = () => {
         console.log(err);
       });
   }, []);
-  
-
 
   return (
     <div className="mx-5">
@@ -52,41 +53,46 @@ const Sidebar = () => {
           years.map((year, i) => (
             <div key={i} style={{ cursor: "pointer" }}>
               <Year yearName={year.yearName} />
-            </div>))}
+            </div>
+          ))}
         <div>
-        <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
-        Tantárgyak
-      </h4>
+          <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
+            Tantárgyak
+          </h4>
           {subjects &&
             subjects
-            .sort(function(a, b){
-              if(a.subjectName! < b.subjectName!) { return -1; }
-              if(a.subjectName! > b.subjectName!) { return 1; }
-              return 0;
-          })
-            .map((subject,i) => (
-              <div key={i} style={{cursor: 'pointer' }}>
-                <Subject {...subject}/>
-              </div>
-            ))}
+              .sort(function (a, b) {
+                if (a.subjectName! < b.subjectName!) {
+                  return -1;
+                }
+                if (a.subjectName! > b.subjectName!) {
+                  return 1;
+                }
+                return 0;
+              })
+              .map((subject, i) => (
+                <div key={i} style={{ cursor: "pointer" }}>
+                  <Subject {...subject} />
+                </div>
+              ))}
         </div>
         <div>
-        {showAdd && <AddSubject />}
-        <Button
-          className="w-full"
-          variant="outlined"
-          onClick={() => setShowAdd(!showAdd)}
-          style={{
-            backgroundColor: `${showAdd ? "#FAB001" : "#182A4E"}`,
-            color: "white",
-            outline: "none",
-            border: "none",
-          }}
-        >
-          {showAdd ? "Mégse" : "Új téma hozzáadása"}
-        </Button>
+          {showAdd && <AddSubject />}
+          <Button
+            className="w-full"
+            variant="outlined"
+            onClick={() => setShowAdd(!showAdd)}
+            style={{
+              backgroundColor: `${showAdd ? "#FAB001" : "#182A4E"}`,
+              color: "white",
+              outline: "none",
+              border: "none",
+            }}
+          >
+            {showAdd ? "Mégse" : "Új téma hozzáadása"}
+          </Button>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
