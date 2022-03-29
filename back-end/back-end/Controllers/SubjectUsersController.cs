@@ -1,4 +1,5 @@
 ﻿using Logic.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
@@ -21,30 +22,35 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<SubjectUsers> GetAllSubjectUsers()
         {
             return this.subjectUsersLogic.GetAllSubjectUsers();
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public SubjectUsers GetOneSubjectUsers(string id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
+        [Authorize]
         public void CreateSubjectUsers([FromBody] SubjectUsers subjectUsers)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public void EditSubjectUsers(string id, [FromBody] SubjectUsers newSubjectUsers)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public SubjectUsers DeleteSubjectUsers(string id)
         {
             throw new NotImplementedException();

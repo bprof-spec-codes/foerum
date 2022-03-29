@@ -22,30 +22,35 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IEnumerable<MyUser> GetAllUser()
         {
             return this.myUserLogic.GetAllUser();
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public MyUser GetOneUser(string id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public void CreateUser([FromBody] MyUser user)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public void EditUser(string id, [FromBody] MyUser newUser)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public MyUser DeleteUser(string id)
         {
             throw new NotImplementedException();

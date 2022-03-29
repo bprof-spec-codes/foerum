@@ -2,7 +2,7 @@ export const msalConfig = {
   auth: {
     clientId: "76c4c395-9623-465d-aa07-949e0f58c09e",
     authority: "https://login.microsoftonline.com/1d6a56fa-705a-4bbc-8004-67a21d5e9b97/", // This is a URL (e.g. https://login.microsoftonline.com/{your tenant ID})
-    redirectUri: "http://localhost:3000",
+    redirectUri: "pite4.duckdns.org",
   },
   cache: {
     cacheLocation: "sessionStorage", // This configures where your cache will be stored
