@@ -31,7 +31,7 @@ namespace Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var builder = new SqlConnectionStringBuilder("server=95.111.254.24;database=foerumtst;user=foerumtst");
+                var builder = new SqlConnectionStringBuilder("server=193.41.237.72;database=foerumtst;user=foerumtst");
                 builder.Password = ConnectionStrinPassword;
                 var serverVersion = ServerVersion.AutoDetect(builder.ConnectionString);
                 optionsBuilder.UseMySql(builder.ConnectionString, serverVersion);
