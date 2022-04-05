@@ -35,14 +35,9 @@ namespace back_end.Controllers
             return this.commentLogic.GetOneComment(id);
         }
 
-<<<<<<< HEAD
         [HttpGet("CommentsOfTopic{topicId}")]
-        public IEnumerable<Comment> GetAllCommentsOfTopic(string topicId)
-=======
-        [HttpGet("GetOneTopicAllComment{topicId}")]
         [Authorize]
-        public IEnumerable<Comment> GetOneTopicAllComment(string topicId)
->>>>>>> f8808f83d3cd87f1542f59a7b24398a865c62c58
+        public IEnumerable<Comment> GetAllCommentsOfTopic(string topicId)
         {
             return this.commentLogic.GetAllCommentsOfTopic(topicId);
         }
