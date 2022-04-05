@@ -32,6 +32,12 @@ namespace back_end.Controllers
             return this.subjectLogic.GetOneSubject(id);
         }
 
+        [HttpGet("SubjectsOfYear{yearId}")]
+        public IQueryable<Subject> GetAllSubjectsOfYear(string yearId)
+        {
+            return this.subjectLogic.GetAllSubjectsOfYear(yearId);
+        }
+
         [HttpPost]
         public void CreateSubject([FromBody] Subject subject)
         {

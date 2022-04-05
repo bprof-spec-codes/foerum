@@ -35,6 +35,12 @@ namespace back_end.Controllers
             return this.topicLogic.GetOneTopic(id);
         }
 
+        [HttpGet("TopicsOfSubject{subjectId}")]
+        public IQueryable<Topic> GetAllTopicsOfSubject(string subjectId)
+        {
+            return this.topicLogic.GetAllTopicsOfSubject(subjectId);
+        }
+
         [HttpPost]
         [Authorize]
         public void CreateTopic([FromBody] Topic topic)

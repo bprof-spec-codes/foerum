@@ -35,11 +35,11 @@ namespace back_end.Controllers
             return this.commentLogic.GetOneComment(id);
         }
 
-        [HttpGet("GetOneTopicAllComment{topicId}")]
+        [HttpGet("CommentsOfTopic{topicId}")]
         [Authorize]
-        public IEnumerable<Comment> GetOneTopicAllComment(string topicId)
+        public IEnumerable<Comment> GetAllCommentsOfTopic(string topicId)
         {
-            return this.commentLogic.GetOneTopicAllComment(topicId);
+            return this.commentLogic.GetAllCommentsOfTopic(topicId);
         }
 
         [HttpPost]

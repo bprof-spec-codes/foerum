@@ -71,5 +71,10 @@ namespace Repository.Class
                 this.db.SaveChanges();
             }
         }
+
+        public IQueryable<Topic> GetAllTopicsOfSubject(string subjectId)
+        {
+            return this.GetAll().Where(x => x.SubjectID == subjectId);
+        }
     }
 }

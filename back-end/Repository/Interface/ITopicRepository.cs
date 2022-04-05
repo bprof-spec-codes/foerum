@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace Repository.Interface
 {
-      public interface ITopicRepository
-      {
-            void Add(Topic topic);
-            void Delete(string id);
-            IQueryable<Topic> GetAll();
-            Topic GetOne(string id);
-            void Update(string id, Topic topic);
-            void AddTagToTopic(Tag tag, string topicId);
-            void DeleteTagFromTopic(Tag tag, string topicId);
-      }
+    public interface ITopicRepository
+    {
+        void Add(Topic topic);
+        void Delete(string id);
+        IQueryable<Topic> GetAll();
+        Topic GetOne(string id);
+        void Update(string id, Topic topic);
+        void AddTagToTopic(Tag tag, string topicId);
+        void DeleteTagFromTopic(Tag tag, string topicId);
+        IQueryable<Topic> GetAllTopicsOfSubject(string subjectId);
+    }
 }
