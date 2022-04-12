@@ -36,6 +36,7 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
 
   useEffect(() => {
     getComments();
+    orderComments();
   }, []);
 
   const getComments = () => {
@@ -47,6 +48,10 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const orderComments /*by creation date*/ = () => {
+    //setComments(comments.sort((a, b) => a.creationDate - b.creationDate));
   };
 
   const normalizeUserName = (name: string) => {
@@ -81,13 +86,6 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
               </div>
             ))}
         </div>
-        {/*
-          <Button
-            onClicked={() => setShowAdd(!showAdd)}
-            color={showAdd ? "#FAB001" : "#182A4E"}
-            text={showAdd ? "Mégse" : "Új hozzászólás írása"}
-          />
- */}
 
         <AddComment refresh={getComments} topic={topic} />
       </div>
