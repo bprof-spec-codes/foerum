@@ -51,7 +51,13 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   };
 
   const orderComments /*by creation date*/ = () => {
-    //setComments(comments.sort((a, b) => a.creationDate - b.creationDate));
+    //setComments(comments.sort(function(a, b) { a.creationDate < b.creationDate ? -1 : 1 });
+    /*comments.sort(function (a, b) {
+      return new Date(a.creationDate) - new Date(b.creationDate);
+    });*/
+    /*comments.sort(function (a, b) {
+      return a.creationDate.localeCompare(b.creationDate);
+    })*/
   };
 
   const normalizeUserName = (name: string) => {
