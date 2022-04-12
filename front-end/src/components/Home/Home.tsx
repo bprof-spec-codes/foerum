@@ -23,7 +23,6 @@ const Home = () => {
 
           <div className="w-1/5 m-5">
             <ProfileActions />
-            <SignOutButton />
           </div>
         </div>
       </div>
