@@ -15,6 +15,7 @@ namespace Models
         public string FullName { get; set; }
         public int NikCoin { get; set; }
         public int StartYear { get; set; }
+        public string WalletAddress { get; set; }
         public bool IsActive { get; set; }
         [NotMapped]
         public ICollection<MyUserRoles> Role { get; set; }
