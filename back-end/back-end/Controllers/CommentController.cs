@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
-    /* Every controller needs all the CRUD methods */
     [Route("[controller]")]
     [ApiController]
     public class CommentController : ControllerBase

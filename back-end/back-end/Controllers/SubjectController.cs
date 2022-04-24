@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace back_end.Controllers
 {
-    /* Every controller needs all the CRUD methods */
     [Route("[controller]")]
     [ApiController]
     public class SubjectController : ControllerBase
@@ -44,11 +43,12 @@ namespace back_end.Controllers
             this.subjectLogic.CreateSubject(subject);
         }
 
-        [HttpPost("AddUserToSubject{subjectId}")]
-        public void AddUserToSubject([FromBody] MyUser user, string subjectId)
-        {
-            this.subjectLogic.AddUserToSubject(user, subjectId);
-        }
+        // NOT NEEDED
+        //[HttpPost("AddUserToSubject{subjectId}")]
+        //public void AddUserToSubject([FromBody] MyUser user, string subjectId)
+        //{
+        //    this.subjectLogic.AddUserToSubject(user, subjectId);
+        //}
 
         [HttpPut("{id}")]
         public void EditSubject(string id, [FromBody] Subject newSubject)
@@ -62,10 +62,11 @@ namespace back_end.Controllers
             this.subjectLogic.DeleteSubject(id);
         }
 
-        [HttpDelete("DeleteUserFromSubject{subjectId}")]
-        public void DeleteUserFromSubject([FromBody] MyUser user, string subjectId)
-        {
-            this.subjectLogic.DeleteUserFromSubject(user, subjectId);
-        }
+        // I suppose if adduser is not needed, delete isn't needed either
+        //[HttpDelete("DeleteUserFromSubject{subjectId}")]
+        //public void DeleteUserFromSubject([FromBody] MyUser user, string subjectId)
+        //{
+        //    this.subjectLogic.DeleteUserFromSubject(user, subjectId);
+        //}
     }
 }
