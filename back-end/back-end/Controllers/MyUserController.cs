@@ -21,7 +21,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IEnumerable<MyUser> GetAllUser()
         {
             return this.myUserLogic.GetAllUser();
@@ -41,10 +41,10 @@ namespace back_end.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost("SetWallet{address}")]
-        public void SetWallet([FromBody] MyUser user, string address)
+        [HttpPost("SetWallet/{userid}")]
+        public void SetWallet([FromBody] WalletModel address, string userid)
         {
-            this.myUserLogic.SetWallet(user.Id, address);
+            this.myUserLogic.SetWallet(userid, address.address);
         }
 
         [HttpPut("{id}")]
