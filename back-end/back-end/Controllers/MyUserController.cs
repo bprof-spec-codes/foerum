@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace back_end.Controllers
 {
-    /* Every controller needs all the CRUD methods */
     [Route("[controller]")]
     [ApiController]
     public class MyUserController : ControllerBase
