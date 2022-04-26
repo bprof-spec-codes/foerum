@@ -6,6 +6,8 @@ import minilogo from "../../assets/images/minilogo.png";
 import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
 import jwt_decode from "jwt-decode";
+import { Button, IconButton } from "@mui/material";
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 export interface IHeaderProps extends StateProps, DispatchProps {}
 
@@ -45,7 +47,7 @@ const Header: FC<IHeaderProps> = (props) => {
               Admin felület
             </p>
           )}
-
+          <IconButton><div className="border-2 px-2 py-2 rounded-full text-sm text-white"><AddCircleOutlinedIcon className="text-sm" />&nbsp;pénztárca csatlakozás</div></IconButton>
           {auth && <SignOutButton />}
         </div>
       </div>
