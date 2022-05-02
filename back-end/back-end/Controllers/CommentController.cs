@@ -21,7 +21,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public IEnumerable<Comment> GetAllComment()
         {
             return this.commentLogic.GetAllComment();
