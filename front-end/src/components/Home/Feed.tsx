@@ -46,13 +46,11 @@ const Feed = () => {
     setFilteredTopics(topics.data.filter((topic) => topic.subjectID === "1"));
   };
 
-  /*const filterTopicsByYear = async () => {
+  const filterTopicsByYear = async () => {
     const topics = await axios.get<ITopic[]>("/Topic");
 
     setFilteredTopics(topics.data.filter((topic) => topic.yearID === "1"));
   };
-  //nem kell, mert a topicok nem is tárolnak adatot a yearről
-  */
 
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
