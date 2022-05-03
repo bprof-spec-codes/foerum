@@ -1,56 +1,56 @@
 ﻿using Logic.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace back_end.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class MyUserController : ControllerBase
+    public class SubjectUsersController : ControllerBase
     {
-        private IMyUserLogic myUserLogic;
+        private ISubjectUsersLogic subjectUsersLogic;
 
-        public MyUserController(IMyUserLogic logic)
+        public SubjectUsersController(ISubjectUsersLogic logic)
         {
-            this.myUserLogic = logic;
+            this.subjectUsersLogic = logic;
         }
 
         [HttpGet]
         [Authorize]
-        public IEnumerable<MyUser> GetAllUser()
+        public IEnumerable<SubjectUsers> GetAllSubjectUsers()
         {
-            return this.myUserLogic.GetAllUser();
+            return this.subjectUsersLogic.GetAllSubjectUsers();
         }
 
         [HttpGet("{id}")]
         [Authorize]
-        public MyUser GetOneUser(string id)
+        public SubjectUsers GetOneSubjectUsers(string id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public void CreateUser([FromBody] MyUser user)
+        [Authorize]
+        public void CreateSubjectUsers([FromBody] SubjectUsers subjectUsers)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
-        public void EditUser(string id, [FromBody] MyUser newUser)
+        [Authorize]
+        public void EditSubjectUsers(string id, [FromBody] SubjectUsers newSubjectUsers)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
-        public MyUser DeleteUser(string id)
+        [Authorize]
+        public SubjectUsers DeleteSubjectUsers(string id)
         {
             throw new NotImplementedException();
         }

@@ -19,35 +19,15 @@ namespace back_end.Controllers
             _authLogic = authLogic;
         }
 
-        // TODO Register function unneeded?! Probably need some way to add user to db tho.
-        [HttpPost]
-        public async Task<ActionResult> InsertUser([FromBody] RegisterViewModel model)
-        {
-            string result = await _authLogic.RegisterUser(model);
-            return Ok(new { UserName = result });
-        }
-
-        // TODO Input parameter? LoginViewModel, or just string (token)?
-        [HttpPut]
-        public async Task<ActionResult> Login([FromBody] LoginViewModel model)
-        {
-            try
-            {
-                return Ok(await _authLogic.LoginUser(model));
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-        }
-
         [HttpGet("GetOneUser/{userId}")]
+        [Authorize]
         public async Task<MyUser> GetUser(string userId)
         {
             return await this._authLogic.GetUser(userId);
         }
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<MyUser> GetAllUsers()
         {
             return _authLogic.GetAllUsers();
@@ -67,6 +47,7 @@ namespace back_end.Controllers
         }
 
         [HttpPut("UserToRole")]
+        [Authorize(Roles = "Admin")]
         public void UserToRole([FromBody] UserRoleViewModel model)
         {
             this._authLogic.UserToRole(model);

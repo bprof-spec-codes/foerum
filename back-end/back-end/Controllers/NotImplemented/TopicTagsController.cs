@@ -1,56 +1,57 @@
 ﻿using Logic.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace back_end.Controllers
 {
+    /* Every controller needs all the CRUD methods */
     [Route("[controller]")]
     [ApiController]
-    public class MyUserController : ControllerBase
+    public class TopicTagsController : ControllerBase
     {
-        private IMyUserLogic myUserLogic;
+        private ITopicTagsLogic topicTagsLogic;
 
-        public MyUserController(IMyUserLogic logic)
+        public TopicTagsController(ITopicTagsLogic logic)
         {
-            this.myUserLogic = logic;
+            this.topicTagsLogic = logic;
         }
 
         [HttpGet]
         [Authorize]
-        public IEnumerable<MyUser> GetAllUser()
+        public IEnumerable<TopicTags> GetAllTopicTags()
         {
-            return this.myUserLogic.GetAllUser();
+            return this.topicTagsLogic.GetAllTopicTags();
         }
 
         [HttpGet("{id}")]
         [Authorize]
-        public MyUser GetOneUser(string id)
+        public TopicTags GetOneTopicTags(string id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public void CreateUser([FromBody] MyUser user)
+        [Authorize]
+        public void CreateTopicTags(TopicTags topicTags)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
-        public void EditUser(string id, [FromBody] MyUser newUser)
+        [Authorize]
+        public void EditTopicTags(string id, [FromBody] TopicTags newTopicTags)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
-        public MyUser DeleteUser(string id)
+        [Authorize]
+        public TopicTags DeleteTopicTags(string id)
         {
             throw new NotImplementedException();
         }

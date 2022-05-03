@@ -16,6 +16,6 @@ namespace Repository.Interface
             void Update(string id, Comment comment);
             void AddUserToComment(MyUser user, string commentId);
             void DeleteUserFromComment(MyUser user, string commentId);
-            IQueryable<Comment> GetOneTopicAllComment(string commentId);
+            IQueryable<Comment> GetAllCommentsOfTopic(string commentId);
       }
 }

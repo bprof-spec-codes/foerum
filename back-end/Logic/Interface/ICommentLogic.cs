@@ -16,6 +16,6 @@ namespace Logic.Interface
         bool DeleteComment(string id);
         void AddUserToComment(MyUser user, string commentId);
         void DeleteUserFromComment(MyUser user, string commentId);
-        IQueryable<Comment> GetOneTopicAllComment(string topicId);
+        IQueryable<Comment> GetAllCommentsOfTopic(string topicId);
     }
 }

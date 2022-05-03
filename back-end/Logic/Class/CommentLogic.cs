@@ -83,9 +83,11 @@ namespace Logic.Class
             this.commentRepo.DeleteUserFromComment(user, commentId);
         }
 
-        public IQueryable<Comment> GetOneTopicAllComment(string topicId)
+        public IQueryable<Comment> GetAllCommentsOfTopic(string topicId)
         {
-            return this.commentRepo.GetOneTopicAllComment(topicId).OrderByDescending(comment => comment.CreationDate);
+            // Same problem as in subjectlogic
+            // return this.commentRepo.GetAllCommentsOfTopic(topicId).OrderByDescending(x=>x.CreationDate);
+            return this.commentRepo.GetAll().Where(x => x.TopicID == topicId).OrderByDescending(x => x.CreationDate);
         }
     }
 }
