@@ -41,6 +41,12 @@ namespace back_end.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpPost("SetWallet/{userid}")]
+        public void SetWallet([FromBody] WalletModel address, string userid)
+        {
+            this.myUserLogic.SetWallet(userid, address.address);
+        }
+
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public void EditUser(string id, [FromBody] MyUser newUser)
