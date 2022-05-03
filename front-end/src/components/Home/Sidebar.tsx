@@ -10,7 +10,9 @@ import { styled, createTheme } from "@mui/material/styles";
 import { blue } from "@mui/material/colors";
 import AddSubject from "./feed-components/AddSubject";
 
-const Sidebar = () => {
+import { ITopic } from "src/models/topic.model";
+
+const Sidebar = ({ topics }: { topics: ITopic[] }) => {
   const [showAdd, setShowAdd] = useState(false);
 
   const [subjects, setSubjects] = useState<ISubject[]>([]);
