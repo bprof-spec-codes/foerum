@@ -32,8 +32,9 @@ const AddTopic: FC<IAddTopicProps> = ({ getTopics }) => {
       },
     };
 
+    const token = sessionStorage.getItem("foerumtoken");
     axios
-      .post("/Topic", data)
+      .post("/Topic", data, {headers: {"Authorization" : token}})
       .then((res) => {
         getTopics();
         setTopicName("");

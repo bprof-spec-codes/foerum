@@ -15,7 +15,8 @@ const AddSubject = (topic: ISubject) => {
       IsPrivate: false,
     };
 
-    axios.post("/Subject", data)
+    const token = sessionStorage.getItem("foerumtoken");
+    axios.post("/Subject", data, {headers: {"Authorization" : token}})
     .then((res) => {
       // console.log(res.data)
     })
