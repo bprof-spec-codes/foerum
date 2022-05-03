@@ -43,9 +43,11 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
             </span>
             <p className="text-xl">{userName}</p>
           </div>
-
           <div className="flex flex-col justify-between mt-20 p-4 align-center text-center">
             <p>{userEmail}</p>
+          </div>
+          <div className="flex flex-col pb-4 align-center text-center">
+            NikCoin egyenleg:
           </div>
         </div>
       )}
