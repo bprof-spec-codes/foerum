@@ -72,7 +72,7 @@ const Sidebar = () => {
               })
               .map((subject, i) => (
                 <div key={i} style={{ cursor: "pointer" }}>
-                  <Subject {...subject} />
+                  <Subject {...subject} /*onClick={filterSubject}*/ />
                 </div>
               ))}
         </div>
