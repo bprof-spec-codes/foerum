@@ -12,7 +12,8 @@ import AddSubject from "./feed-components/AddSubject";
 
 import { ITopic } from "src/models/topic.model";
 
-const Sidebar = ({ topics }: { topics: ITopic[] }) => {
+/*{ topics }: { topics: ITopic[] }*/
+const Sidebar = () => {
   const [showAdd, setShowAdd] = useState(false);
 
   const [subjects, setSubjects] = useState<ISubject[]>([]);
