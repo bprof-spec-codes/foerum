@@ -52,7 +52,7 @@ const Sidebar = () => {
         {years &&
           years.map((year, i) => (
             <div key={i} style={{ cursor: "pointer" }}>
-              <Year yearName={year.yearName} />
+              <Year yearName={year.yearName} /*onClick={filterByYear}*/ />
             </div>
           ))}
         <div>
@@ -72,7 +72,7 @@ const Sidebar = () => {
               })
               .map((subject, i) => (
                 <div key={i} style={{ cursor: "pointer" }}>
-                  <Subject {...subject} /*onClick={filterSubject}*/ />
+                  <Subject {...subject} /*onClick={filterBySubject}*/ />
                 </div>
               ))}
         </div>
