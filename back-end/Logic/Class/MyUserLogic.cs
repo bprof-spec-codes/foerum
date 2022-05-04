@@ -72,5 +72,18 @@ namespace Logic.Class
         {
             return this.myUserRepo.GetOne(id);
         }
+
+        public bool SetWallet(string id, string address)
+        {
+            try
+            {
+                this.myUserRepo.SetWallet(id, address);
+                return true;
+            }
+            catch (DifferentWalletAlreadyConnectedException)
+            {
+                return false;
+            }
+        }
     }
 }

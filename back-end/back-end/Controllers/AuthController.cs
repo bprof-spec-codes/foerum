@@ -27,7 +27,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public IEnumerable<MyUser> GetAllUsers()
         {
             return _authLogic.GetAllUsers();
