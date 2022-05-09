@@ -16,7 +16,8 @@ const Feed = () => {
 
   useEffect(() => {
     const getUsers = async () => {
-      const users = await axios.get<IUser[]>("/MyUser");
+      const token = sessionStorage.getItem("foerumtoken");
+      const users = await axios.get<IUser[]>("/MyUser", {headers: {"Authorization" : token}});
       setUsers(users.data);
     };
 
@@ -25,7 +26,8 @@ const Feed = () => {
   }, []);
 
   const getTopics = async () => {
-    const topics = await axios.get<ITopic[]>("/Topic");
+    const token = sessionStorage.getItem("foerumtoken");
+    const topics = await axios.get<ITopic[]>("/Topic", {headers: {"Authorization" : token}});
     setTopics(topics.data);
   };
 
