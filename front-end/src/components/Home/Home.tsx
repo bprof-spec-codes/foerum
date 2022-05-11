@@ -32,8 +32,8 @@ const Home = () => {
   const [showAdd, setShowAdd] = useState(false);
   const [subjects, setSubjects] = useState<ISubject[]>([]);
   const [years, setYears] = useState<IYear[]>([]);
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState<ISubject>();
+  const [selectedYear, setSelectedYear] = useState<IYear>();
   const [subjectName, setSubjectName] = useState("");
   const [filteredTopics, setFilteredTopics] = useState<ITopic[] | null>(null);
   const [users, setUsers] = useState<IUser[]>([]);
@@ -63,6 +63,9 @@ const Home = () => {
       .catch((err) => {
         console.log(err);
       });
+
+    setDefaultSubject();
+    setDefaultYear();
   }, []);
 
   const getTopics = async () => {
@@ -78,6 +81,17 @@ const Home = () => {
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
     return user ? user : ({} as IUser);
+  };
+
+  const setDefaultSubject = async () => {
+    const subj = subjects[0];
+
+    setSelectedSubject(subj);
+  };
+  const setDefaultYear = async () => {
+    const yr = years[0];
+
+    setSelectedYear(yr);
   };
 
   return (
