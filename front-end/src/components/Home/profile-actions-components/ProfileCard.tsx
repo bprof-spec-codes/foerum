@@ -2,22 +2,43 @@ import React, { FC, useEffect, useState } from "react";
 import { IRootState } from "src/store/reducers";
 import { connect } from "react-redux";
 import { Avatar } from "@mui/material";
+import axios from "../../../axios";
+import Web3 from "web3";
 
 export interface IProfileCardProps extends StateProps {}
 
 const ProfileCard: FC<IProfileCardProps> = (props) => {
   const [userName, setUserName] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userid, setUserId] = useState<string | null>(null);
+  const [userBalance, setUserBalance] = useState<string | null>(null);
   useEffect(() => {
     const userName = sessionStorage.getItem("username");
     const userEmail = sessionStorage.getItem("useremail");
+    const userid = sessionStorage.getItem("userid");
+    const userBalance = "0";
 
     setUserName(userName);
     setUserEmail(userEmail);
+    setUserId(userid);
+    setUserBalance(userBalance);
+
+    getBalance();
   }, []);
 
   const normalizeUserName = (name: string) => {
     return name.toLowerCase().replace(/\s/g, "");
+  };
+
+  const getBalance = () => {
+    const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
+    axios.get("/MyUser/GetOneWallet/" + userid).then((res) => {
+      web3.eth.getBalance(res.data).then((balance) => {
+        setUserBalance(
+          (parseFloat(balance)/1000000000000000000).toFixed(2)
+          .toString());
+      });
+    });
   };
 
   return (
@@ -47,7 +68,7 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
             <p>{userEmail}</p>
           </div>
           <div className="flex flex-col pb-4 align-center text-center">
-            NikCoin egyenleg:
+            NikCoin egyenleg: {userBalance}
           </div>
         </div>
       )}
