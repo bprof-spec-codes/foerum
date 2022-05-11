@@ -16,8 +16,9 @@ export const SignOutButton = () => {
 
   return (
     <div onClick={() => logout(instance)}>
+      <br /> <p>Kijelentkezés</p>
       <IconButton>
-        <LogoutIcon sx={{ color: "white" }} />
+        <LogoutIcon sx={{ color: "black" }} />
       </IconButton>
     </div>
   );
