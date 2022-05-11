@@ -21,7 +21,7 @@ namespace back_end.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public IEnumerable<MyUser> GetAllUser()
         {
             return this.myUserLogic.GetAllUser();
@@ -32,6 +32,20 @@ namespace back_end.Controllers
         public MyUser GetOneUser(string id)
         {
             throw new NotImplementedException();
+        }
+        
+        [HttpGet("GetOneWallet/{id}")]
+        //[Authorize]
+        public string GetOneWallet(string id)
+        {
+            return this.myUserLogic.GetOneWallet(id);
+        }
+        
+        [HttpGet("GetAllWallets")]
+        //[Authorize]
+        public ICollection<UserWalletModel> GetAllWallets()
+        {
+            return this.myUserLogic.GetAllWallets();
         }
 
         [HttpPost]

@@ -15,5 +15,7 @@ namespace Repository.Interface
             MyUser GetOne(string id);
             void Update(string id, MyUser user);
             void SetWallet(string id, string address);
+            string GetOneWallet(string id);
+            ICollection<UserWalletModel> GetAllWallets();
       }
 }

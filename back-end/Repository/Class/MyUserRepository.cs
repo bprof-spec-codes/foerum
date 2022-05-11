@@ -73,5 +73,35 @@ namespace Repository.Class
                 }
             }
         }
+
+        public string GetOneWallet(string id)
+        {
+            var user = this.GetOne(id);
+
+            if (user != null && user.WalletAddress != null)
+            {
+                return user.WalletAddress;
+            }
+            else
+            {
+                return "0x0000000000000000000000000000000000000000";
+            }
+        }
+
+        public ICollection<UserWalletModel> GetAllWallets()
+        {
+            List<UserWalletModel> outp = new List<UserWalletModel>();
+            var users = this.GetAll();
+            foreach (MyUser user in users)
+            {
+                outp.Add(
+                    new UserWalletModel(
+                        user.Id,
+                        user.UserName,
+                        user.WalletAddress != null ? user.WalletAddress : "0x0000000000000000000000000000000000000000"
+                        ));
+            }
+            return outp;
+        }
     }
 }
