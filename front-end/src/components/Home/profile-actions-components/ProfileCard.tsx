@@ -23,6 +23,7 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
     setUserId(userid);
     setUserBalance(userBalance);
 
+    console.log(userid);
     getBalance();
   }, []);
 
@@ -31,14 +32,29 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
   };
 
   const getBalance = () => {
-    const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
+    // const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
+    // const abi = require('human-standard-token-abi');
+    // const contractAddress = '0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC';
+    // const contract = new web3.eth.Contract(abi, contractAddress);
+    // console.log("userid: "+userid);
+    /*
+    axios.get("/MyUser/GetOneWallet/" + userid).then((res) => {
+      console.log(res.data);
+      contract.methods.balanceOf(res.data).call().then(function(result : any) {
+        var myTokenResult = result;
+        console.log(myTokenResult);
+        setUserBalance(myTokenResult);
+      });
+    });
+    */
+    /*
     axios.get("/MyUser/GetOneWallet/" + userid).then((res) => {
       web3.eth.getBalance(res.data).then((balance) => {
         setUserBalance(
           (parseFloat(balance)/1000000000000000000).toFixed(2)
           .toString());
       });
-    });
+    });*/
   };
 
   return (
