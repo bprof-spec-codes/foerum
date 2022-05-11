@@ -45,8 +45,6 @@ const Header: FC<IHeaderProps> = (props) => {
               Admin felület
             </p>
           )}
-
-          {auth && <SignOutButton />}
         </div>
       </div>
     </div>
