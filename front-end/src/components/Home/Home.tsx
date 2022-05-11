@@ -22,7 +22,7 @@ import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
 import jwt_decode from "jwt-decode";
 import AddTopic from "./feed-components/AddTopic";
-import { Topic } from "./sidebar-components";
+import Topic from "../../components/Misc/Topic";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import { Box, Skeleton } from "@mui/material";
 import { Notifications, ProfileCard } from "./profile-actions-components";
