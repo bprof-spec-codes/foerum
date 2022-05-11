@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { IRootState } from "src/store/reducers";
 import { connect } from "react-redux";
 import { Avatar } from "@mui/material";
+import { SignOutButton } from "../../shared/MicrosoftSignOut";
 
 export interface IProfileCardProps extends StateProps {}
 
@@ -46,6 +47,7 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
 
           <div className="flex flex-col justify-between mt-20 p-4 align-center text-center">
             <p>{userEmail}</p>
+            <SignOutButton />
           </div>
         </div>
       )}
