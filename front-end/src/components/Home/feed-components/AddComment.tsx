@@ -24,8 +24,9 @@ const AddComment: FC<IAddCommentProps> = (props) => {
 
     setCommentBody("");
 
+    const token = sessionStorage.getItem("foerumtoken");
     axios
-      .post("/Comment", data)
+      .post("/Comment", data, {headers: {"Authorization" : token}})
       .then((res) => {
         refresh();
       })

@@ -67,18 +67,20 @@ const Admin: FC = () => {
   }, []);
 
   const getUsers = async () => {
-    const { data } = await axios.get<IUser[]>("/MyUser");
+    const token = sessionStorage.getItem("foerumtoken");
+    const { data } = await axios.get<IUser[]>("/MyUser", {headers: {"Authorization" : token}});
     setUsers(data);
   };
 
   const getTransactions = async () => {
-    const { data } = await axios.get<ITransaction[]>("/Transaction");
+    const token = sessionStorage.getItem("foerumtoken");
+    const { data } = await axios.get<ITransaction[]>("/Transaction", {headers: {"Authorization" : token}});
     setTransactions(data);
   };
 
   const getComments = async () => {
-    const { data } = await axios.get<IComment[]>("/Comment");
-
+    const token = sessionStorage.getItem("foerumtoken");
+    const { data } = await axios.get<IComment[]>("/Comment", {headers: {"Authorization" : token}});
     setComments(data);
   };
 
@@ -89,8 +91,9 @@ const Admin: FC = () => {
   }; */
 
   const getTopics = async () => {
+    const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get("/Topic")
+      .get("/Topic", {headers: {"Authorization" : token}})
       .then((res) => {
         setTopics(res.data);
       })
@@ -100,8 +103,9 @@ const Admin: FC = () => {
   };
 
   const getSubjects = async () => {
+    const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get("/Subject")
+      .get("/Subject", {headers: {"Authorization" : token}})
       .then((res) => {
         setSubjects(res.data);
       })
@@ -116,8 +120,9 @@ const Admin: FC = () => {
   };
 
   const editUser = (user: any) => {
+    const token = sessionStorage.getItem("foerumtoken");
     axios
-      .put(`/MyUser/${user.id}`, user)
+      .put(`/MyUser/${user.id}`, user, {headers: {"Authorization" : token}})
       .then((res) => {
       })
       .catch((err) => {

@@ -55,5 +55,23 @@ namespace Repository.Class
                 this.db.SaveChanges();
             }
         }
+
+        public void SetWallet(string id, string address)
+        {
+            var user = this.GetOne(id);
+
+            if(user != null)
+            {
+                if (user.WalletAddress == null)
+                {
+                    user.WalletAddress = address;
+                    this.db.SaveChanges();
+                }
+                else if (user.WalletAddress != address)
+                {
+                    throw new DifferentWalletAlreadyConnectedException(address, user.WalletAddress, user.FullName);
+                }
+            }
+        }
     }
 }

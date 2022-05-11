@@ -8,6 +8,8 @@ import "./home.scss";
 import jwt_decode from "jwt-decode";
 import { Button, IconButton } from "@mui/material";
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import { ethers } from "ethers";
+import axios from "../../axios";
 
 export interface IHeaderProps extends StateProps, DispatchProps {}
 
@@ -26,6 +28,22 @@ const Header: FC<IHeaderProps> = (props) => {
       setAuth(decodedToken as IAuth);
     }
   }, [isAuthenticated, props]);
+
+  function walletLogin(){
+    if(window.ethereum){
+      window.ethereum.request({method:'eth_requestAccounts'})
+      .then((res: any) => {
+        console.log(typeof res[0])
+        console.log(res[0])
+        const userid = sessionStorage.getItem("userid");
+        const data = {address: res[0]};
+        axios.post("/MyUser/SetWallet/" + userid, data)
+      })
+    }
+    else {
+      alert("Please install MetaMask");
+    }
+  }
 
   return (
     <div className="fixed w-full h-14 bg-basebg shadow-lg z-50">
@@ -47,7 +65,7 @@ const Header: FC<IHeaderProps> = (props) => {
               Admin felület
             </p>
           )}
-          <IconButton><div className="border-2 px-2 py-2 rounded-full text-sm text-white"><AddCircleOutlinedIcon className="text-sm" />&nbsp;pénztárca csatlakozás</div></IconButton>
+          <IconButton onClick={walletLogin}><div className="border-2 px-2 py-2 rounded-full text-sm text-white"><AddCircleOutlinedIcon className="text-sm" />&nbsp;pénztárca csatlakozás</div></IconButton>
           {auth && <SignOutButton />}
         </div>
       </div>
