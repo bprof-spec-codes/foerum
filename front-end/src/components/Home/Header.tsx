@@ -6,10 +6,10 @@ import minilogo from "../../assets/images/minilogo.png";
 import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
 import jwt_decode from "jwt-decode";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
-import { ethers } from "ethers";
 import axios from "../../axios";
+
 
 export interface IHeaderProps extends StateProps, DispatchProps {}
 
@@ -33,8 +33,6 @@ const Header: FC<IHeaderProps> = (props) => {
     if(window.ethereum){
       window.ethereum.request({method:'eth_requestAccounts'})
       .then((res: any) => {
-        console.log(typeof res[0])
-        console.log(res[0])
         const userid = sessionStorage.getItem("userid");
         const data = {address: res[0]};
         axios.post("/MyUser/SetWallet/" + userid, data)

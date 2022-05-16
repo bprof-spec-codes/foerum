@@ -15,5 +15,7 @@ namespace Logic.Interface
             bool EditUser(string id, MyUser newMyUser);
             bool DeleteUser(string id);
             bool SetWallet(string id, string address);
-      }
+            string GetOneWallet(string id);
+            ICollection<UserWalletModel> GetAllWallets();
+    }
 }

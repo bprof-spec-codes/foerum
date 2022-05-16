@@ -33,6 +33,20 @@ namespace back_end.Controllers
         {
             throw new NotImplementedException();
         }
+        
+        [HttpGet("GetOneWallet/{id}")]
+        [Authorize]
+        public string GetOneWallet(string id)
+        {
+            return this.myUserLogic.GetOneWallet(id);
+        }
+        
+        [HttpGet("GetAllWallets")]
+        [Authorize]
+        public ICollection<UserWalletModel> GetAllWallets()
+        {
+            return this.myUserLogic.GetAllWallets();
+        }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
