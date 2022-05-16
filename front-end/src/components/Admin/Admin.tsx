@@ -157,6 +157,19 @@ const Admin: FC = () => {
     createActivityList();
   };
 
+  const handleAddressChange = (e: any): void => {
+    const newValue: IAddress | undefined = addresses?.find(
+      (x) => x.address === e.target.value
+    );
+    if (newValue) setSelectedAddresses(newValue);
+  };
+
+  const addNikCoin = (e: any) => {
+    e.preventDefault()
+
+    console.log(selectedAddress,amountOfNikCoin);
+  }
+
   const createActivityList = () => {
     if (comments && topics && subjects) {
       if (comments.length > 0 && topics.length > 0 && subjects.length > 0) {
