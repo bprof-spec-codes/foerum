@@ -110,7 +110,7 @@ const Admin: FC = () => {
   const getTopics = async () => {
     const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get("/Topic", {headers: {"Authorization" : token}})
+      .get("/Topic", { headers: { Authorization: token } })
       .then((res) => {
         setTopics(res.data);
       })
