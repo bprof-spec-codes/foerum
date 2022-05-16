@@ -160,7 +160,7 @@ const Admin: FC = () => {
 
   const updateLatest = async () => {
     await getUsers();
-    await getTransactions();
+    //await getTransactions();
     await getComments();
     // getReacters();
     await getTopics();
@@ -524,8 +524,33 @@ const Admin: FC = () => {
         {actualPage === 1 && (
           <div className={s.manage}>
             <div className={s.manageContent}>
-              <div className="flex justify-between">
+              <div className="flex flex-col justify-between">
                 <h3>Jóváírások</h3>
+                <div>
+                  <form className="flex flex-col space-y-4" onSubmit={addNikCoin}>
+                    <Select
+                      labelId="address-label"
+                      value={selectedAddress.address}
+                      label="address"
+                      onChange={handleAddressChange}
+                    >
+                      {addresses &&
+                        addresses.map((address, i) => (
+                          <MenuItem key={i} value={address.address}>
+                            {address.userName}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                    <TextField
+                      label="nikcoin"
+                      onChange={(e) => setAmountOfNikCoin(+e.target.value)}
+                      value={amountOfNikCoin}
+                      type = "number"
+                      inputProps={{min: 0}}
+                    />
+                    <Button disabled={amountOfNikCoin === 0} variant="contained" type="submit">Coin hozzáadása</Button>
+                  </form>
+                </div>
               </div>
               <ul className={s.manageList}>
                 {transactions ? (
