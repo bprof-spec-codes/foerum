@@ -122,7 +122,7 @@ const Admin: FC = () => {
   const getSubjects = async () => {
     const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get("/Subject", {headers: {"Authorization" : token}})
+      .get("/Subject", { headers: { Authorization: token } })
       .then((res) => {
         setSubjects(res.data);
       })
@@ -139,9 +139,8 @@ const Admin: FC = () => {
   const editUser = (user: any) => {
     const token = sessionStorage.getItem("foerumtoken");
     axios
-      .put(`/MyUser/${user.id}`, user, {headers: {"Authorization" : token}})
-      .then((res) => {
-      })
+      .put(`/MyUser/${user.id}`, user, { headers: { Authorization: token } })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
