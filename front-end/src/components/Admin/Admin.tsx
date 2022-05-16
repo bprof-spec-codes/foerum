@@ -58,34 +58,46 @@ const Admin: FC = () => {
   const [topics, setTopics] = useState<ITopic[] | null>(null);
   const [subjects, setSubjects] = useState<ISubject[] | null>(null);
   const [actualPage, setActualPage] = useState<number>(1);
+  const [addresses, setAddresses] = useState<IAddress[] | null>(null);
+  const [selectedAddress, setSelectedAddresses] = useState<IAddress>({
+    address: "0x0000000000000000000000000000000000000000",
+  });
+  const [amountOfNikCoin,setAmountOfNikCoin] = useState<number>(0);
 
   useEffect(() => {
     const getData = async () => {
       await getUsers();
-      await getTransactions();
+      // await getTransactions();
       await getComments();
       // getReacters();
       await getTopics();
       await getSubjects();
+      await getAddresses();
     };
     getData();
   }, []);
 
   const getUsers = async () => {
     const token = sessionStorage.getItem("foerumtoken");
-    const { data } = await axios.get<IUser[]>("/MyUser", {headers: {"Authorization" : token}});
+    const { data } = await axios.get<IUser[]>("/MyUser", {
+      headers: { Authorization: token },
+    });
     setUsers(data);
   };
 
   const getTransactions = async () => {
     const token = sessionStorage.getItem("foerumtoken");
-    const { data } = await axios.get<ITransaction[]>("/Transaction", {headers: {"Authorization" : token}});
+    const { data } = await axios.get<ITransaction[]>("/Transaction", {
+      headers: { Authorization: token },
+    });
     setTransactions(data);
   };
 
   const getComments = async () => {
     const token = sessionStorage.getItem("foerumtoken");
-    const { data } = await axios.get<IComment[]>("/Comment", {headers: {"Authorization" : token}});
+    const { data } = await axios.get<IComment[]>("/Comment", {
+      headers: { Authorization: token },
+    });
     setComments(data);
   };
 
