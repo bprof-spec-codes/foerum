@@ -131,6 +131,18 @@ const Admin: FC = () => {
       });
   };
 
+  const getAddresses = async () => {
+    const token = sessionStorage.getItem("foerumtoken");
+    axios
+      .get("/MyUser/GetAllWallets", { headers: { Authorization: token } })
+      .then((res) => {
+        setAddresses(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const findSubject = (tid: any) => {
     const subject = subjects?.find((s) => s.subjectID === tid);
     return subject?.subjectName;
