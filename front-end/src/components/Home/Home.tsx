@@ -44,38 +44,64 @@ const Home = () => {
     getTopics();
     getUsers();
 
-    axios
-      .get<ISubject[]>("/Subject")
-      .then((res) => {
-        setSubjects(res.data);
-        //console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axios
-      .get<IYear[]>("/Year")
-      .then((res) => {
-        setYears(res.data);
-        // console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getSubjects();
 
     setDefaultSubject();
     setDefaultYear();
   }, []);
 
+  const getSubjects = () => {
+    const token = sessionStorage.getItem("foerumtoken");
+
+    if (token) {
+      axios
+        .get<ISubject[]>("/Subject", { headers: { Authorization: token } })
+        .then((res) => {
+          setSubjects(res.data);
+          //console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const getYears = () => {
+    const token = sessionStorage.getItem("foerumtoken");
+
+    if (token) {
+      axios
+        .get<IYear[]>("/Year", { headers: { Authorization: token } })
+        .then((res) => {
+          setYears(res.data);
+          // console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   const getTopics = async () => {
-    const topics = await axios.get<ITopic[]>("/Topic");
-    setTopics(topics.data);
+    const token = sessionStorage.getItem("foerumtoken");
+
+    if (token) {
+      const topics = await axios.get<ITopic[]>("/Topic", {
+        headers: { Authorization: token },
+      });
+      setTopics(topics.data);
+    }
   };
 
   const getUsers = async () => {
-    const users = await axios.get<IUser[]>("/MyUser");
-    setUsers(users.data);
+    const token = sessionStorage.getItem("foerumtoken");
+
+    if (token) {
+      const users = await axios.get<IUser[]>("/MyUser", {
+        headers: { Authorization: token },
+      });
+      setUsers(users.data);
+    }
   };
 
   const selectUser = (tid: any) => {
@@ -86,10 +112,14 @@ const Home = () => {
   const setDefaultSubject = async () => {
     const subj = subjects[0];
 
+    console.log(subj);
+
     setSelectedSubject(subj);
   };
   const setDefaultYear = async () => {
     const yr = years[0];
+
+    console.log(yr);
 
     setSelectedYear(yr);
   };

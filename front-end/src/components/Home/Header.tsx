@@ -56,7 +56,7 @@ const Header: FC<IHeaderProps> = (props) => {
         <div className="flex content-center p-2 self-center">
           {auth && (
             <p
-              className="font-bold cursor-pointer mt-2 mr-4"
+              className="font-bold cursor-pointer mt-4 mr-4"
               onClick={() => history.push("/Admin")}
             >
               Admin felület
@@ -68,7 +68,6 @@ const Header: FC<IHeaderProps> = (props) => {
               &nbsp;pénztárca csatlakozás
             </div>
           </IconButton>
-          {auth && <SignOutButton />}
         </div>
       </div>
     </div>
