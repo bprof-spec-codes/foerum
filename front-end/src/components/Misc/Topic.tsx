@@ -40,8 +40,9 @@ const Topic: FC<ITopicProps> = ({ topic, onAdd, allUsers, user }) => {
   }, []);
 
   const getComments = () => {
+    const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get<IComment[]>("/Comment")
+      .get<IComment[]>("/Comment", {headers: {"Authorization" : token}})
       .then((res) => {
         setComments(res.data);
       })

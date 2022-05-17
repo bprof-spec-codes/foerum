@@ -14,8 +14,10 @@ namespace Repository.Interface
         IQueryable<Subject> GetAll();
         Subject GetOne(string id);
         void Update(string id, Subject subject);
-        void AddUserToSubject(MyUser user, string subjectId);
-        void DeleteUserFromSubject(MyUser user, string subjectId);
         IQueryable<Subject> GetAllSubjectsOfYear(string yearId);
+
+        // NOT NEEDED
+        //void AddUserToSubject(MyUser user, string subjectId);
+        //void DeleteUserFromSubject(MyUser user, string subjectId);
     }
 }

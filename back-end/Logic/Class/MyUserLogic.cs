@@ -68,9 +68,32 @@ namespace Logic.Class
             return this.myUserRepo.GetAll();
         }
 
+        public ICollection<UserWalletModel> GetAllWallets()
+        {
+            return this.myUserRepo.GetAllWallets();
+        }
+
         public MyUser GetOneUser(string id)
         {
             return this.myUserRepo.GetOne(id);
+        }
+
+        public string GetOneWallet(string id)
+        {
+            return this.myUserRepo.GetOneWallet(id);
+        }
+
+        public bool SetWallet(string id, string address)
+        {
+            try
+            {
+                this.myUserRepo.SetWallet(id, address);
+                return true;
+            }
+            catch (DifferentWalletAlreadyConnectedException)
+            {
+                return false;
+            }
         }
     }
 }

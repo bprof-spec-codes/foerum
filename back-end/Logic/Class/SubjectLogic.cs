@@ -73,15 +73,17 @@ namespace Logic.Class
             return this.subjectRepo.GetOne(id);
         }
 
-        public void AddUserToSubject(MyUser user, string subjectId)
-        {
-            this.AddUserToSubject(user, subjectId);
-        }
+        // NOT NEEDED
+        //public void AddUserToSubject(MyUser user, string subjectId)
+        //{
+        //    this.AddUserToSubject(user, subjectId);
+        //}
 
-        public void DeleteUserFromSubject(MyUser user, string subjectId)
-        {
-            this.DeleteUserFromSubject(user, subjectId);
-        }
+        // I suppose if adduser is not needed, delete isn't needed either
+        //public void DeleteUserFromSubject(MyUser user, string subjectId)
+        //{
+        //    this.DeleteUserFromSubject(user, subjectId);
+        //}
 
         public IQueryable<Subject> GetAllSubjectsOfYear(string yearId)
         {

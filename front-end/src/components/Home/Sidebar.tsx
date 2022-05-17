@@ -25,8 +25,9 @@ const Sidebar = () => {
   const [subjectName, setSubjectName] = useState("");
 
   useEffect(() => {
+    const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get<ISubject[]>("/Subject")
+      .get<ISubject[]>("/Subject", {headers: {"Authorization" : token}})
       .then((res) => {
         setSubjects(res.data);
         //console.log(res.data);
@@ -36,7 +37,7 @@ const Sidebar = () => {
       });
 
     axios
-      .get<IYear[]>("/Year")
+      .get<IYear[]>("/Year", {headers: {"Authorization" : token}})
       .then((res) => {
         setYears(res.data);
         // console.log(res.data);
