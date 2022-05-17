@@ -86,7 +86,7 @@ const Comment: FC<ICommentProps> = ({ comment, allUsers }) => {
             open={snackBarOpen}
             autoHideDuration={6000}
             onClose={handleClose}
-            message="Válaszod rögzítettük"
+            message="Értékelésed rögzítettük"
             action={action}
             sx={{ backgroundColor: "white" }}
           />

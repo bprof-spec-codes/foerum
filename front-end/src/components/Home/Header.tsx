@@ -7,9 +7,8 @@ import { SignOutButton } from "../shared/MicrosoftSignOut";
 import "./home.scss";
 import jwt_decode from "jwt-decode";
 import { IconButton } from "@mui/material";
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import axios from "../../axios";
-
 
 export interface IHeaderProps extends StateProps, DispatchProps {}
 
@@ -29,16 +28,16 @@ const Header: FC<IHeaderProps> = (props) => {
     }
   }, [isAuthenticated, props]);
 
-  function walletLogin(){
-    if(window.ethereum){
-      window.ethereum.request({method:'eth_requestAccounts'})
-      .then((res: any) => {
-        const userid = sessionStorage.getItem("userid");
-        const data = {address: res[0]};
-        axios.post("/MyUser/SetWallet/" + userid, data)
-      })
-    }
-    else {
+  function walletLogin() {
+    if (window.ethereum) {
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((res: any) => {
+          const userid = sessionStorage.getItem("userid");
+          const data = { address: res[0] };
+          axios.post("/MyUser/SetWallet/" + userid, data);
+        });
+    } else {
       alert("Please install MetaMask");
     }
   }
@@ -57,14 +56,18 @@ const Header: FC<IHeaderProps> = (props) => {
         <div className="flex content-center p-2 self-center">
           {auth && (
             <p
-              className="font-bold cursor-pointer mt-2 mr-4"
+              className="font-bold cursor-pointer mt-4 mr-4"
               onClick={() => history.push("/Admin")}
             >
               Admin felület
             </p>
           )}
-          <IconButton onClick={walletLogin}><div className="border-2 px-2 py-2 rounded-full text-sm text-white"><AddCircleOutlinedIcon className="text-sm" />&nbsp;pénztárca csatlakozás</div></IconButton>
-          {auth && <SignOutButton />}
+          <IconButton onClick={walletLogin}>
+            <div className="border-2 px-2 py-2 rounded-full text-sm text-white">
+              <AddCircleOutlinedIcon className="text-sm" />
+              &nbsp;pénztárca csatlakozás
+            </div>
+          </IconButton>
         </div>
       </div>
     </div>
