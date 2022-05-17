@@ -42,6 +42,7 @@ import { Timer } from "./admin-components";
 import { ITransaction } from "src/models/transaction.model";
 import { Header } from "..";
 import { IAddress } from "src/models/address.model";
+import Web3 from "web3";
 
 type concatArray = {
   content: string;
@@ -179,7 +180,15 @@ const Admin: FC = () => {
   const addNikCoin = (e: any) => {
     e.preventDefault()
 
-    console.log(selectedAddress,amountOfNikCoin);
+    // console.log(selectedAddress,amountOfNikCoin);
+    const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
+    const abi = require('human-standard-token-abi');
+    const contractAddress = '0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC';
+    const contract = new web3.eth.Contract(abi, contractAddress);
+    console.log(contract);
+    contract.methods.transferFrom("0x555bC0c8dD4B1822636e44D85417afDeA6628C90", selectedAddress, amountOfNikCoin).call().then((res : any) => {
+     console.log(res);
+    })
   }
 
   const createActivityList = () => {

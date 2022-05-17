@@ -94,12 +94,17 @@ namespace Repository.Class
             var users = this.GetAll();
             foreach (MyUser user in users)
             {
-                outp.Add(
-                    new UserWalletModel(
-                        user.Id,
-                        user.UserName,
-                        user.WalletAddress != null ? user.WalletAddress : "0x0000000000000000000000000000000000000000"
+                if (user.WalletAddress != null)
+                {
+                    if (!user.WalletAddress.StartsWith("0x0000"))
+                    {
+                        outp.Add(new UserWalletModel(
+                            user.Id,
+                            user.UserName,
+                            user.WalletAddress
                         ));
+                    }
+                }
             }
             return outp;
         }
