@@ -101,7 +101,8 @@ namespace Repository.Class
                         outp.Add(new UserWalletModel(
                             user.Id,
                             user.UserName,
-                            user.WalletAddress
+                            user.WalletAddress,
+                            user.Email
                         ));
                     }
                 }
