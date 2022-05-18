@@ -5,6 +5,7 @@ import { Avatar } from "@mui/material";
 import { SignOutButton } from "../../shared/MicrosoftSignOut";
 import axios from "../../../axios";
 import Web3 from "web3";
+import { ethers } from "ethers";
 
 export interface IProfileCardProps extends StateProps {}
 
@@ -13,42 +14,38 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userid, setUserId] = useState<string | null>(null);
   const [userBalance, setUserBalance] = useState<string | null>(null);
+  const [userAddress, setUserAddress] = useState<string | null>(null);
   useEffect(() => {
     const userName = sessionStorage.getItem("username");
     const userEmail = sessionStorage.getItem("useremail");
     const userid = sessionStorage.getItem("userid");
+    const userAddress = sessionStorage.getItem("walletaddress");
     const userBalance = "0";
 
     setUserName(userName);
     setUserEmail(userEmail);
     setUserId(userid);
     setUserBalance(userBalance);
+    setUserAddress(userAddress);
   }, []);
 
   useEffect(() => {
-    if (userid) {
+    if (userid && userAddress) {
       getBalance();
     }
-  }, [userid]);
+  }, [userid, userAddress]); // BENCEEEEEE
 
   const normalizeUserName = (name: string) => {
     return name.toLowerCase().replace(/\s/g, "");
   };
 
-  const getBalance = () => {
+  const getBalance = async () => {
     const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
     const abi = require("human-standard-token-abi");
     const contractAddress = "0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC";
     const contract = new web3.eth.Contract(abi, contractAddress);
-    axios.get("/MyUser/GetOneWallet/" + userid).then((res) => {
-      contract.methods
-        .balanceOf(res.data)
-        .call()
-        .then(function (result: any) {
-          var myTokenResult = result;
-          setUserBalance((parseInt(myTokenResult) / 100).toFixed(1).toString());
-        });
-    });
+    const balance = await contract.methods.balanceOf(userAddress).call();
+    setUserBalance((+balance / 100).toString());
   };
 
   return (
