@@ -45,6 +45,7 @@ import { IAddress } from "src/models/address.model";
 import { PropaneSharp, TonalitySharp } from "@mui/icons-material";
 import {ethers} from "ethers";
 import sendEmail from "../Misc/email-client";
+import sendEmailV2 from "../Misc/email-clientv2";
 
 type concatArray = {
   content: string;
@@ -199,7 +200,7 @@ const Admin: FC = () => {
     const toAddress = selectedAddress.address;
     const amount = amountOfNikCoin*100;
     const toUsername = selectedAddress.userName;
-    await contract.transfer(toAddress, amount).then(sendEmail('teszt@2u.si',toUsername , amount, 'sourceaddress', true));
+    await contract.transfer(toAddress, amount).then(sendEmailV2('teszt@2u.si',toUsername , amount, 'sourceaddress', true));
   }
 
   const createActivityList = () => {
