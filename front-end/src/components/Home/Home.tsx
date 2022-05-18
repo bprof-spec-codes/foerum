@@ -10,7 +10,7 @@ import { ISubject } from "src/models/subject.model";
 import Subject from "./sidebar-components/Subject";
 import { IYear } from "src/models/year.model";
 import Year from "./sidebar-components/Year";
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, TextField } from "@mui/material";
 import { styled, createTheme } from "@mui/material/styles";
 import { blue } from "@mui/material/colors";
 import AddSubject from "./feed-components/AddSubject";
@@ -39,6 +39,10 @@ const Home = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
   const [showAddTopic, setShowAddTopic] = useState(false);
+
+  const [yearSearchKeyword, setYearSearchKeyword] = useState<string>("");
+  const [subjetSearchKeyword, setSubjectSearchKeyword] = useState<string>("");
+  const [topicSearchKeyword, setTopicSearchKeyword] = useState<string>("");
 
   useEffect(() => {
     getTopics();
@@ -134,35 +138,88 @@ const Home = () => {
               <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
                 Évfolyamok
               </h4>
+              <TextField
+                variant="outlined"
+                label="Keress evfolyamot..."
+                value={yearSearchKeyword}
+                onChange={(e) => setYearSearchKeyword(e.target.value)}
+              />
               <div className="">
-                {years &&
-                  years.map((year, i) => (
-                    <div key={i} style={{ cursor: "pointer" }}>
-                      <Year
-                        yearName={year.yearName} /*onClick={filterByYear}*/
-                      />
-                    </div>
-                  ))}
+                {years
+                  ? yearSearchKeyword
+                    ? years
+                        .filter((y) =>
+                          y.yearName?.toLowerCase().includes(yearSearchKeyword)
+                        )
+                        .map((year, i) => (
+                          <div key={i} style={{ cursor: "pointer" }}>
+                            <Year
+                              yearName={
+                                year.yearName
+                              } /*onClick={filterByYear}*/
+                            />
+                          </div>
+                        ))
+                    : years.map((year, i) => (
+                        <div key={i} style={{ cursor: "pointer" }}>
+                          <Year
+                            yearName={year.yearName} /*onClick={filterByYear}*/
+                          />
+                        </div>
+                      ))
+                  : null}
                 <div>
                   <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
                     Tantárgyak
                   </h4>
-                  {subjects &&
-                    subjects
-                      .sort(function (a, b) {
-                        if (a.subjectName! < b.subjectName!) {
-                          return -1;
-                        }
-                        if (a.subjectName! > b.subjectName!) {
-                          return 1;
-                        }
-                        return 0;
-                      })
-                      .map((subject, i) => (
-                        <div key={i} style={{ cursor: "pointer" }}>
-                          <Subject {...subject} /*onClick={filterBySubject}*/ />
-                        </div>
-                      ))}
+                  <TextField
+                    variant="outlined"
+                    label="Keress targyar..."
+                    value={subjetSearchKeyword}
+                    onChange={(e) => setSubjectSearchKeyword(e.target.value)}
+                  />
+                  {subjects
+                    ? subjetSearchKeyword
+                      ? subjects
+                          .filter((s) =>
+                            s.subjectName
+                              ?.toLowerCase()
+                              .includes(subjetSearchKeyword)
+                          )
+                          .sort(function (a, b) {
+                            if (a.subjectName! < b.subjectName!) {
+                              return -1;
+                            }
+                            if (a.subjectName! > b.subjectName!) {
+                              return 1;
+                            }
+                            return 0;
+                          })
+                          .map((subject, i) => (
+                            <div key={i} style={{ cursor: "pointer" }}>
+                              <Subject
+                                {...subject} /*onClick={filterBySubject}*/
+                              />
+                            </div>
+                          ))
+                      : subjects
+                          .sort(function (a, b) {
+                            if (a.subjectName! < b.subjectName!) {
+                              return -1;
+                            }
+                            if (a.subjectName! > b.subjectName!) {
+                              return 1;
+                            }
+                            return 0;
+                          })
+                          .map((subject, i) => (
+                            <div key={i} style={{ cursor: "pointer" }}>
+                              <Subject
+                                {...subject} /*onClick={filterBySubject}*/
+                              />
+                            </div>
+                          ))
+                    : null}
                 </div>
                 <div>
                   {showAdd && <AddSubject />}
@@ -189,40 +246,44 @@ const Home = () => {
               <div className="flex flex-col w-full bg-gray-100 rounded-lg shadow-md">
                 <AddTopic getTopics={getTopics} />
               </div>
+              <TextField
+                variant="outlined"
+                label="Keress temat..."
+                value={topicSearchKeyword}
+                onChange={(e) => setTopicSearchKeyword(e.target.value)}
+              />
 
-              {topics ? (
-                topics.length > 0 ? (
-                  topics.map((topic, i) => (
-                    <div key={i}>
-                      {users && (
-                        <Topic
-                          topic={topic}
-                          onAdd={showAddComment}
-                          allUsers={users}
-                          user={selectUser(topic.userID)}
-                        />
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <div className="flex flex-col justify-center items-center mt-16 p-4 text-gray-400">
-                    <span className="flex justify-center items-center h-16 w-16 mb-4 border-2 border-gray-400 border-dashed rounded-full">
-                      <ChatOutlinedIcon />
-                    </span>
-                    <p>Nem találtunk egyetlen témát sem.</p>
-                  </div>
-                )
-              ) : (
-                Array.from(new Array(15)).map((item, index) => (
-                  <Box key={index} className="mt-4">
-                    <Skeleton animation="wave" width="30%" />
-                    <Skeleton animation="wave" width="70%" />
-                    <Skeleton animation="wave" width="50%" />
-                    <Skeleton animation="wave" width="50%" />
-                    <Skeleton animation="wave" width="50%" />
-                  </Box>
-                ))
-              )}
+              {topics
+                ? topicSearchKeyword
+                  ? topics
+                      .filter((t) =>
+                        t.topicName?.toLowerCase().includes(topicSearchKeyword)
+                      )
+                      .map((topic, i) => (
+                        <div key={i}>
+                          {users && (
+                            <Topic
+                              topic={topic}
+                              onAdd={showAddComment}
+                              allUsers={users}
+                              user={selectUser(topic.userID)}
+                            />
+                          )}
+                        </div>
+                      ))
+                  : topics.map((topic, i) => (
+                      <div key={i}>
+                        {users && (
+                          <Topic
+                            topic={topic}
+                            onAdd={showAddComment}
+                            allUsers={users}
+                            user={selectUser(topic.userID)}
+                          />
+                        )}
+                      </div>
+                    ))
+                : null}
             </>
           </div>
 

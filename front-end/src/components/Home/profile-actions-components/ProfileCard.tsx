@@ -36,19 +36,32 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
   };
 
   const getBalance = () => {
+    const token = sessionStorage.getItem("foerumtoken");
     const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
     const abi = require("human-standard-token-abi");
     const contractAddress = "0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC";
     const contract = new web3.eth.Contract(abi, contractAddress);
-    axios.get("/MyUser/GetOneWallet/" + userid).then((res) => {
-      contract.methods
-        .balanceOf(res.data)
-        .call()
-        .then(function (result: any) {
-          var myTokenResult = result;
-          setUserBalance((parseInt(myTokenResult) / 100).toFixed(1).toString());
-        });
-    });
+    if (token) {
+      axios
+        .get("/MyUser/GetOneWallet/" + userid, {
+          headers: { Authorization: token },
+        })
+        .then((res) => {
+          contract.methods
+            .balanceOf(res.data)
+            .call()
+            .then(function (result: any) {
+              var myTokenResult = result;
+              setUserBalance(
+                (parseInt(myTokenResult) / 100).toFixed(1).toString()
+              );
+            })
+            .catch((err: any) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
