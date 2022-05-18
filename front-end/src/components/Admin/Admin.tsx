@@ -42,7 +42,8 @@ import { Timer } from "./admin-components";
 import { ITransaction } from "src/models/transaction.model";
 import { Header } from "..";
 import { IAddress } from "src/models/address.model";
-import Web3 from "web3";
+import { PropaneSharp, TonalitySharp } from "@mui/icons-material";
+import {ethers} from "ethers";
 
 type concatArray = {
   content: string;
@@ -51,6 +52,7 @@ type concatArray = {
 };
 
 const Admin: FC = () => {
+  const contractAddress = '0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC';
   const [users, setUsers] = useState<IUser[] | null>(null);
   const [transactions, setTransactions] = useState<ITransaction[] | null>(null);
 
@@ -65,17 +67,32 @@ const Admin: FC = () => {
   });
   const [amountOfNikCoin,setAmountOfNikCoin] = useState<number>(0);
 
+  const [provider, setProvider] = useState<any | null>(null);
+	const [signer, setSigner] = useState<any | null>(null);
+	const [contract, setContract] = useState<any | null>(null);
+
   useEffect(() => {
     const getData = async () => {
       await getUsers();
-      // await getTransactions();
       await getComments();
-      // getReacters();
       await getTopics();
       await getSubjects();
       await getAddresses();
     };
+    const updateEthers = () => {
+      let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(tempProvider);
+  
+      let tempSigner = tempProvider.getSigner();
+      setSigner(tempSigner);
+  
+      const abi = require('human-standard-token-abi');
+      let tempContract = new ethers.Contract(contractAddress, abi, tempSigner);
+      setContract(tempContract);	
+    }
+
     getData();
+    updateEthers();
   }, []);
 
   const getUsers = async () => {
@@ -161,9 +178,7 @@ const Admin: FC = () => {
 
   const updateLatest = async () => {
     await getUsers();
-    //await getTransactions();
     await getComments();
-    // getReacters();
     await getTopics();
     await getSubjects();
 
@@ -177,18 +192,12 @@ const Admin: FC = () => {
     if (newValue) setSelectedAddresses(newValue);
   };
 
-  const addNikCoin = (e: any) => {
+  const addNikCoin = async (e: any) => {
     e.preventDefault()
 
-    // console.log(selectedAddress,amountOfNikCoin);
-    const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
-    const abi = require('human-standard-token-abi');
-    const contractAddress = '0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC';
-    const contract = new web3.eth.Contract(abi, contractAddress);
-    console.log(contract);
-    contract.methods.transferFrom("0x555bC0c8dD4B1822636e44D85417afDeA6628C90", selectedAddress, amountOfNikCoin).call().then((res : any) => {
-     console.log(res);
-    })
+    const toAddress = selectedAddress.address;
+    const amount = amountOfNikCoin*100;
+    await contract.transfer(toAddress, amount).then(/*TOMI IDE JÖN AZ EMAIL KÜLDÉS*/);
   }
 
   const createActivityList = () => {
