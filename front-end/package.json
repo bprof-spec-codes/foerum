@@ -40,6 +40,7 @@
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
     "sass": "^1.42.1",
+    "sendinblue-simple-client": "^2.0.8",
     "typescript": "^4.4.3",
     "web-vitals": "^1.0.1",
     "web3": "^1.7.3"
