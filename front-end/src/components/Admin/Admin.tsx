@@ -11,6 +11,8 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 
+import { useHistory } from "react-router";
+
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
@@ -43,7 +45,7 @@ import { ITransaction } from "src/models/transaction.model";
 import { Header } from "..";
 import { IAddress } from "src/models/address.model";
 import { PropaneSharp, TonalitySharp } from "@mui/icons-material";
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 
 type concatArray = {
   content: string;
@@ -52,7 +54,7 @@ type concatArray = {
 };
 
 const Admin: FC = () => {
-  const contractAddress = '0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC';
+  const contractAddress = "0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC";
   const [users, setUsers] = useState<IUser[] | null>(null);
   const [transactions, setTransactions] = useState<ITransaction[] | null>(null);
 
@@ -65,11 +67,13 @@ const Admin: FC = () => {
   const [selectedAddress, setSelectedAddresses] = useState<IAddress>({
     address: "0x0000000000000000000000000000000000000000",
   });
-  const [amountOfNikCoin,setAmountOfNikCoin] = useState<number>(0);
+  const [amountOfNikCoin, setAmountOfNikCoin] = useState<number>(0);
 
   const [provider, setProvider] = useState<any | null>(null);
-	const [signer, setSigner] = useState<any | null>(null);
-	const [contract, setContract] = useState<any | null>(null);
+  const [signer, setSigner] = useState<any | null>(null);
+  const [contract, setContract] = useState<any | null>(null);
+
+  const history = useHistory();
 
   useEffect(() => {
     const getData = async () => {
@@ -82,14 +86,14 @@ const Admin: FC = () => {
     const updateEthers = () => {
       let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(tempProvider);
-  
+
       let tempSigner = tempProvider.getSigner();
       setSigner(tempSigner);
-  
-      const abi = require('human-standard-token-abi');
+
+      const abi = require("human-standard-token-abi");
       let tempContract = new ethers.Contract(contractAddress, abi, tempSigner);
-      setContract(tempContract);	
-    }
+      setContract(tempContract);
+    };
 
     getData();
     updateEthers();
@@ -193,12 +197,14 @@ const Admin: FC = () => {
   };
 
   const addNikCoin = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const toAddress = selectedAddress.address;
-    const amount = amountOfNikCoin*100;
-    await contract.transfer(toAddress, amount).then(/*TOMI IDE JÖN AZ EMAIL KÜLDÉS*/);
-  }
+    const amount = amountOfNikCoin * 100;
+    await contract
+      .transfer(toAddress, amount)
+      .then(/*TOMI IDE JÖN AZ EMAIL KÜLDÉS*/);
+  };
 
   const createActivityList = () => {
     if (comments && topics && subjects) {
@@ -520,10 +526,12 @@ const Admin: FC = () => {
             <li className={s.sidebarListItem}>
               <IconButton
                 className={actualPage === 3 ? s.active : s.listIcon}
-                onClick={() => setActualPage(3)}
+                //onClick={() => setActualPage(3)}
                 disabled={
-                  transactions && transactions.length > 0 ? false : true
+                  transactions && transactions.length > 0 ? false : false //így nem lesz disabled
                 }
+                href="https://testnet.bscscan.com/token/0xa0e11ca7c99655c6ca16336f1af69b6a7683fdfc"
+                target="_blank"
               >
                 <PaidOutlinedIcon />
               </IconButton>
@@ -545,7 +553,10 @@ const Admin: FC = () => {
               <div className="flex flex-col justify-between">
                 <h3>Jóváírások</h3>
                 <div>
-                  <form className="flex flex-col space-y-4" onSubmit={addNikCoin}>
+                  <form
+                    className="flex flex-col space-y-4"
+                    onSubmit={addNikCoin}
+                  >
                     <Select
                       labelId="address-label"
                       value={selectedAddress.address}
@@ -563,10 +574,16 @@ const Admin: FC = () => {
                       label="nikcoin"
                       onChange={(e) => setAmountOfNikCoin(+e.target.value)}
                       value={amountOfNikCoin}
-                      type = "number"
-                      inputProps={{min: 0}}
+                      type="number"
+                      inputProps={{ min: 0 }}
                     />
-                    <Button disabled={amountOfNikCoin === 0} variant="contained" type="submit">Coin hozzáadása</Button>
+                    <Button
+                      disabled={amountOfNikCoin === 0}
+                      variant="contained"
+                      type="submit"
+                    >
+                      Coin hozzáadása
+                    </Button>
                   </form>
                 </div>
               </div>
