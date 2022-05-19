@@ -526,10 +526,6 @@ const Admin: FC = () => {
             <li className={s.sidebarListItem}>
               <IconButton
                 className={actualPage === 3 ? s.active : s.listIcon}
-                //onClick={() => setActualPage(3)}
-                disabled={
-                  transactions && transactions.length > 0 ? false : false //így nem lesz disabled
-                }
                 href="https://testnet.bscscan.com/token/0xa0e11ca7c99655c6ca16336f1af69b6a7683fdfc"
                 target="_blank"
               >

@@ -61,10 +61,7 @@ const Home = () => {
 
           const subj = res.data[0];
 
-          console.log(subj.subjectName);
-
           setSelectedSubject(subj);
-          //console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -83,10 +80,7 @@ const Home = () => {
 
           const yr = res.data[0];
 
-          console.log(yr);
-
           setSelectedYear(yr);
-          // console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -106,14 +100,14 @@ const Home = () => {
   };
 
   const filterTopics = () => {
-    let filteredBySubjects = topics;
+    let filteredBySubjects = topics; //beadjuk neki az összes topicot. ebből lesz filterezve subjectek alapján
     if (selectedSubject && topics) {
       filteredBySubjects = topics.filter(
         (topic) => topic.subjectID === selectedSubject.subjectID
       );
     }
 
-    let filteredByYear = filteredBySubjects;
+    let filteredByYear = filteredBySubjects; //beadjuk neki azokat, amik már subject alapján filterezve vannak
     if (selectedYear && filteredBySubjects) {
       filteredByYear = filteredBySubjects.filter(
         (topic) => topic.yearID === selectedYear?.yearID

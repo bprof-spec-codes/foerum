@@ -31,7 +31,7 @@ const Header: FC<IHeaderProps> = (props) => {
       setAuth(decodedToken as IAuth);
     }
 
-    let _connStatus = getConnStatus();
+    const _connStatus = getConnStatus();
     setConnStatus(_connStatus);
   }, [isAuthenticated, props]);
 
