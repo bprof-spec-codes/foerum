@@ -1,4 +1,4 @@
-﻿/*
+﻿
 using Logic.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +21,14 @@ namespace back_end.Controllers
             this.transactionLogic = logic;
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Authorize]
+        public void CreateTransaction([FromBody] TransactionEmailOptions options)
+        {
+            this.transactionLogic.sendEmailAboutTransaction(options);
+        }
+
+        /* [HttpGet]
         [Authorize(Roles = "Admin")]
         public IEnumerable<Transaction> GetAllTransaction()
         {
@@ -54,6 +61,6 @@ namespace back_end.Controllers
         public void DeleteTransaction(string id)
         {
             this.transactionLogic.DeleteTransaction(id);
-        }
+        } */
     }
-}*/
+}

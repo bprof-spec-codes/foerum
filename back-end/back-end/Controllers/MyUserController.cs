@@ -35,14 +35,14 @@ namespace back_end.Controllers
         }
         
         [HttpGet("GetOneWallet/{id}")]
-        [Authorize]
+        //[Authorize]
         public string GetOneWallet(string id)
         {
             return this.myUserLogic.GetOneWallet(id);
         }
         
         [HttpGet("GetAllWallets")]
-        [Authorize]
+        //[Authorize]
         public ICollection<UserWalletModel> GetAllWallets()
         {
             return this.myUserLogic.GetAllWallets();
