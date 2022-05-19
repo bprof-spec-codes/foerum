@@ -46,6 +46,8 @@ const Home = () => {
 
     getSubjects();
     getYears();
+
+    filterTopics();
   }, []);
 
   const getSubjects = () => {
@@ -101,6 +103,24 @@ const Home = () => {
       });
       setTopics(topics.data);
     }
+  };
+
+  const filterTopics = () => {
+    let filteredBySubjects = topics;
+    if (selectedSubject && topics) {
+      filteredBySubjects = topics.filter(
+        (topic) => topic.subjectID === selectedSubject.subjectID
+      );
+    }
+
+    let filteredByYear = filteredBySubjects;
+    if (selectedYear && filteredBySubjects) {
+      filteredByYear = filteredBySubjects.filter(
+        (topic) => topic.yearID === selectedYear?.yearID
+      );
+    }
+
+    setFilteredTopics(filteredByYear);
   };
 
   const getUsers = async () => {
@@ -185,9 +205,9 @@ const Home = () => {
                 <AddTopic getTopics={getTopics} />
               </div>
 
-              {topics ? (
-                topics.length > 0 ? (
-                  topics.map((topic, i) => (
+              {filteredTopics ? (
+                filteredTopics.length > 0 ? (
+                  filteredTopics.map((topic, i) => (
                     <div key={i}>
                       {users && (
                         <Topic
