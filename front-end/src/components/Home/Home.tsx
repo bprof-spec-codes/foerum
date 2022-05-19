@@ -27,7 +27,6 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import { Box, Skeleton } from "@mui/material";
 import { Notifications, ProfileCard } from "./profile-actions-components";
 import { ethers } from "ethers";
-import sendEmailV2 from "../Misc/email-clientv2";
 
 const Home = () => {
   const [topics, setTopics] = useState<ITopic[] | null>(null);
@@ -169,7 +168,7 @@ const Home = () => {
     const toAddress = "0x0000000000000000000000000000000000000000"; //CHANGE THIS TO YOUR RECIPIENT ADDRESS
     const toUsername = "foerum"; //CHANGE THIS TO YOUR RECIPIENT USERNAME
     const toEmail = "bob@gmail.com" //CHANGE THIS TO YOUR RECIPIENT EMAIL
-    await contract.transfer(toAddress, amount).then(sendEmailV2(toEmail, toUsername , amount, 'sourceaddress', true));
+    await contract.transfer(toAddress, amount).then(/*sendEmailV2(toEmail, toUsername , amount, 'sourceaddress', true)*/);
   }
 
   const renderTopics = () => {

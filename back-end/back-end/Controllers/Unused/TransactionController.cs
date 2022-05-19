@@ -22,6 +22,7 @@ namespace back_end.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public void CreateTransaction([FromBody] TransactionEmailOptions options)
         {
             this.transactionLogic.sendEmailAboutTransaction(options);

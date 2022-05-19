@@ -29,10 +29,10 @@ const ProfileCard: FC<IProfileCardProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    if(userid && userAddress){
+    if(userAddress){
       getBalance();
     }
-  }, [userid, userAddress]); // BENCEEEEEE
+  }, [userAddress]); // BENCEEEEEE
 
   const normalizeUserName = (name: string) => {
     return name.toLowerCase().replace(/\s/g, "");

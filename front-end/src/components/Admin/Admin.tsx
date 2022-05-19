@@ -44,8 +44,7 @@ import { Header } from "..";
 import { IAddress } from "src/models/address.model";
 import { PropaneSharp, TonalitySharp } from "@mui/icons-material";
 import {ethers} from "ethers";
-import sendEmail from "../Misc/email-client";
-import sendEmailV2 from "../Misc/email-clientv2";
+import { IEmailModel } from "src/models/email.model";
 
 type concatArray = {
   content: string;
@@ -201,7 +200,14 @@ const Admin: FC = () => {
     const toAddress = selectedAddress.address;
     const toUsername = selectedAddress.userName;
     const toEmail = selectedAddress.email!;
-    await contract.transfer(toAddress, amount).then(sendEmailV2(toEmail, toUsername , amount, 'sourceaddress', true));
+    const newEmail: IEmailModel = {
+      destinationEmail: toEmail,
+      destinationName: toUsername,
+      amount: amount,
+      fromUser: "admin",
+      adminTransaction: true
+    }
+    await contract.transfer(toAddress, amount).then(await axios.post("/Transaction", newEmail, { headers: { Authorization: sessionStorage.getItem("foerumtoken") } }));
   }
 
   const createActivityList = () => {
