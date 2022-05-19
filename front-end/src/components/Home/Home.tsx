@@ -194,6 +194,7 @@ const Home = () => {
                     t.subjectID === selectedSubject?.subjectID &&
                     t.topicName?.toLowerCase().includes(topicSearchKeyword)
                 )
+                .sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())
                 .map((topic, i) => (
                   <div key={i}>
                     {users && (

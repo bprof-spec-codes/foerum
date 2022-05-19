@@ -3,7 +3,7 @@ export interface ITopic {
   subjectID?: string;
   userID?: string;
   topicName?: string;
-  creationDate?: string | Date;
+  creationDate: Date;
   offeredCoins?: number;
   attachmentUrl?: string;
 
@@ -12,5 +12,6 @@ export interface ITopic {
 }
 
 export const defaultValue: Readonly<ITopic> = {
-  topicID:""
+  topicID:"",
+  creationDate: new Date()
 };
