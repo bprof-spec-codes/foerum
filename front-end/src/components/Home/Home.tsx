@@ -45,9 +45,6 @@ const Home = () => {
     getUsers();
 
     getSubjects();
-
-    setDefaultSubject();
-    setDefaultYear();
   }, []);
 
   const getSubjects = () => {
@@ -58,6 +55,12 @@ const Home = () => {
         .get<ISubject[]>("/Subject", { headers: { Authorization: token } })
         .then((res) => {
           setSubjects(res.data);
+
+          const subj = res.data[0];
+
+          console.log(subj.subjectName);
+
+          setSelectedSubject(subj);
           //console.log(res.data);
         })
         .catch((err) => {
@@ -74,6 +77,12 @@ const Home = () => {
         .get<IYear[]>("/Year", { headers: { Authorization: token } })
         .then((res) => {
           setYears(res.data);
+
+          const yr = res.data[0];
+
+          console.log(yr);
+
+          setSelectedYear(yr);
           // console.log(res.data);
         })
         .catch((err) => {
@@ -107,21 +116,6 @@ const Home = () => {
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
     return user ? user : ({} as IUser);
-  };
-
-  const setDefaultSubject = async () => {
-    const subj = subjects[0];
-
-    console.log(subj);
-
-    setSelectedSubject(subj);
-  };
-  const setDefaultYear = async () => {
-    const yr = years[0];
-
-    console.log(yr);
-
-    setSelectedYear(yr);
   };
 
   return (
