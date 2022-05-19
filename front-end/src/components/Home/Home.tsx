@@ -69,7 +69,9 @@ const Home = () => {
       let tempContract = new ethers.Contract(contractAddress, abi, tempSigner);
       setContract(tempContract);	
     }
-    updateEthers();
+    if(window.ethereum){
+      updateEthers();
+    }
   }, []);
 
   useEffect(() => {

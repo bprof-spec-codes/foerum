@@ -93,7 +93,9 @@ const Admin: FC = () => {
     }
 
     getData();
-    updateEthers();
+    if(window.ethereum){
+      updateEthers();
+    }
   }, []);
 
   const getUsers = async () => {
