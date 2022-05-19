@@ -70,6 +70,20 @@ const Home = () => {
     getTopics();
   }, [selectedYear, selectedSubject]);
 
+  useEffect(() => {
+    if (subjects && subjects.length > 0) {
+      const sb = subjects.find((s) => s.yearID === selectedYear?.yearID);
+      console.log(sb);
+      if (sb) {
+        setSelectedSubject(sb);
+      }
+    }
+  }, [selectedYear]);
+
+  useEffect(() => {
+    renderTopics();
+  }, [years, subjects, selectedSubject, selectedYear]);
+
   const getSubjects = async () => {
     const token = sessionStorage.getItem("foerumtoken");
 
@@ -126,6 +140,46 @@ const Home = () => {
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);
     return user ? user : ({} as IUser);
+  };
+
+  const renderTopics = () => {
+    return (
+      <>
+        {topics && selectedSubject
+          ? topicSearchKeyword
+            ? topics
+                .filter(
+                  (t) =>
+                    t.subjectID === selectedSubject?.subjectID &&
+                    t.topicName?.toLowerCase().includes(topicSearchKeyword)
+                )
+                .map((topic, i) => (
+                  <div key={i}>
+                    {users && (
+                      <Topic
+                        topic={topic}
+                        onAdd={showAddComment}
+                        allUsers={users}
+                        user={selectUser(topic.userID)}
+                      />
+                    )}
+                  </div>
+                ))
+            : topics.map((topic, i) => (
+                <div key={i}>
+                  {users && (
+                    <Topic
+                      topic={topic}
+                      onAdd={showAddComment}
+                      allUsers={users}
+                      user={selectUser(topic.userID)}
+                    />
+                  )}
+                </div>
+              ))
+          : null}
+      </>
+    );
   };
 
   return (
@@ -286,42 +340,7 @@ const Home = () => {
                 value={topicSearchKeyword}
                 onChange={(e) => setTopicSearchKeyword(e.target.value)}
               />
-
-              {topics && selectedSubject
-                ? topicSearchKeyword
-                  ? topics
-                      .filter(
-                        (t) =>
-                          t.subjectID === selectedSubject?.subjectID &&
-                          t.topicName
-                            ?.toLowerCase()
-                            .includes(topicSearchKeyword)
-                      )
-                      .map((topic, i) => (
-                        <div key={i}>
-                          {users && (
-                            <Topic
-                              topic={topic}
-                              onAdd={showAddComment}
-                              allUsers={users}
-                              user={selectUser(topic.userID)}
-                            />
-                          )}
-                        </div>
-                      ))
-                  : topics.map((topic, i) => (
-                      <div key={i}>
-                        {users && (
-                          <Topic
-                            topic={topic}
-                            onAdd={showAddComment}
-                            allUsers={users}
-                            user={selectUser(topic.userID)}
-                          />
-                        )}
-                      </div>
-                    ))
-                : null}
+              {renderTopics()}
             </>
           </div>
 
