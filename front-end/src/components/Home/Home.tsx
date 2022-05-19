@@ -32,29 +32,45 @@ const Home = () => {
   const [showAdd, setShowAdd] = useState(false);
   const [subjects, setSubjects] = useState<ISubject[]>([]);
   const [years, setYears] = useState<IYear[]>([]);
-  const [selectedSubject, setSelectedSubject] = useState<ISubject>();
-  const [selectedYear, setSelectedYear] = useState<IYear>();
-  const [subjectName, setSubjectName] = useState("");
-  const [filteredTopics, setFilteredTopics] = useState<ITopic[] | null>(null);
   const [users, setUsers] = useState<IUser[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
-  const [showAddTopic, setShowAddTopic] = useState(false);
 
   const [yearSearchKeyword, setYearSearchKeyword] = useState<string>("");
   const [subjetSearchKeyword, setSubjectSearchKeyword] = useState<string>("");
   const [topicSearchKeyword, setTopicSearchKeyword] = useState<string>("");
 
+  const [selectedYear, setSelectedYear] = useState<IYear | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<ISubject | null>(null);
+
   useEffect(() => {
-    getTopics();
-    getUsers();
-
-    getSubjects();
-
-    setDefaultSubject();
-    setDefaultYear();
+    const getDatas = async () => {
+      getTopics();
+      getUsers();
+      await getYears();
+      await getSubjects();
+    };
+    getDatas();
   }, []);
 
-  const getSubjects = () => {
+  useEffect(() => {
+    if (years && years.length > 0) {
+      console.log(years[0]);
+      setSelectedYear(years[0]);
+    }
+    if (subjects && subjects.length > 0) {
+      const sb = subjects.find((s) => s.yearID === selectedYear?.yearID);
+      console.log(sb);
+      if (sb) {
+        setSelectedSubject(sb);
+      }
+    }
+  }, [years, subjects]);
+
+  useEffect(() => {
+    getTopics();
+  }, [selectedYear, selectedSubject]);
+
+  const getSubjects = async () => {
     const token = sessionStorage.getItem("foerumtoken");
 
     if (token) {
@@ -62,7 +78,6 @@ const Home = () => {
         .get<ISubject[]>("/Subject", { headers: { Authorization: token } })
         .then((res) => {
           setSubjects(res.data);
-          //console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -70,7 +85,7 @@ const Home = () => {
     }
   };
 
-  const getYears = () => {
+  const getYears = async () => {
     const token = sessionStorage.getItem("foerumtoken");
 
     if (token) {
@@ -113,21 +128,6 @@ const Home = () => {
     return user ? user : ({} as IUser);
   };
 
-  const setDefaultSubject = async () => {
-    const subj = subjects[0];
-
-    console.log(subj);
-
-    setSelectedSubject(subj);
-  };
-  const setDefaultYear = async () => {
-    const yr = years[0];
-
-    console.log(yr);
-
-    setSelectedYear(yr);
-  };
-
   return (
     <>
       <Header />
@@ -145,14 +145,21 @@ const Home = () => {
                 onChange={(e) => setYearSearchKeyword(e.target.value)}
               />
               <div className="">
-                {years
+                {years && selectedYear
                   ? yearSearchKeyword
                     ? years
                         .filter((y) =>
                           y.yearName?.toLowerCase().includes(yearSearchKeyword)
                         )
                         .map((year, i) => (
-                          <div key={i} style={{ cursor: "pointer" }}>
+                          <div
+                            key={i}
+                            className={`cursor-pointer ${
+                              year.yearID === selectedYear?.yearID &&
+                              "bg-gray-400 rounded-md"
+                            }`}
+                            onClick={() => setSelectedYear(year)}
+                          >
                             <Year
                               yearName={
                                 year.yearName
@@ -161,7 +168,14 @@ const Home = () => {
                           </div>
                         ))
                     : years.map((year, i) => (
-                        <div key={i} style={{ cursor: "pointer" }}>
+                        <div
+                          key={i}
+                          className={`cursor-pointer ${
+                            year.yearID === selectedYear?.yearID &&
+                            "bg-gray-400 rounded-md"
+                          }`}
+                          onClick={() => setSelectedYear(year)}
+                        >
                           <Year
                             yearName={year.yearName} /*onClick={filterByYear}*/
                           />
@@ -178,13 +192,15 @@ const Home = () => {
                     value={subjetSearchKeyword}
                     onChange={(e) => setSubjectSearchKeyword(e.target.value)}
                   />
-                  {subjects
+                  {subjects && selectedSubject
                     ? subjetSearchKeyword
                       ? subjects
-                          .filter((s) =>
-                            s.subjectName
-                              ?.toLowerCase()
-                              .includes(subjetSearchKeyword)
+                          .filter(
+                            (s) =>
+                              s.yearID === selectedYear?.yearID &&
+                              s.subjectName
+                                ?.toLowerCase()
+                                .includes(subjetSearchKeyword)
                           )
                           .sort(function (a, b) {
                             if (a.subjectName! < b.subjectName!) {
@@ -196,7 +212,15 @@ const Home = () => {
                             return 0;
                           })
                           .map((subject, i) => (
-                            <div key={i} style={{ cursor: "pointer" }}>
+                            <div
+                              key={i}
+                              className={`cursor-pointer ${
+                                subject.subjectID ===
+                                  selectedSubject?.subjectID &&
+                                "bg-gray-400 rounded-md"
+                              }`}
+                              onClick={() => setSelectedSubject(subject)}
+                            >
                               <Subject
                                 {...subject} /*onClick={filterBySubject}*/
                               />
@@ -212,8 +236,18 @@ const Home = () => {
                             }
                             return 0;
                           })
+                          .filter((s) => s.yearID === selectedYear?.yearID)
                           .map((subject, i) => (
-                            <div key={i} style={{ cursor: "pointer" }}>
+                            <div
+                              key={i}
+                              style={{ cursor: "pointer" }}
+                              className={`cursor-pointer ${
+                                subject.subjectID ===
+                                  selectedSubject?.subjectID &&
+                                "bg-gray-400 rounded-md"
+                              }`}
+                              onClick={() => setSelectedSubject(subject)}
+                            >
                               <Subject
                                 {...subject} /*onClick={filterBySubject}*/
                               />
@@ -253,11 +287,15 @@ const Home = () => {
                 onChange={(e) => setTopicSearchKeyword(e.target.value)}
               />
 
-              {topics
+              {topics && selectedSubject
                 ? topicSearchKeyword
                   ? topics
-                      .filter((t) =>
-                        t.topicName?.toLowerCase().includes(topicSearchKeyword)
+                      .filter(
+                        (t) =>
+                          t.subjectID === selectedSubject?.subjectID &&
+                          t.topicName
+                            ?.toLowerCase()
+                            .includes(topicSearchKeyword)
                       )
                       .map((topic, i) => (
                         <div key={i}>
