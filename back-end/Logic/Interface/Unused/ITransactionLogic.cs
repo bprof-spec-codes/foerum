@@ -14,5 +14,6 @@ namespace Logic.Interface
             bool CreateTransaction(Transaction transaction);
             bool EditTransaction(string id, Transaction newTransaction);
             bool DeleteTransaction(string id);
+        void sendEmailAboutTransaction(TransactionEmailOptions options);
       }
 }
