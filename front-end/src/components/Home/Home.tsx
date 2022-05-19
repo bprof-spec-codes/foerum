@@ -45,6 +45,7 @@ const Home = () => {
     getUsers();
 
     getSubjects();
+    getYears();
   }, []);
 
   const getSubjects = () => {
