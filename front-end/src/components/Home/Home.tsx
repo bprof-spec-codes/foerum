@@ -10,7 +10,7 @@ import { ISubject } from "src/models/subject.model";
 import Subject from "./sidebar-components/Subject";
 import { IYear } from "src/models/year.model";
 import Year from "./sidebar-components/Year";
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, TextField } from "@mui/material";
 import { styled, createTheme } from "@mui/material/styles";
 import { blue } from "@mui/material/colors";
 import AddSubject from "./feed-components/AddSubject";
@@ -32,25 +32,59 @@ const Home = () => {
   const [showAdd, setShowAdd] = useState(false);
   const [subjects, setSubjects] = useState<ISubject[]>([]);
   const [years, setYears] = useState<IYear[]>([]);
-  const [selectedSubject, setSelectedSubject] = useState<ISubject>();
-  const [selectedYear, setSelectedYear] = useState<IYear>();
-  const [subjectName, setSubjectName] = useState("");
-  const [filteredTopics, setFilteredTopics] = useState<ITopic[] | null>(null);
   const [users, setUsers] = useState<IUser[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
-  const [showAddTopic, setShowAddTopic] = useState(false);
+
+  const [yearSearchKeyword, setYearSearchKeyword] = useState<string>("");
+  const [subjetSearchKeyword, setSubjectSearchKeyword] = useState<string>("");
+  const [topicSearchKeyword, setTopicSearchKeyword] = useState<string>("");
+
+  const [selectedYear, setSelectedYear] = useState<IYear | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<ISubject | null>(null);
+
+  useEffect(() => {
+    const getDatas = async () => {
+      getTopics();
+      getUsers();
+      await getYears();
+      await getSubjects();
+    };
+    getDatas();
+  }, []);
+
+  useEffect(() => {
+    if (years && years.length > 0) {
+      console.log(years[0]);
+      setSelectedYear(years[0]);
+    }
+    if (subjects && subjects.length > 0) {
+      const sb = subjects.find((s) => s.yearID === selectedYear?.yearID);
+      console.log(sb);
+      if (sb) {
+        setSelectedSubject(sb);
+      }
+    }
+  }, [years, subjects]);
 
   useEffect(() => {
     getTopics();
-    getUsers();
+  }, [selectedYear, selectedSubject]);
 
-    getSubjects();
-    getYears();
+  useEffect(() => {
+    if (subjects && subjects.length > 0) {
+      const sb = subjects.find((s) => s.yearID === selectedYear?.yearID);
+      console.log(sb);
+      if (sb) {
+        setSelectedSubject(sb);
+      }
+    }
+  }, [selectedYear]);
 
-    filterTopics();
-  }, []);
+  useEffect(() => {
+    renderTopics();
+  }, [years, subjects, selectedSubject, selectedYear]);
 
-  const getSubjects = () => {
+  const getSubjects = async () => {
     const token = sessionStorage.getItem("foerumtoken");
 
     if (token) {
@@ -58,10 +92,6 @@ const Home = () => {
         .get<ISubject[]>("/Subject", { headers: { Authorization: token } })
         .then((res) => {
           setSubjects(res.data);
-
-          const subj = res.data[0];
-
-          setSelectedSubject(subj);
         })
         .catch((err) => {
           console.log(err);
@@ -69,7 +99,7 @@ const Home = () => {
     }
   };
 
-  const getYears = () => {
+  const getYears = async () => {
     const token = sessionStorage.getItem("foerumtoken");
 
     if (token) {
@@ -113,8 +143,6 @@ const Home = () => {
         (topic) => topic.yearID === selectedYear?.yearID
       );
     }
-
-    setFilteredTopics(filteredByYear);
   };
 
   const getUsers = async () => {
@@ -133,6 +161,46 @@ const Home = () => {
     return user ? user : ({} as IUser);
   };
 
+  const renderTopics = () => {
+    return (
+      <>
+        {topics && selectedSubject
+          ? topicSearchKeyword
+            ? topics
+                .filter(
+                  (t) =>
+                    t.subjectID === selectedSubject?.subjectID &&
+                    t.topicName?.toLowerCase().includes(topicSearchKeyword)
+                )
+                .map((topic, i) => (
+                  <div key={i}>
+                    {users && (
+                      <Topic
+                        topic={topic}
+                        onAdd={showAddComment}
+                        allUsers={users}
+                        user={selectUser(topic.userID)}
+                      />
+                    )}
+                  </div>
+                ))
+            : topics.map((topic, i) => (
+                <div key={i}>
+                  {users && (
+                    <Topic
+                      topic={topic}
+                      onAdd={showAddComment}
+                      allUsers={users}
+                      user={selectUser(topic.userID)}
+                    />
+                  )}
+                </div>
+              ))
+          : null}
+      </>
+    );
+  };
+
   return (
     <>
       <Header />
@@ -143,35 +211,122 @@ const Home = () => {
               <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
                 Évfolyamok
               </h4>
+              <TextField
+                variant="outlined"
+                label="Keress evfolyamot..."
+                value={yearSearchKeyword}
+                onChange={(e) => setYearSearchKeyword(e.target.value)}
+              />
               <div className="">
-                {years &&
-                  years.map((year, i) => (
-                    <div key={i} style={{ cursor: "pointer" }}>
-                      <Year
-                        yearName={year.yearName} /*onClick={filterByYear}*/
-                      />
-                    </div>
-                  ))}
+                {years && selectedYear
+                  ? yearSearchKeyword
+                    ? years
+                        .filter((y) =>
+                          y.yearName?.toLowerCase().includes(yearSearchKeyword)
+                        )
+                        .map((year, i) => (
+                          <div
+                            key={i}
+                            className={`cursor-pointer ${
+                              year.yearID === selectedYear?.yearID &&
+                              "bg-gray-400 rounded-md"
+                            }`}
+                            onClick={() => setSelectedYear(year)}
+                          >
+                            <Year
+                              yearName={
+                                year.yearName
+                              } /*onClick={filterByYear}*/
+                            />
+                          </div>
+                        ))
+                    : years.map((year, i) => (
+                        <div
+                          key={i}
+                          className={`cursor-pointer ${
+                            year.yearID === selectedYear?.yearID &&
+                            "bg-gray-400 rounded-md"
+                          }`}
+                          onClick={() => setSelectedYear(year)}
+                        >
+                          <Year
+                            yearName={year.yearName} /*onClick={filterByYear}*/
+                          />
+                        </div>
+                      ))
+                  : null}
                 <div>
                   <h4 className="text-normal tracking-wider p-2 pt-6 text-gray-400">
                     Tantárgyak
                   </h4>
-                  {subjects &&
-                    subjects
-                      .sort(function (a, b) {
-                        if (a.subjectName! < b.subjectName!) {
-                          return -1;
-                        }
-                        if (a.subjectName! > b.subjectName!) {
-                          return 1;
-                        }
-                        return 0;
-                      })
-                      .map((subject, i) => (
-                        <div key={i} style={{ cursor: "pointer" }}>
-                          <Subject {...subject} /*onClick={filterBySubject}*/ />
-                        </div>
-                      ))}
+                  <TextField
+                    variant="outlined"
+                    label="Keress targyar..."
+                    value={subjetSearchKeyword}
+                    onChange={(e) => setSubjectSearchKeyword(e.target.value)}
+                  />
+                  {subjects && selectedSubject
+                    ? subjetSearchKeyword
+                      ? subjects
+                          .filter(
+                            (s) =>
+                              s.yearID === selectedYear?.yearID &&
+                              s.subjectName
+                                ?.toLowerCase()
+                                .includes(subjetSearchKeyword)
+                          )
+                          .sort(function (a, b) {
+                            if (a.subjectName! < b.subjectName!) {
+                              return -1;
+                            }
+                            if (a.subjectName! > b.subjectName!) {
+                              return 1;
+                            }
+                            return 0;
+                          })
+                          .map((subject, i) => (
+                            <div
+                              key={i}
+                              className={`cursor-pointer ${
+                                subject.subjectID ===
+                                  selectedSubject?.subjectID &&
+                                "bg-gray-400 rounded-md"
+                              }`}
+                              onClick={() => setSelectedSubject(subject)}
+                            >
+                              <Subject
+                                {...subject} /*onClick={filterBySubject}*/
+                              />
+                            </div>
+                          ))
+                      : subjects
+                          .sort(function (a, b) {
+                            if (a.subjectName! < b.subjectName!) {
+                              return -1;
+                            }
+                            if (a.subjectName! > b.subjectName!) {
+                              return 1;
+                            }
+                            return 0;
+                          })
+                          .filter((s) => s.yearID === selectedYear?.yearID)
+                          .map((subject, i) => (
+                            <div
+                              key={i}
+                              style={{ cursor: "pointer" }}
+                              className={`cursor-pointer ${
+                                subject.subjectID ===
+                                  selectedSubject?.subjectID &&
+                                "bg-gray-400 rounded-md"
+                              }`}
+                              onClick={() => setSelectedSubject(subject)}
+                            >
+                              <Subject
+                                {...subject} /*onClick={filterBySubject}*/
+                              />
+                            </div>
+                          ))
+                    : null}
                 </div>
                 <div>
                   {showAdd && <AddSubject />}
@@ -198,40 +353,13 @@ const Home = () => {
               <div className="flex flex-col w-full bg-gray-100 rounded-lg shadow-md">
                 <AddTopic getTopics={getTopics} />
               </div>
-
-              {filteredTopics ? (
-                filteredTopics.length > 0 ? (
-                  filteredTopics.map((topic, i) => (
-                    <div key={i}>
-                      {users && (
-                        <Topic
-                          topic={topic}
-                          onAdd={showAddComment}
-                          allUsers={users}
-                          user={selectUser(topic.userID)}
-                        />
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <div className="flex flex-col justify-center items-center mt-16 p-4 text-gray-400">
-                    <span className="flex justify-center items-center h-16 w-16 mb-4 border-2 border-gray-400 border-dashed rounded-full">
-                      <ChatOutlinedIcon />
-                    </span>
-                    <p>Nem találtunk egyetlen témát sem.</p>
-                  </div>
-                )
-              ) : (
-                Array.from(new Array(15)).map((item, index) => (
-                  <Box key={index} className="mt-4">
-                    <Skeleton animation="wave" width="30%" />
-                    <Skeleton animation="wave" width="70%" />
-                    <Skeleton animation="wave" width="50%" />
-                    <Skeleton animation="wave" width="50%" />
-                    <Skeleton animation="wave" width="50%" />
-                  </Box>
-                ))
-              )}
+              <TextField
+                variant="outlined"
+                label="Keress temat..."
+                value={topicSearchKeyword}
+                onChange={(e) => setTopicSearchKeyword(e.target.value)}
+              />
+              {renderTopics()}
             </>
           </div>
 

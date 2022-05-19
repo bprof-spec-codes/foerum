@@ -4,7 +4,7 @@ import { ISubject } from "src/models/subject.model";
 import Subject from "./sidebar-components/Subject";
 import { IYear } from "src/models/year.model";
 import Year from "./sidebar-components/Year";
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, TextField } from "@mui/material";
 
 import { styled, createTheme } from "@mui/material/styles";
 import { blue } from "@mui/material/colors";
@@ -53,6 +53,7 @@ const Sidebar = () => {
         Évfolyamok
       </h4>
       <div className="">
+        <TextField variant='outlined' />
         {years &&
           years.map((year, i) => (
             <div key={i} style={{ cursor: "pointer" }}>
