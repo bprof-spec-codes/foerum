@@ -38,39 +38,48 @@ namespace Logic.Class
 
         public void sendEmailAboutTransaction(TransactionEmailOptions options)
         {
-            Configuration.Default.ApiKey.Add("api-key", this.SendInBlueApiKey);
-            int templateNumber = 3;
-            if (options.adminTransaction) templateNumber = 4;
-
-            var apiInstance = new TransactionalEmailsApi();
-            SendSmtpEmailSender Email = new SendSmtpEmailSender(SendInBlueDefaultSender, SendInBlueDefaultSenderEmail);
-            string ToEmail = options.destinationEmail;
-            string ToName = options.destinationEmail;
-            SendSmtpEmailTo smtpEmailTo = new SendSmtpEmailTo(options.destinationEmail, options.destinationName);
-            List<SendSmtpEmailTo> To = new List<SendSmtpEmailTo>();
-            To.Add(smtpEmailTo);
-            string Subject = templateNumber == 3 ? "Tranzakció került jóváírásra" : "Jóváírás történt a számládra egy admin által";
-            JObject Params = new JObject();
-            Params.Add("email", options.destinationEmail);
-            Params.Add("TRNSACTIONAMOUNT", options.amount.ToString());
-            Params.Add("TRANSACTIONUSER", options.fromUser);
-            Debug.WriteLine("asd");
-            SendSmtpEmailAttachment asd = new SendSmtpEmailAttachment();
-            SendSmtpEmailTo1 smtpEmailTo1 = new SendSmtpEmailTo1(ToEmail, ToName);
-            List<SendSmtpEmailTo1> To1 = new List<SendSmtpEmailTo1>();
-            To1.Add(smtpEmailTo1);
             try
             {
-                var sendSmtpEmail = new SendSmtpEmail(Email, To, null, null, null, null, Subject, null, null, null, templateNumber, Params, null, null);
-                CreateSmtpEmail result = apiInstance.SendTransacEmail(sendSmtpEmail);
-                Console.WriteLine(result.ToJson());
+                Debug.WriteLine("Sending email about transaction");
+                Configuration.Default.ApiKey.Add("api-key", this.SendInBlueApiKey);
+                int templateNumber = 3;
+                if (options.adminTransaction) templateNumber = 4;
+                var apiInstance = new TransactionalEmailsApi();
+                SendSmtpEmailSender Email = new SendSmtpEmailSender(SendInBlueDefaultSender, SendInBlueDefaultSenderEmail);
+                string ToEmail = options.destinationEmail;
+                string ToName = options.destinationEmail;
+                SendSmtpEmailTo smtpEmailTo = new SendSmtpEmailTo(options.destinationEmail, options.destinationName);
+                List<SendSmtpEmailTo> To = new List<SendSmtpEmailTo>();
+                To.Add(smtpEmailTo);
+                string Subject = templateNumber == 3 ? "Tranzakció került jóváírásra" : "Jóváírás történt a számládra egy admin által";
+                JObject Params = new JObject();
+                Params.Add("email", options.destinationEmail);
+                Params.Add("TRNSACTIONAMOUNT", options.amount.ToString());
+                Params.Add("TRANSACTIONUSER", options.fromUser);
+                Debug.WriteLine("asd");
+                SendSmtpEmailAttachment asd = new SendSmtpEmailAttachment();
+                SendSmtpEmailTo1 smtpEmailTo1 = new SendSmtpEmailTo1(ToEmail, ToName);
+                List<SendSmtpEmailTo1> To1 = new List<SendSmtpEmailTo1>();
+                To1.Add(smtpEmailTo1);
+                try
+                {
+                    var sendSmtpEmail = new SendSmtpEmail(Email, To, null, null, null, null, Subject, null, null, null, templateNumber, Params, null, null);
+                    CreateSmtpEmail result = apiInstance.SendTransacEmail(sendSmtpEmail);
+                    Debug.WriteLine(result.ToJson());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Debug.WriteLine("Inner error: " + e.Message);
+                }
+                Debug.WriteLine("Finish");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("outer error: "+e.Message);
             }
-            }
+            
+        }
 
 
         public bool CreateTransaction(Transaction transaction)

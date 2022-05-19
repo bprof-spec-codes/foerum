@@ -27,6 +27,7 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import { Box, Skeleton } from "@mui/material";
 import { Notifications, ProfileCard } from "./profile-actions-components";
 import { ethers } from "ethers";
+import { IEmailModel } from "src/models/email.model";
 
 const Home = () => {
   const [topics, setTopics] = useState<ITopic[] | null>(null);
@@ -168,7 +169,18 @@ const Home = () => {
     const toAddress = "0x0000000000000000000000000000000000000000"; //CHANGE THIS TO YOUR RECIPIENT ADDRESS
     const toUsername = "foerum"; //CHANGE THIS TO YOUR RECIPIENT USERNAME
     const toEmail = "bob@gmail.com" //CHANGE THIS TO YOUR RECIPIENT EMAIL
-    await contract.transfer(toAddress, amount).then(/*sendEmailV2(toEmail, toUsername , amount, 'sourceaddress', true)*/);
+  
+    const newEmail: IEmailModel = {
+      destinationEmail: toEmail,
+      destinationName: toUsername,
+      amount: amount/100,
+      fromUser: sessionStorage.getItem("username") || "felhasználó",
+      adminTransaction: false
+    }
+    await contract.transfer(toAddress, amount)
+    .then(
+      await axios.post("/Transaction", newEmail, { headers: { Authorization: sessionStorage.getItem("foerumtoken") } })
+      );
   }
 
   const renderTopics = () => {

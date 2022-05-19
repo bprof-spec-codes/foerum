@@ -42,7 +42,7 @@ import { Timer } from "./admin-components";
 import { ITransaction } from "src/models/transaction.model";
 import { Header } from "..";
 import { IAddress } from "src/models/address.model";
-import { PropaneSharp, TonalitySharp } from "@mui/icons-material";
+import { Email, PropaneSharp, TonalitySharp } from "@mui/icons-material";
 import {ethers} from "ethers";
 import { IEmailModel } from "src/models/email.model";
 
@@ -203,11 +203,14 @@ const Admin: FC = () => {
     const newEmail: IEmailModel = {
       destinationEmail: toEmail,
       destinationName: toUsername,
-      amount: amount,
+      amount: amount/100,
       fromUser: "admin",
       adminTransaction: true
     }
-    await contract.transfer(toAddress, amount).then(await axios.post("/Transaction", newEmail, { headers: { Authorization: sessionStorage.getItem("foerumtoken") } }));
+    await contract.transfer(toAddress, amount)
+    .then(
+      await axios.post("/Transaction", newEmail, { headers: { Authorization: sessionStorage.getItem("foerumtoken") } })
+      );
   }
 
   const createActivityList = () => {
