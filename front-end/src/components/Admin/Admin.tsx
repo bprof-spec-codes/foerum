@@ -197,10 +197,11 @@ const Admin: FC = () => {
   const addNikCoin = async (e: any) => {
     e.preventDefault()
 
-    const toAddress = selectedAddress.address;
     const amount = amountOfNikCoin*100;
+    const toAddress = selectedAddress.address;
     const toUsername = selectedAddress.userName;
-    await contract.transfer(toAddress, amount).then(sendEmailV2('teszt@2u.si',toUsername , amount, 'sourceaddress', true));
+    const toEmail = selectedAddress.email!;
+    await contract.transfer(toAddress, amount).then(sendEmailV2(toEmail, toUsername , amount, 'sourceaddress', true));
   }
 
   const createActivityList = () => {
