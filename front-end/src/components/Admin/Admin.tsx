@@ -11,6 +11,8 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 
+import { useHistory } from "react-router";
+
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
@@ -27,16 +29,23 @@ import {
   Box,
   Button,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Skeleton,
   Switch,
   TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+import moment, { min } from "moment";
 import { Timer } from "./admin-components";
 import { ITransaction } from "src/models/transaction.model";
 import { Header } from "..";
+import { IAddress } from "src/models/address.model";
+import { PropaneSharp, TonalitySharp } from "@mui/icons-material";
+import { ethers } from "ethers";
 
 type concatArray = {
   content: string;
@@ -45,6 +54,7 @@ type concatArray = {
 };
 
 const Admin: FC = () => {
+  const contractAddress = "0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC";
   const [users, setUsers] = useState<IUser[] | null>(null);
   const [transactions, setTransactions] = useState<ITransaction[] | null>(null);
 
@@ -53,34 +63,63 @@ const Admin: FC = () => {
   const [topics, setTopics] = useState<ITopic[] | null>(null);
   const [subjects, setSubjects] = useState<ISubject[] | null>(null);
   const [actualPage, setActualPage] = useState<number>(1);
+  const [addresses, setAddresses] = useState<IAddress[] | null>(null);
+  const [selectedAddress, setSelectedAddresses] = useState<IAddress>({
+    address: "0x0000000000000000000000000000000000000000",
+  });
+  const [amountOfNikCoin, setAmountOfNikCoin] = useState<number>(0);
+
+  const [provider, setProvider] = useState<any | null>(null);
+  const [signer, setSigner] = useState<any | null>(null);
+  const [contract, setContract] = useState<any | null>(null);
+
+  const history = useHistory();
 
   useEffect(() => {
     const getData = async () => {
       await getUsers();
-      await getTransactions();
       await getComments();
-      // getReacters();
       await getTopics();
       await getSubjects();
+      await getAddresses();
     };
+    const updateEthers = () => {
+      let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(tempProvider);
+
+      let tempSigner = tempProvider.getSigner();
+      setSigner(tempSigner);
+
+      const abi = require("human-standard-token-abi");
+      let tempContract = new ethers.Contract(contractAddress, abi, tempSigner);
+      setContract(tempContract);
+    };
+
     getData();
+    updateEthers();
   }, []);
 
   const getUsers = async () => {
     const token = sessionStorage.getItem("foerumtoken");
-    const { data } = await axios.get<IUser[]>("/MyUser", {headers: {"Authorization" : token}});
+    const { data } = await axios.get<IUser[]>("/MyUser", {
+      headers: { Authorization: token },
+    });
     setUsers(data);
   };
 
   const getTransactions = async () => {
     const token = sessionStorage.getItem("foerumtoken");
-    const { data } = await axios.get<ITransaction[]>("/Transaction", {headers: {"Authorization" : token}});
+    const { data } = await axios.get<ITransaction[]>("/Transaction", {
+      headers: { Authorization: token },
+    });
     setTransactions(data);
   };
 
   const getComments = async () => {
     const token = sessionStorage.getItem("foerumtoken");
-    const { data } = await axios.get<IComment[]>("/Comment", {headers: {"Authorization" : token}});
+    const { data } = await axios.get<IComment[]>("/Comment", {
+      headers: { Authorization: token },
+    });
     setComments(data);
   };
 
@@ -93,7 +132,7 @@ const Admin: FC = () => {
   const getTopics = async () => {
     const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get("/Topic", {headers: {"Authorization" : token}})
+      .get("/Topic", { headers: { Authorization: token } })
       .then((res) => {
         setTopics(res.data);
       })
@@ -105,9 +144,21 @@ const Admin: FC = () => {
   const getSubjects = async () => {
     const token = sessionStorage.getItem("foerumtoken");
     axios
-      .get("/Subject", {headers: {"Authorization" : token}})
+      .get("/Subject", { headers: { Authorization: token } })
       .then((res) => {
         setSubjects(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getAddresses = async () => {
+    const token = sessionStorage.getItem("foerumtoken");
+    axios
+      .get("/MyUser/GetAllWallets", { headers: { Authorization: token } })
+      .then((res) => {
+        setAddresses(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -122,9 +173,8 @@ const Admin: FC = () => {
   const editUser = (user: any) => {
     const token = sessionStorage.getItem("foerumtoken");
     axios
-      .put(`/MyUser/${user.id}`, user, {headers: {"Authorization" : token}})
-      .then((res) => {
-      })
+      .put(`/MyUser/${user.id}`, user, { headers: { Authorization: token } })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -132,13 +182,28 @@ const Admin: FC = () => {
 
   const updateLatest = async () => {
     await getUsers();
-    await getTransactions();
     await getComments();
-    // getReacters();
     await getTopics();
     await getSubjects();
 
     createActivityList();
+  };
+
+  const handleAddressChange = (e: any): void => {
+    const newValue: IAddress | undefined = addresses?.find(
+      (x) => x.address === e.target.value
+    );
+    if (newValue) setSelectedAddresses(newValue);
+  };
+
+  const addNikCoin = async (e: any) => {
+    e.preventDefault();
+
+    const toAddress = selectedAddress.address;
+    const amount = amountOfNikCoin * 100;
+    await contract
+      .transfer(toAddress, amount)
+      .then(/*TOMI IDE JÖN AZ EMAIL KÜLDÉS*/);
   };
 
   const createActivityList = () => {
@@ -461,10 +526,8 @@ const Admin: FC = () => {
             <li className={s.sidebarListItem}>
               <IconButton
                 className={actualPage === 3 ? s.active : s.listIcon}
-                onClick={() => setActualPage(3)}
-                disabled={
-                  transactions && transactions.length > 0 ? false : true
-                }
+                href="https://testnet.bscscan.com/token/0xa0e11ca7c99655c6ca16336f1af69b6a7683fdfc"
+                target="_blank"
               >
                 <PaidOutlinedIcon />
               </IconButton>
@@ -483,8 +546,42 @@ const Admin: FC = () => {
         {actualPage === 1 && (
           <div className={s.manage}>
             <div className={s.manageContent}>
-              <div className="flex justify-between">
+              <div className="flex flex-col justify-between">
                 <h3>Jóváírások</h3>
+                <div>
+                  <form
+                    className="flex flex-col space-y-4"
+                    onSubmit={addNikCoin}
+                  >
+                    <Select
+                      labelId="address-label"
+                      value={selectedAddress.address}
+                      label="address"
+                      onChange={handleAddressChange}
+                    >
+                      {addresses &&
+                        addresses.map((address, i) => (
+                          <MenuItem key={i} value={address.address}>
+                            {address.userName}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                    <TextField
+                      label="nikcoin"
+                      onChange={(e) => setAmountOfNikCoin(+e.target.value)}
+                      value={amountOfNikCoin}
+                      type="number"
+                      inputProps={{ min: 0 }}
+                    />
+                    <Button
+                      disabled={amountOfNikCoin === 0}
+                      variant="contained"
+                      type="submit"
+                    >
+                      Coin hozzáadása
+                    </Button>
+                  </form>
+                </div>
               </div>
               <ul className={s.manageList}>
                 {transactions ? (

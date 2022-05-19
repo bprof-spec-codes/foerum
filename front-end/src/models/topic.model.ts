@@ -1,6 +1,7 @@
 export interface ITopic {
   topicID: string;
   subjectID?: string;
+  yearID?: string;
   userID?: string;
   topicName?: string;
   creationDate?: string | Date;

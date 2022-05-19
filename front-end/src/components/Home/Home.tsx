@@ -107,7 +107,10 @@ const Home = () => {
         .get<IYear[]>("/Year", { headers: { Authorization: token } })
         .then((res) => {
           setYears(res.data);
-          // console.log(res.data);
+
+          const yr = res.data[0];
+
+          setSelectedYear(yr);
         })
         .catch((err) => {
           console.log(err);
@@ -123,6 +126,22 @@ const Home = () => {
         headers: { Authorization: token },
       });
       setTopics(topics.data);
+    }
+  };
+
+  const filterTopics = () => {
+    let filteredBySubjects = topics; //beadjuk neki az összes topicot. ebből lesz filterezve subjectek alapján
+    if (selectedSubject && topics) {
+      filteredBySubjects = topics.filter(
+        (topic) => topic.subjectID === selectedSubject.subjectID
+      );
+    }
+
+    let filteredByYear = filteredBySubjects; //beadjuk neki azokat, amik már subject alapján filterezve vannak
+    if (selectedYear && filteredBySubjects) {
+      filteredByYear = filteredBySubjects.filter(
+        (topic) => topic.yearID === selectedYear?.yearID
+      );
     }
   };
 
