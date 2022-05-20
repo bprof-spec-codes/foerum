@@ -81,16 +81,24 @@ const Header: FC<IHeaderProps> = (props) => {
             <p
               className="font-bold cursor-pointer mt-2 mr-4"
               onClick={() => history.push("/Admin")}
+              style={{ padding: 25 }}
             >
               Admin felület
             </p>
           )}
-          {connStatus === false &&
-            <IconButton onClick={connectWalletHandler}><div className="border-2 px-2 py-2 rounded-full text-sm text-white"><AddCircleOutlinedIcon className="text-sm" />&nbsp;pénztárca csatlakoztatása&nbsp;</div></IconButton>
-          }
-          {connStatus === true &&
-            <div className="border-2 px-2 py-2 rounded-full text-sm text-white">&nbsp;csatlakozva&nbsp;</div>
-          }
+          {connStatus === false && (
+            <IconButton onClick={connectWalletHandler}>
+              <div className="border-2 px-2 py-2 rounded-full text-sm text-white">
+                <AddCircleOutlinedIcon className="text-sm" />
+                &nbsp;pénztárca csatlakoztatása&nbsp;
+              </div>
+            </IconButton>
+          )}
+          {connStatus === true && (
+            <div className="border-2 px-2 py-2 rounded-full text-sm text-white">
+              &nbsp;csatlakozva&nbsp;
+            </div>
+          )}
           {auth && <SignOutButton />}
         </div>
       </div>
