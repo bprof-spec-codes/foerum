@@ -202,9 +202,10 @@ const Home = () => {
               </h4>
               <TextField
                 variant="outlined"
-                label="Keress evfolyamot..."
+                label="Keress évfolyamot..."
                 value={yearSearchKeyword}
                 onChange={(e) => setYearSearchKeyword(e.target.value)}
+                style={{ padding: 10, width: "100%" }}
               />
               <div className="">
                 {years && selectedYear
@@ -250,9 +251,10 @@ const Home = () => {
                   </h4>
                   <TextField
                     variant="outlined"
-                    label="Keress targyar..."
+                    label="Keress tárgyat..."
                     value={subjetSearchKeyword}
                     onChange={(e) => setSubjectSearchKeyword(e.target.value)}
+                    style={{ padding: 10, width: "100%" }}
                   />
                   {subjects && selectedSubject
                     ? subjetSearchKeyword
@@ -344,9 +346,10 @@ const Home = () => {
               </div>
               <TextField
                 variant="outlined"
-                label="Keress temat..."
+                label="Keress témát..."
                 value={topicSearchKeyword}
                 onChange={(e) => setTopicSearchKeyword(e.target.value)}
+                style={{ padding: 10, width: "100%" }}
               />
               {renderTopics()}
             </>
