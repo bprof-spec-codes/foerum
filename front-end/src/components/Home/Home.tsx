@@ -287,9 +287,10 @@ const Home = () => {
                   </h4>
                   <TextField
                     variant="outlined"
-                    label="Keress targyar..."
+                    label="Keress tárgyat..."
                     value={subjetSearchKeyword}
                     onChange={(e) => setSubjectSearchKeyword(e.target.value)}
+                    style={{ padding: 10, width: "100%" }}
                   />
                   {subjects && selectedSubject
                     ? subjetSearchKeyword
