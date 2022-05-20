@@ -99,6 +99,24 @@ const Comment: FC<ICommentProps> = ({ comment, allUsers }) => {
     setSnackBarOpen(false);
   };
 
+  const handleTransactionClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleTranscationClose = () => {
+    setOpen(false);
+  };
+
+  const openTransactionModal = () => {
+    return (
+      <div>
+        <Button variant="outlined" onClick={handleTransactionClickOpen}>
+          Open form dialog
+        </Button>
+      </div>
+    );
+  };
+
   const action = (
     <React.Fragment>
       <IconButton
