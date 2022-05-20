@@ -147,6 +147,33 @@ const Comment: FC<ICommentProps> = ({ comment, allUsers }) => {
                 ? `${moment(comment.creationDate).format("h")} órája`
                 : `${moment(comment.creationDate).format("m")} perce`}
             </p>
+            {window.ethereum &&
+              allUsers.find((u) => u.id === comment.userID)?.walletAddress && (
+                <button onClick={() => handleTransactionClickOpen()}>
+                  <MonetizationOnOutlinedIcon
+                    className="text-green-600"
+                    style={{ marginLeft: "5px", marginBottom: "4px" }}
+                  />
+                </button>
+              )}
+            <Dialog open={open} onClose={handleTranscationClose}>
+              <DialogTitle>NikCoin utalás</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Mennyi NikCoin-t szeretnél utalni?
+                </DialogContentText>
+                <TextField
+                  onChange={(e) => setAmountOfNikCoin(+e.target.value)}
+                  value={amountOfNikCoin}
+                  type="number"
+                  inputProps={{ min: 0 }}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleTranscationClose}>Mégse</Button>
+                <Button onClick={awardNikcoin}>Küldés</Button>
+              </DialogActions>
+            </Dialog>
           </div>
           <p>{comment.content}</p>
           {comment.attachmentUrl}
