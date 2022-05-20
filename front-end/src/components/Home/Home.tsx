@@ -238,9 +238,10 @@ const Home = () => {
               </h4>
               <TextField
                 variant="outlined"
-                label="Keress evfolyamot..."
+                label="Keress évfolyamot..."
                 value={yearSearchKeyword}
                 onChange={(e) => setYearSearchKeyword(e.target.value)}
+                style={{ padding: 10, width: "100%" }}
               />
               <div className="">
                 {years && selectedYear
