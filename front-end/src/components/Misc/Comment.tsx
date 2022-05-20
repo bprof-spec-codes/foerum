@@ -1,15 +1,24 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { IComment } from "src/models/comment.model";
 import "../Home/home.scss";
 import { IUser } from "src/models/user.model";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { ethers } from "ethers";
+import { IEmailModel } from "src/models/email.model";
 
 import { Avatar, Button, IconButton, Snackbar } from "@mui/material";
 import moment from "moment";
+import axios from "axios";
 
 interface ICommentProps {
   comment: IComment;
