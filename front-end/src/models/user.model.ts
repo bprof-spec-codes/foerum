@@ -7,6 +7,7 @@ export interface IUser {
   startYear?: number;
   isActive: boolean;
   role?: [];
+  walletAddress?: string;
 }
 
 export const defaultValue: Readonly<IUser> = {
