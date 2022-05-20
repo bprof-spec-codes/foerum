@@ -382,9 +382,10 @@ const Home = () => {
               </div>
               <TextField
                 variant="outlined"
-                label="Keress temat..."
+                label="Keress témát..."
                 value={topicSearchKeyword}
                 onChange={(e) => setTopicSearchKeyword(e.target.value)}
+                style={{ padding: 10, width: "100%" }}
               />
               {renderTopics()}
             </>
