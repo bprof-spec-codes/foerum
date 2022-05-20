@@ -182,5 +182,57 @@ namespace Test
             topicLogic.GetAllTopic();
             topicRepository.Verify(repo => repo.GetAll(), Times.Once);
         }
+
+        [Test]
+        public void GetAllTopicsOfSubject()
+        {
+            TopicLogic topicLogic = new TopicLogic(topicRepository.Object);
+
+            Topic t1 = new Topic()
+            {
+                TopicID = "001",
+                SubjectID = "002",
+                UserID = "003",
+                TopicName = "Test",
+                CreationDate = DateTime.Now,
+                OfferedCoins = 10,
+                AttachmentURL = ""
+            };
+
+            Topic t2 = new Topic()
+            {
+                TopicID = "002",
+                SubjectID = "003",
+                UserID = "004",
+                TopicName = "Test2",
+                CreationDate = DateTime.Now,
+                OfferedCoins = 20,
+                AttachmentURL = ""
+            };
+
+            Topic t3 = new Topic()
+            {
+                TopicID = "003",
+                SubjectID = "004",
+                UserID = "005",
+                TopicName = "Test3",
+                CreationDate = DateTime.Now,
+                OfferedCoins = 30,
+                AttachmentURL = ""
+            };
+
+            List<Topic> allTopics = new List<Topic>();
+            allTopics.Add(t1);
+            allTopics.Add(t2);
+            allTopics.Add(t3);
+
+            List<Topic> expectedResult = new List<Topic>();
+            expectedResult.Add(t3);
+
+            topicRepository.Setup(topic => topic.GetAll()).Returns(allTopics.AsQueryable());
+
+            List<Topic> queryResult = topicLogic.GetAllTopicsOfSubject("004").ToList();
+            Assert.AreEqual(expectedResult, queryResult);
+        }
     }
 }

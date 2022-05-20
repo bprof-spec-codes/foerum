@@ -76,9 +76,9 @@ namespace Repository.Class
             }
         }
 
-        public IQueryable<Comment> GetOneTopicAllComment(string topicId)
+        public IQueryable<Comment> GetAllCommentsOfTopic(string topicId)
         {
-            return this.GetAll().Where(comment => comment.TopicID == topicId);
+            return this.GetAll().Where(x => x.TopicID == topicId);
         }
     }
 }

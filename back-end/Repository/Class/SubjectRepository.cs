@@ -55,20 +55,27 @@ namespace Repository.Class
             }
         }
 
-        public void AddUserToSubject(MyUser user, string subjectId)
-        {
-            this.GetOne(subjectId).Users.Add(new SubjectUsers { UserID = user.Id });
-            this.db.SaveChanges();
-        }
+        // NOT NEEDED
+        //public void AddUserToSubject(MyUser user, string subjectId)
+        //{
+        //    this.GetOne(subjectId).Users.Add(new SubjectUsers { UserID = user.Id });
+        //    this.db.SaveChanges();
+        //}
 
-        public void DeleteUserFromSubject(MyUser user, string subjectId)
+        // I suppose if adduser is not needed, delete isn't needed either
+        //public void DeleteUserFromSubject(MyUser user, string subjectId)
+        //{
+        //    SubjectUsers subjectUsers = this.GetOne(subjectId).Users.FirstOrDefault(user => user.UserID == user.UserID);
+        //    if (subjectUsers != null)
+        //    {
+        //        this.GetOne(subjectId).Users.Remove(subjectUsers);
+        //        this.db.SaveChanges();
+        //    }
+        //}
+
+        public IQueryable<Subject> GetAllSubjectsOfYear(string yearId)
         {
-            SubjectUsers subjectUsers = this.GetOne(subjectId).Users.FirstOrDefault(user => user.UserID == user.UserID);
-            if (subjectUsers != null)
-            {
-                this.GetOne(subjectId).Users.Remove(subjectUsers);
-                this.db.SaveChanges();
-            }
+            return this.GetAll().Where(x => x.YearID == yearId);
         }
     }
 }

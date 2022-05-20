@@ -190,7 +190,68 @@ namespace Test
             commentRepository.Setup(comment => comment.GetAll()).Returns(comments.AsQueryable());
 
             commentLogic.GetAllComment();
-            commentRepository.Verify(repo => repo.GetAll(), Times.Once);
+            commentRepository.Verify(repo => repo.GetAll(), Times.AtLeastOnce);
+        }
+
+        [Test]
+        public void GetAllCommentsOfTopic()
+        {
+            CommentLogic commentLogic = new CommentLogic(commentRepository.Object);
+
+            Comment c1 = new Comment()
+            {
+                CommentID = "bvadubw89bcyií",
+                TopicID = "1",
+                Content = "Gold",
+                CreationDate = new DateTime(2022, 03, 10),
+                AttachmentUrl = "xxxx",
+                ReactionCount = 5,
+                CoinReward = 10,
+                IsEdited = null,
+                IsActive = true,
+            };
+
+            Comment c2 = new Comment()
+            {
+                CommentID = "oihngw9u947bwe",
+                TopicID = "3",
+                Content = "Silver",
+                CreationDate = new DateTime(2022, 03, 15),
+                AttachmentUrl = "yyyy",
+                ReactionCount = 5,
+                CoinReward = 10,
+                IsEdited = null,
+                IsActive = true,
+            };
+
+            Comment c3 = new Comment()
+            {
+                CommentID = "8743hsvb9whssgb",
+                TopicID = "1",
+                Content = "Bronze",
+                CreationDate = new DateTime(2022, 03, 01),
+                AttachmentUrl = "zzzz",
+                ReactionCount = 5,
+                CoinReward = 10,
+                IsEdited = null,
+                IsActive = true,
+            };
+
+            List<Comment> allComments = new List<Comment>();
+            allComments.Add(c1);
+            allComments.Add(c2);
+            allComments.Add(c3);
+
+            List<Comment> expectedResult = new List<Comment>();
+            expectedResult.Add(c1);
+            expectedResult.Add(c3);
+            expectedResult.OrderByDescending(x => x.CreationDate);
+
+
+            commentRepository.Setup(comment => comment.GetAll()).Returns(allComments.AsQueryable());
+
+            List<Comment> queryResult = commentLogic.GetAllCommentsOfTopic("1").ToList();
+            Assert.AreEqual(expectedResult, queryResult);
         }
     }
 }

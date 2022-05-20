@@ -10,13 +10,15 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 
 const Feed = () => {
   const [topics, setTopics] = useState<ITopic[] | null>(null);
+  const [filteredTopics, setFilteredTopics] = useState<ITopic[] | null>(null);
   const [users, setUsers] = useState<IUser[]>([]);
   const [showAddComment, setShowAddComment] = useState(false);
   const [showAddTopic, setShowAddTopic] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
-      const users = await axios.get<IUser[]>("/MyUser");
+      const token = sessionStorage.getItem("foerumtoken");
+      const users = await axios.get<IUser[]>("/MyUser", {headers: {"Authorization" : token}});
       setUsers(users.data);
     };
 
@@ -25,9 +27,32 @@ const Feed = () => {
   }, []);
 
   const getTopics = async () => {
-    const topics = await axios.get<ITopic[]>("/Topic");
+    const token = sessionStorage.getItem("foerumtoken");
+    const topics = await axios.get<ITopic[]>("/Topic", {headers: {"Authorization" : token}});
     setTopics(topics.data);
   };
+
+  /*const getWantedTopics = async () => {
+    const topics = await axios.get<ITopic[]>("/Topic");
+
+    let wantedTopics = [];
+
+    wantedTopics = topics.filter((topic) => topic.subjectID === "valami");
+
+    setTopics(wantedTopics.data);
+  };*/
+
+  const filterTopicsBySubject = async () => {
+    const topics = await axios.get<ITopic[]>("/Topic");
+
+    setFilteredTopics(topics.data.filter((topic) => topic.subjectID === "1"));
+  };
+
+  /*const filterTopicsByYear = async () => {
+    const topics = await axios.get<ITopic[]>("/Topic");
+
+    setFilteredTopics(topics.data.filter((topic) => topic.yearID === "1"));
+  };*/
 
   const selectUser = (tid: any) => {
     const user = users.find((u) => u.id === tid);

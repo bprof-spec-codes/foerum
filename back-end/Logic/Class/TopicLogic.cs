@@ -82,5 +82,12 @@ namespace Logic.Class
         {
             this.topicRepo.DeleteTagFromTopic(tag, topicId);
         }
+
+        public IQueryable<Topic> GetAllTopicsOfSubject(string subjectId)
+        {
+            // Same problem as in subject logic
+            // return this.topicRepo.GetAllTopicsOfSubject(subjectId);
+            return this.topicRepo.GetAll().Where(x => x.SubjectID == subjectId);
+        }
     }
 }

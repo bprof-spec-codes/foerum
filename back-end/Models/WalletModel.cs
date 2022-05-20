@@ -1,14 +1,13 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test
+namespace Models
 {
-    [TestFixture]
-    class SubjectUsersTest
+    public class WalletModel
     {
+        public string address { get; set; }
     }
 }

@@ -24,6 +24,7 @@ using Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Diagnostics;
 
 namespace back_end
 {
@@ -50,7 +51,7 @@ namespace back_end
             services.AddTransient<ITagLogic>(x => new TagLogic(Configuration["DBPassword"]));
             services.AddTransient<ITopicLogic>(x => new TopicLogic(Configuration["DBPassword"]));
             services.AddTransient<ITopicTagsLogic>(x => new TopicTagsLogic(Configuration["DBPassword"]));
-            services.AddTransient<ITransactionLogic>(x => new TransactionLogic(Configuration["DBPassword"]));
+            services.AddTransient<ITransactionLogic>(x => new TransactionLogic(Configuration["DBPassword"], Configuration["SENDINBLUE_API_KEY"], Configuration["SENDINBLUE_DEFAULT_SENDER"], Configuration["SENDINBLUE_DEFAULT_SENDER_EMAIL"]));
             services.AddTransient<IYearLogic>(x => new YearLogic(Configuration["DBPassword"]));
             services.AddTransient<AuthLogic, AuthLogic>();
 
@@ -69,7 +70,7 @@ namespace back_end
                                         });
             });
 
-            var connectionString = "server=95.111.254.24;database=foerumtst;user=foerumtst;password=" + Configuration["DBPassword"];
+            var connectionString = "server=193.41.237.72;database=foerumtst;user=foerumtst;password=" + Configuration["DBPassword"];
             var serverVersion = ServerVersion.AutoDetect(connectionString);
             services.AddDbContext<FoerumDbContext>(options => options.UseMySql(connectionString, serverVersion));
 
