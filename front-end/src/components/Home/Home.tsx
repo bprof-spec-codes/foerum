@@ -26,8 +26,7 @@ import Topic from "../../components/Misc/Topic";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import { Box, Skeleton } from "@mui/material";
 import { Notifications, ProfileCard } from "./profile-actions-components";
-import { ethers } from "ethers";
-import { IEmailModel } from "src/models/email.model";
+
 
 const Home = () => {
   const [topics, setTopics] = useState<ITopic[] | null>(null);
@@ -44,10 +43,7 @@ const Home = () => {
   const [selectedYear, setSelectedYear] = useState<IYear | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<ISubject | null>(null);
 
-  const [provider, setProvider] = useState<any | null>(null);
-	const [signer, setSigner] = useState<any | null>(null);
-	const [contract, setContract] = useState<any | null>(null);
-  const contractAddress = '0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC';
+  
 
   useEffect(() => {
     const getDatas = async () => {
@@ -58,20 +54,7 @@ const Home = () => {
     };
     getDatas();
 
-    const updateEthers = () => {
-      let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
-      setProvider(tempProvider);
-  
-      let tempSigner = tempProvider.getSigner();
-      setSigner(tempSigner);
-  
-      const abi = require('human-standard-token-abi');
-      let tempContract = new ethers.Contract(contractAddress, abi, tempSigner);
-      setContract(tempContract);	
-    }
-    if(window.ethereum){
-      updateEthers();
-    }
+    
   }, []);
 
   useEffect(() => {
@@ -164,26 +147,7 @@ const Home = () => {
     return user ? user : ({} as IUser);
   };
 
-  const awardNikcoin = async (e: any) => {
-    e.preventDefault()
-
-    const amount = 1*100; //CHANGE 1 TO YOUR AMOUNT
-    const toAddress = "0x0000000000000000000000000000000000000000"; //CHANGE THIS TO YOUR RECIPIENT ADDRESS
-    const toUsername = "foerum"; //CHANGE THIS TO YOUR RECIPIENT USERNAME
-    const toEmail = "bob@gmail.com" //CHANGE THIS TO YOUR RECIPIENT EMAIL
   
-    const newEmail: IEmailModel = {
-      destinationEmail: toEmail,
-      destinationName: toUsername,
-      amount: amount/100,
-      fromUser: sessionStorage.getItem("username") || "felhasználó",
-      adminTransaction: false
-    }
-    await contract.transfer(toAddress, amount)
-    .then(
-      await axios.post("/Transaction", newEmail, { headers: { Authorization: sessionStorage.getItem("foerumtoken") } })
-      );
-  }
 
   const renderTopics = () => {
     return (
