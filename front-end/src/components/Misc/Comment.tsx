@@ -27,6 +27,56 @@ interface ICommentProps {
 
 const Comment: FC<ICommentProps> = ({ comment, allUsers }) => {
   const [snackBarOpen, setSnackBarOpen] = useState<boolean>(false);
+  const [open, setOpen] = React.useState(false);
+  const [amountOfNikCoin, setAmountOfNikCoin] = useState<number>(0);
+
+  const [provider, setProvider] = useState<any | null>(null);
+  const [signer, setSigner] = useState<any | null>(null);
+  const [contract, setContract] = useState<any | null>(null);
+  const contractAddress = "0xA0e11Ca7c99655C6ca16336F1AF69b6A7683FDfC";
+
+  useEffect(() => {
+    const updateEthers = () => {
+      let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(tempProvider);
+
+      let tempSigner = tempProvider.getSigner();
+      setSigner(tempSigner);
+
+      const abi = require("human-standard-token-abi");
+      let tempContract = new ethers.Contract(contractAddress, abi, tempSigner);
+      setContract(tempContract);
+    };
+    if (window.ethereum) {
+      updateEthers();
+    }
+  }, []);
+
+  const awardNikcoin = async (e: any) => {
+    e.preventDefault();
+    const user = allUsers.find((u) => u.id === comment.userID);
+    const amount = amountOfNikCoin * 100;
+    const toAddress = user!.walletAddress;
+    const toUsername = user!.fullName;
+    const toEmail = user!.email!;
+
+    console.log(user);
+
+    const newEmail: IEmailModel = {
+      destinationEmail: toEmail,
+      destinationName: toUsername,
+      amount: amount / 100,
+      fromUser: sessionStorage.getItem("username") || "felhasználó",
+      adminTransaction: false,
+    };
+    await contract.transfer(toAddress, amount).then(
+      await axios.post("http://localhost:5000/Transaction", newEmail, {
+        headers: { Authorization: sessionStorage.getItem("foerumtoken") },
+      })
+    );
+
+    handleTranscationClose();
+  };
 
   // const user = allUsers.find((u) => u.id === comment.userID);
   const getCommenter = (): string => {
